@@ -1,0 +1,781 @@
+# Spanish translation of NfoGlow.
+# Copyright (C) 2026 DigitGram
+# This file is distributed under the same license as the NfoGlow package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NfoGlow 1.0\n"
+"Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Light"
+msgstr "Claro"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+msgid "Amber"
+msgstr "Ámbar"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "Paper"
+msgstr "Papel"
+
+msgid "Automatic"
+msgstr "Automático"
+
+msgid "Inspired by"
+msgstr "Inspirado en"
+
+msgid "Default zoom"
+msgstr "Zoom predeterminado"
+
+msgid "In percent; Ctrl+0 goes back to it"
+msgstr "En porcentaje; Ctrl+0 vuelve a él"
+
+msgid "Fit width"
+msgstr "Ajustar al ancho"
+
+msgid "Encoding"
+msgstr "Codificación"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+msgid "Save as PNG…"
+msgstr "Guardar como PNG…"
+
+msgid "Preferences"
+msgstr "Preferencias"
+
+msgid "About NfoGlow"
+msgstr "Acerca de NfoGlow"
+
+msgid "A viewer for NFO and ANSI art, the way the scene meant it: crisp block graphics with an optional soft glow, CP437 out of the box, clickable links and a text-only view."
+msgstr "Un visor de arte NFO y ANSI, como lo concibió la escena: gráficos de bloques nítidos con un suave resplandor opcional, CP437 de serie, enlaces en los que se puede hacer clic y una vista de solo texto."
+
+msgid "Appearance"
+msgstr "Apariencia"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Font"
+msgstr "Fuente"
+
+msgid "Monospace fonts only"
+msgstr "Solo fuentes monoespaciadas"
+
+msgid "Behavior"
+msgstr "Comportamiento"
+
+msgid "Copy text only"
+msgstr "Copiar solo el texto"
+
+msgid "Selecting and copying leave out block and line graphics"
+msgstr "Al seleccionar y copiar se omiten los gráficos de bloques y líneas"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Open…"
+msgstr "Abrir…"
+
+msgid "No NFO open"
+msgstr "Ningún NFO abierto"
+
+msgid "Drop a file here or press Ctrl+O."
+msgstr "Suelta un archivo aquí o pulsa Ctrl+O."
+
+msgid "Search (Ctrl+F)"
+msgstr "Buscar (Ctrl+F)"
+
+msgid "Default zoom (Ctrl+0)"
+msgstr "Zoom predeterminado (Ctrl+0)"
+
+#: src/ui_window.py
+msgid "Save as default"
+msgstr "Guardar como predeterminado"
+
+#: src/ui_window.py
+msgid "Open every NFO at this zoom from now on"
+msgstr "Abrir cada NFO con este zoom a partir de ahora"
+
+msgid "Main menu"
+msgstr "Menú principal"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Previous match (Shift+Enter)"
+msgstr "Coincidencia anterior (Mayús+Intro)"
+
+msgid "Next match (Enter)"
+msgstr "Siguiente coincidencia (Intro)"
+
+msgid "NFO, ANSI, SRR and ZIP files"
+msgstr "Archivos NFO, ANSI, SRR y ZIP"
+
+msgid "All files"
+msgstr "Todos los archivos"
+
+msgid "System default"
+msgstr "Predeterminado del sistema"
+
+msgid "Open (Ctrl+O)"
+msgstr "Abrir (Ctrl+O)"
+
+msgid "Zoom out (Ctrl+−)"
+msgstr "Alejar (Ctrl+−)"
+
+msgid "Zoom in (Ctrl++)"
+msgstr "Acercar (Ctrl++)"
+
+msgid "Copied to the clipboard"
+msgstr "Copiado al portapapeles"
+
+msgid "No matches"
+msgstr "Sin coincidencias"
+
+msgid "Cannot open {name}: {error}"
+msgstr "No se puede abrir {name}: {error}"
+
+msgid "Could not save the image: {error}"
+msgstr "No se pudo guardar la imagen: {error}"
+
+msgid "Save as PDF…"
+msgstr "Guardar como PDF…"
+
+msgid "Links"
+msgstr "Enlaces"
+
+msgid "No recent files"
+msgstr "Sin archivos recientes"
+
+msgid "Clear list"
+msgstr "Vaciar lista"
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Background"
+msgstr "Fondo"
+
+msgid "Reload"
+msgstr "Recargar"
+
+msgid "Picking a color switches to the Custom theme"
+msgstr "Al elegir un color se cambia al tema Personalizado"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Block graphics"
+msgstr "Gráficos de bloques"
+
+msgid "Custom colors"
+msgstr "Colores personalizados"
+
+msgid "Recent files"
+msgstr "Archivos recientes"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+msgid "Reset settings"
+msgstr "Restablecer ajustes"
+
+msgid "Back to the default values."
+msgstr "Vuelve a los valores predeterminados."
+
+msgid "Reset all settings?"
+msgstr "¿Restablecer todos los ajustes?"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Remember recent files"
+msgstr "Recordar archivos recientes"
+
+msgid "Turning it off also clears the list"
+msgstr "Al desactivarlo también se vacía la lista"
+
+msgid "Each block of art runs from the top to the bottom color"
+msgstr "Cada bloque de arte va del color superior al inferior"
+
+msgid "Soft edges"
+msgstr "Bordes suaves"
+
+msgid "Glow"
+msgstr "Resplandor"
+
+msgid "Style"
+msgstr "Estilo"
+
+msgid "Retro"
+msgstr "Retro"
+
+msgid "Top"
+msgstr "Arriba"
+
+msgid "Effects"
+msgstr "Efectos"
+
+msgid "Colors"
+msgstr "Colores"
+
+msgid "Bottom"
+msgstr "Abajo"
+
+msgid "Strength"
+msgstr "Intensidad"
+
+msgid "Middle"
+msgstr "Centro"
+
+msgid "Color ramp"
+msgstr "Degradado de color"
+
+msgid "Off"
+msgstr "Desactivado"
+
+msgid "Colors and more…"
+msgstr "Colores y más…"
+
+msgid "Volume"
+msgstr "Volumen"
+
+msgid "Choose a folder with MOD, XM, S3M, IT, OGG, MP3, FLAC or WAV files"
+msgstr "Elige una carpeta con archivos MOD, XM, S3M, IT, OGG, MP3, FLAC o WAV"
+
+msgid "Color cycling"
+msgstr "Ciclo de colores"
+
+msgid "Order"
+msgstr "Orden"
+
+msgid "Music needs GStreamer, which is not installed."
+msgstr "La música necesita GStreamer, que no está instalado."
+
+msgid "Plays while NfoGlow is open"
+msgstr "Suena mientras NfoGlow está abierto"
+
+msgid "Animation"
+msgstr "Animación"
+
+msgid "In order"
+msgstr "En orden"
+
+msgid "Music"
+msgstr "Música"
+
+msgid "Random"
+msgstr "Aleatorio"
+
+msgid "Music folder"
+msgstr "Carpeta de música"
+
+msgid "Pulse"
+msgstr "Pulso"
+
+msgid "Cycling colors"
+msgstr "Colores del ciclo"
+
+msgid "C64 colors"
+msgstr "Colores del C64"
+
+msgid "Color ramp colors"
+msgstr "Colores del degradado"
+
+msgid "Colors move through the block graphics"
+msgstr "Los colores recorren los gráficos de bloques"
+
+msgid "Roll a new look (not saved yet)"
+msgstr "Generar un aspecto nuevo (aún sin guardar)"
+
+msgid "Keep"
+msgstr "Conservar"
+
+msgid "Save this look as your settings"
+msgstr "Guardar este aspecto como tus ajustes"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Back to the look in your settings"
+msgstr "Volver al aspecto de tus ajustes"
+
+msgid "Random look"
+msgstr "Aspecto aleatorio"
+
+msgid "A new look at every start"
+msgstr "Un aspecto nuevo en cada inicio"
+
+msgid "None: the built-in chiptunes by Stennish"
+msgstr "Ninguna: los chiptunes integrados de Stennish"
+
+msgid "Back to the built-in chiptunes"
+msgstr "Volver a los chiptunes integrados"
+
+msgid "Music (CC BY 4.0)"
+msgstr "Música (CC BY 4.0)"
+
+msgid "The neon glow beats to the music, or breathes without it"
+msgstr "El resplandor neón late al ritmo de la música, o respira sin ella"
+
+msgid "Art"
+msgstr "Gráficos"
+
+msgid "Sound"
+msgstr "Sonido"
+
+msgid "Only the text, without the graphics (Ctrl+T)"
+msgstr "Solo el texto, sin los gráficos (Ctrl+T)"
+
+msgid "Down"
+msgstr "Hacia abajo"
+
+msgid "The NFO with its graphics"
+msgstr "El NFO con sus gráficos"
+
+msgid "Effects (F9)"
+msgstr "Efectos (F9)"
+
+msgid "Neon"
+msgstr "Neón"
+
+msgid "Up"
+msgstr "Hacia arriba"
+
+msgid "Cycling direction"
+msgstr "Dirección del ciclo"
+
+msgid "This look is not saved yet."
+msgstr "Este aspecto aún no está guardado."
+
+msgid "Soft"
+msgstr "Suave"
+
+msgid "On opening"
+msgstr "Al abrir"
+
+msgid "Sine scroller"
+msgstr "Scroller sinusoidal"
+
+msgid "A short flicker of torn lines, like a crackling loader"
+msgstr "Un breve parpadeo de líneas rotas, como un cargador que crepita"
+
+msgid "Glitch"
+msgstr "Glitch"
+
+msgid "Starfield"
+msgstr "Campo de estrellas"
+
+msgid "Modem build-up"
+msgstr "Carga por módem"
+
+msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
+msgstr "El NFO aparece línea a línea, como en un BBS a 2400 baudios; un clic o una tecla lo omite"
+
+msgid "Tube"
+msgstr "Tubo"
+
+msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
+msgstr "NfoGlow presenta {name} ... saludos a todos los que aún dibujan a mano ... F9 abre los efectos ... "
+
+msgid "Classic"
+msgstr "Clásico"
+
+msgid "Light on the block graphics"
+msgstr "Luz sobre los gráficos de bloques"
+
+msgid "Thank you for the music"
+msgstr "Gracias por la música"
+
+msgid "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look"
+msgstr "Cada inicio muestra un aspecto sorpresa, solo por esta vez; «Conservar» en la barra lateral de efectos lo convierte en el tuyo"
+
+msgid "Neon glow to the beat; needs Neon"
+msgstr "Resplandor neón al ritmo; requiere Neón"
+
+msgid "Stennish – chiptune {number} of {count}"
+msgstr "Stennish – chiptune {number} de {count}"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Enter"
+msgstr "Intro"
+
+msgid "Ctrl"
+msgstr "Ctrl"
+
+msgid "Shift"
+msgstr "Mayús"
+
+msgid "Next match"
+msgstr "Siguiente coincidencia"
+
+msgid "Page up"
+msgstr "Página arriba"
+
+msgid "Previous match"
+msgstr "Coincidencia anterior"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Mouse wheel"
+msgstr "Rueda del ratón"
+
+msgid "Page down"
+msgstr "Página abajo"
+
+msgid "Zoom in"
+msgstr "Acercar"
+
+msgid "Scroll up"
+msgstr "Desplazar hacia arriba"
+
+msgid "Next NFO in the folder"
+msgstr "Siguiente NFO de la carpeta"
+
+msgid "Space"
+msgstr "Espacio"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "Close the window"
+msgstr "Cerrar la ventana"
+
+msgid "View"
+msgstr "Vista"
+
+msgid "Previous NFO in the folder"
+msgstr "NFO anterior de la carpeta"
+
+msgid "Keyboard shortcuts"
+msgstr "Atajos de teclado"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Zoom out"
+msgstr "Alejar"
+
+msgid "Effects sidebar"
+msgstr "Barra lateral de efectos"
+
+msgid "General"
+msgstr "General"
+
+msgid "Moving around"
+msgstr "Desplazamiento"
+
+msgid "Save as PNG"
+msgstr "Guardar como PNG"
+
+msgid "End"
+msgstr "Fin"
+
+msgid "Art or text only"
+msgstr "Gráficos o solo texto"
+
+msgid "Scroll down"
+msgstr "Desplazar hacia abajo"
+
+msgid "A wavy running text along the bottom"
+msgstr "Un texto ondulante que se desplaza por el borde inferior"
+
+msgid "Demoscene"
+msgstr "Demoscene"
+
+msgid "Drifting"
+msgstr "A la deriva"
+
+msgid "Like the demos of the C64 days"
+msgstr "Como las demos de la época del C64"
+
+msgid "Stars"
+msgstr "Estrellas"
+
+msgid "Stars behind the NFO"
+msgstr "Estrellas detrás del NFO"
+
+msgid "Supported formats: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+msgstr "Formatos admitidos: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+
+msgid "The logo sways in a wave; the text stays still"
+msgstr "El logotipo ondula; el texto permanece quieto"
+
+msgid "Warp flight"
+msgstr "Vuelo warp"
+
+msgid "Wobble"
+msgstr "Ondulación"
+
+msgid "Undo"
+msgstr "Deshacer"
+
+msgid "Undo the last change to the look"
+msgstr "Deshacer el último cambio del aspecto"
+
+msgid "Undo: back to the look before your last change"
+msgstr "Deshacer: vuelve al aspecto anterior a tu último cambio"
+
+msgid "Gentle"
+msgstr "Suave"
+
+msgid "Medium"
+msgstr "Media"
+
+msgid "Strong"
+msgstr "Fuerte"
+
+msgid "Wobble strength"
+msgstr "Intensidad de la ondulación"
+
+msgid "Scroller text ({name} becomes the file name; empty: a greeting)"
+msgstr "Texto del scroller ({name} pasa a ser el nombre del archivo; vacío: un saludo)"
+
+msgid "Show the track name"
+msgstr "Mostrar el título de la pista"
+
+msgid "A short note at the bottom when a new track starts"
+msgstr "Una nota breve en la parte inferior cuando empieza una pista nueva"
+
+msgid "Music on or off"
+msgstr "Activar o desactivar la música"
+
+msgid "Fade in and out"
+msgstr "Fundido de entrada y salida"
+
+msgid "The music starts quietly, and every track ends softly"
+msgstr "La música empieza en voz baja y cada pista termina suavemente"
+
+msgid "Retrowave"
+msgstr "Retrowave"
+
+msgid "Copy for NFO forums"
+msgstr "Copiar para foros de NFO"
+
+msgid "Copied for NFO forums"
+msgstr "Copiado para foros de NFO"
+
+msgid "Pulse rhythm"
+msgstr "Ritmo del pulso"
+
+msgid "To the music"
+msgstr "Al ritmo de la música"
+
+msgid "Breathing"
+msgstr "Respiración"
+
+msgid "C64"
+msgstr "C64"
+
+msgid "Tape loader"
+msgstr "Cargador de cinta"
+
+msgid "A C64 screen types LOAD and loads with colored stripes in its border; a click or key skips it"
+msgstr "Una pantalla de C64 escribe LOAD y carga con franjas de colores en su borde; un clic o una tecla lo omite"
+
+msgid "Scanlines"
+msgstr "Scanlines"
+
+msgid "Live CRT"
+msgstr "CRT animado"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "CRT power-on"
+msgstr "Encendido de CRT"
+
+msgid "DOS boot"
+msgstr "Arranque de DOS"
+
+msgid "Dither fade-in"
+msgstr "Aparición con tramado"
+
+msgid "Neon flicker-on"
+msgstr "Encendido neón parpadeante"
+
+msgid "Opens at once"
+msgstr "Se abre de inmediato"
+
+msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgstr "Una línea brillante crece hasta formar la imagen, como un televisor de tubo al encenderse; un clic o una tecla lo omite"
+
+msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
+msgstr "La imagen se forma en pasos de tramado, como ░ ▒ ▓ █; un clic o una tecla lo omite"
+
+msgid "The art flickers on like a neon sign; a click or key skips it"
+msgstr "La imagen se enciende parpadeando como un letrero de neón; un clic o una tecla lo omite"
+
+msgid "Opening effect"
+msgstr "Efecto al abrir"
+
+msgid "Play the effect now"
+msgstr "Reproducir el efecto ahora"
+
+msgid "Colors in motion"
+msgstr "Colores en movimiento"
+
+msgid "Logo and stars"
+msgstr "Logotipo y estrellas"
+
+msgid "Scroller"
+msgstr "Scroller"
+
+msgid "Text glow"
+msgstr "Resplandor del texto"
+
+msgid "Soft light around the text, like phosphor on an old monitor"
+msgstr "Una luz suave alrededor del texto, como el fósforo de un monitor antiguo"
+
+msgid "Flicker"
+msgstr "Parpadeo"
+
+msgid "Flickers now and then, like an old sign; needs Neon"
+msgstr "Parpadea de vez en cuando, como un letrero antiguo; requiere Neón"
+
+msgid "A DOS prompt boots, lists the file and types it out; a click or key skips it"
+msgstr "Un símbolo del sistema de DOS arranca, lista el archivo y lo muestra; un clic o una tecla lo omite"
+
+msgid "Back to the theme’s colors"
+msgstr "Volver a los colores del tema"
+
+msgid "This NFO is too long for a PNG. Save it as a PDF instead."
+msgstr "Este NFO es demasiado largo para un PNG. Guárdalo como PDF."
+
+msgid "Only files on this computer can be opened."
+msgstr "Solo se pueden abrir archivos de este equipo."
+
+msgid "Are you really sure?"
+msgstr "¿Estás completamente seguro?"
+
+msgid "Back to the default colors"
+msgstr "Volver a los colores predeterminados"
+
+msgid "Black & White"
+msgstr "Blanco y negro"
+
+msgid "Effects and sound"
+msgstr "Efectos y sonido"
+
+msgid "Code rain"
+msgstr "Lluvia de código"
+
+msgid "Ones and zeros rain down the window and leave the NFO behind; a click or key skips it"
+msgstr "Unos y ceros llueven por la ventana y dejan atrás el NFO; un clic o una tecla lo omite"
+
+msgid "Gleam"
+msgstr "Destello"
+
+msgid "A light sweeps across the art now and then"
+msgstr "De vez en cuando un haz de luz recorre la imagen"
+
+msgid "Sparkle"
+msgstr "Destellos"
+
+msgid "Single blocks of the art glint"
+msgstr "Algunos bloques de la imagen centellean"
+
+msgid "Color fringe"
+msgstr "Franja de color"
+
+msgid "Red and blue edges, like an old tube or a VHS tape"
+msgstr "Bordes rojos y azules, como en un tubo antiguo o una cinta VHS"
+
+msgid "A roll bar, flicker, noise and round corners"
+msgstr "Una barra que se desplaza, parpadeo, ruido y esquinas redondeadas"
+
+msgid "CRT screen"
+msgstr "Pantalla CRT"
+
+msgid "Pattern"
+msgstr "Patrón"
+
+msgid "Shadow mask"
+msgstr "Máscara de sombra"
+
+msgid "Aperture grille"
+msgstr "Rejilla de apertura"
+
+msgid "Scanlines and dark corners, like an old monitor"
+msgstr "Scanlines y esquinas oscuras, como en un monitor antiguo"
+
+msgid "DOS font"
+msgstr "Fuente de DOS"
+
+msgid "The IBM VGA font, as NFOs looked under DOS"
+msgstr "La fuente IBM VGA, como se veían los NFO en DOS"
+
+msgid "More settings"
+msgstr "Más ajustes"
+
+msgid "The look, the language and everything else go back to their defaults."
+msgstr "El aspecto, el idioma y todo lo demás vuelven a sus valores predeterminados."
+
+msgid "How much sparkle"
+msgstr "Cuántos destellos"
+
+msgid "Few"
+msgstr "Pocos"
+
+msgid "Some"
+msgstr "Algunos"
+
+msgid "Many"
+msgstr "Muchos"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Look"
+msgstr "Aspecto"
+
+msgid "Copy look"
+msgstr "Copiar aspecto"
+
+msgid "Paste look"
+msgstr "Pegar aspecto"
+
+msgid "Look copied to the clipboard"
+msgstr "Aspecto copiado al portapapeles"
+
+msgid "Look applied (Ctrl+Z undoes it)"
+msgstr "Aspecto aplicado (Ctrl+Z lo deshace)"
+
+msgid "The clipboard holds no NfoGlow look code"
+msgstr "El portapapeles no contiene ningún código de aspecto de NfoGlow"
+
+
+
+#: src/ui_app.py
+msgid "Mascot"
+msgstr "Mascota"
+
+#: src/ui_about.py
+msgid "3 more clicks …"
+msgstr "3 clics más …"
+
+#: src/ui_about.py
+msgid "2 more clicks …"
+msgstr "2 clics más …"
+
+#: src/ui_about.py
+msgid "1 more click …"
+msgstr "1 clic más …"

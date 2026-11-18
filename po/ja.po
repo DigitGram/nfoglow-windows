@@ -1,0 +1,781 @@
+# Japanese translation of NfoGlow.
+# Copyright (C) 2026 DigitGram
+# This file is distributed under the same license as the NfoGlow package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NfoGlow 1.0\n"
+"Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Light"
+msgstr "ライト"
+
+msgid "Dark"
+msgstr "ダーク"
+
+msgid "Amber"
+msgstr "アンバー"
+
+msgid "Terminal"
+msgstr "ターミナル"
+
+msgid "Paper"
+msgstr "ペーパー"
+
+msgid "Automatic"
+msgstr "自動"
+
+msgid "Inspired by"
+msgstr "インスピレーション元"
+
+msgid "Default zoom"
+msgstr "標準のズーム"
+
+msgid "In percent; Ctrl+0 goes back to it"
+msgstr "パーセントで指定。Ctrl+0 で戻ります"
+
+msgid "Fit width"
+msgstr "幅に合わせる"
+
+msgid "Encoding"
+msgstr "文字エンコーディング"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Select all"
+msgstr "すべて選択"
+
+msgid "Save as PNG…"
+msgstr "PNG として保存…"
+
+msgid "Preferences"
+msgstr "設定"
+
+msgid "About NfoGlow"
+msgstr "NfoGlow について"
+
+msgid "A viewer for NFO and ANSI art, the way the scene meant it: crisp block graphics with an optional soft glow, CP437 out of the box, clickable links and a text-only view."
+msgstr "NFO と ANSI アートを、シーンが意図したとおりに表示するビューアー。くっきりしたブロック図形、お好みで柔らかな光彩、CP437 に標準対応、クリックできるリンク、テキストのみの表示。"
+
+msgid "Appearance"
+msgstr "外観"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "Font"
+msgstr "フォント"
+
+msgid "Monospace fonts only"
+msgstr "等幅フォントのみ"
+
+msgid "Behavior"
+msgstr "動作"
+
+msgid "Copy text only"
+msgstr "テキストのみコピー"
+
+msgid "Selecting and copying leave out block and line graphics"
+msgstr "選択とコピーでは、ブロック図形と罫線図形を除きます"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Open…"
+msgstr "開く…"
+
+msgid "No NFO open"
+msgstr "開いている NFO はありません"
+
+msgid "Drop a file here or press Ctrl+O."
+msgstr "ここにファイルをドロップするか、Ctrl+O を押してください。"
+
+msgid "Search (Ctrl+F)"
+msgstr "検索 (Ctrl+F)"
+
+msgid "Default zoom (Ctrl+0)"
+msgstr "標準のズーム (Ctrl+0)"
+
+#: src/ui_window.py
+msgid "Save as default"
+msgstr "デフォルトとして保存"
+
+#: src/ui_window.py
+msgid "Open every NFO at this zoom from now on"
+msgstr "今後すべてのNFOをこのズームで開く"
+
+msgid "Main menu"
+msgstr "メインメニュー"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Previous match (Shift+Enter)"
+msgstr "前の一致 (Shift+Enter)"
+
+msgid "Next match (Enter)"
+msgstr "次の一致 (Enter)"
+
+msgid "NFO, ANSI, SRR and ZIP files"
+msgstr "NFO、ANSI、SRR、ZIP ファイル"
+
+msgid "All files"
+msgstr "すべてのファイル"
+
+msgid "System default"
+msgstr "システムの設定に従う"
+
+msgid "Open (Ctrl+O)"
+msgstr "開く (Ctrl+O)"
+
+msgid "Zoom out (Ctrl+−)"
+msgstr "縮小 (Ctrl+−)"
+
+msgid "Zoom in (Ctrl++)"
+msgstr "拡大 (Ctrl++)"
+
+msgid "Copied to the clipboard"
+msgstr "クリップボードにコピーしました"
+
+msgid "No matches"
+msgstr "一致なし"
+
+msgid "Cannot open {name}: {error}"
+msgstr "{name} を開けません: {error}"
+
+msgid "Could not save the image: {error}"
+msgstr "画像を保存できませんでした: {error}"
+
+msgid "Save as PDF…"
+msgstr "PDF として保存…"
+
+msgid "Links"
+msgstr "リンク"
+
+msgid "No recent files"
+msgstr "最近使ったファイルはありません"
+
+msgid "Clear list"
+msgstr "リストを消去"
+
+msgid "Text"
+msgstr "テキスト"
+
+msgid "Background"
+msgstr "背景"
+
+msgid "Reload"
+msgstr "再読み込み"
+
+msgid "Picking a color switches to the Custom theme"
+msgstr "色を選ぶと「カスタム」テーマに切り替わります"
+
+msgid "Custom"
+msgstr "カスタム"
+
+msgid "Block graphics"
+msgstr "ブロック図形"
+
+msgid "Custom colors"
+msgstr "カスタムカラー"
+
+msgid "Recent files"
+msgstr "最近使ったファイル"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "Reset settings"
+msgstr "設定をリセット"
+
+msgid "Back to the default values."
+msgstr "初期値に戻します。"
+
+msgid "Reset all settings?"
+msgstr "すべての設定をリセットしますか?"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Remember recent files"
+msgstr "最近使ったファイルを記憶"
+
+msgid "Turning it off also clears the list"
+msgstr "オフにすると一覧も消去されます"
+
+msgid "Each block of art runs from the top to the bottom color"
+msgstr "アートの各ブロックが、上の色から下の色へ変化します"
+
+msgid "Soft edges"
+msgstr "やわらかな輪郭"
+
+msgid "Glow"
+msgstr "光彩"
+
+msgid "Style"
+msgstr "スタイル"
+
+msgid "Retro"
+msgstr "レトロ"
+
+msgid "Top"
+msgstr "上"
+
+msgid "Effects"
+msgstr "エフェクト"
+
+msgid "Colors"
+msgstr "色"
+
+msgid "Bottom"
+msgstr "下"
+
+msgid "Strength"
+msgstr "強さ"
+
+msgid "Middle"
+msgstr "中"
+
+msgid "Color ramp"
+msgstr "カラーグラデーション"
+
+msgid "Off"
+msgstr "オフ"
+
+msgid "Colors and more…"
+msgstr "色など…"
+
+msgid "Volume"
+msgstr "音量"
+
+msgid "Choose a folder with MOD, XM, S3M, IT, OGG, MP3, FLAC or WAV files"
+msgstr "MOD、XM、S3M、IT、OGG、MP3、FLAC、WAV ファイルのあるフォルダーを選んでください"
+
+msgid "Color cycling"
+msgstr "カラーサイクリング"
+
+msgid "Order"
+msgstr "順序"
+
+msgid "Music needs GStreamer, which is not installed."
+msgstr "音楽には GStreamer が必要ですが、インストールされていません。"
+
+msgid "Plays while NfoGlow is open"
+msgstr "NfoGlow を開いている間、再生します"
+
+msgid "Animation"
+msgstr "アニメーション"
+
+msgid "In order"
+msgstr "順番に"
+
+msgid "Music"
+msgstr "音楽"
+
+msgid "Random"
+msgstr "ランダム"
+
+msgid "Music folder"
+msgstr "音楽フォルダー"
+
+msgid "Pulse"
+msgstr "パルス"
+
+msgid "Cycling colors"
+msgstr "サイクルの色"
+
+msgid "C64 colors"
+msgstr "C64 の色"
+
+msgid "Color ramp colors"
+msgstr "グラデーションの色"
+
+msgid "Colors move through the block graphics"
+msgstr "色がブロック図形の中を流れます"
+
+msgid "Roll a new look (not saved yet)"
+msgstr "新しい見た目をランダムに作成 (未保存)"
+
+msgid "Keep"
+msgstr "保持"
+
+msgid "Save this look as your settings"
+msgstr "この見た目を設定として保存します"
+
+msgid "Back"
+msgstr "戻る"
+
+msgid "Back to the look in your settings"
+msgstr "設定にある見た目に戻します"
+
+msgid "Random look"
+msgstr "ランダムな見た目"
+
+msgid "A new look at every start"
+msgstr "起動するたびに新しい見た目"
+
+msgid "None: the built-in chiptunes by Stennish"
+msgstr "なし: Stennish による内蔵チップチューン"
+
+msgid "Back to the built-in chiptunes"
+msgstr "内蔵チップチューンに戻します"
+
+msgid "Music (CC BY 4.0)"
+msgstr "音楽 (CC BY 4.0)"
+
+msgid "The neon glow beats to the music, or breathes without it"
+msgstr "ネオンの光が音楽に合わせて脈打ち、音楽がないときはゆっくり呼吸します"
+
+msgid "Art"
+msgstr "アート"
+
+msgid "Sound"
+msgstr "サウンド"
+
+msgid "Only the text, without the graphics (Ctrl+T)"
+msgstr "グラフィックなしのテキストのみ (Ctrl+T)"
+
+msgid "Down"
+msgstr "下へ"
+
+msgid "The NFO with its graphics"
+msgstr "グラフィック付きの NFO"
+
+msgid "Effects (F9)"
+msgstr "エフェクト (F9)"
+
+msgid "Neon"
+msgstr "ネオン"
+
+msgid "Up"
+msgstr "上へ"
+
+msgid "Cycling direction"
+msgstr "サイクルの向き"
+
+msgid "This look is not saved yet."
+msgstr "この見た目はまだ保存されていません。"
+
+msgid "Soft"
+msgstr "やわらかい"
+
+msgid "On opening"
+msgstr "開くとき"
+
+msgid "Sine scroller"
+msgstr "サインスクローラー"
+
+msgid "A short flicker of torn lines, like a crackling loader"
+msgstr "ざらついたローダーのように、裂けた行が一瞬ちらつきます"
+
+msgid "Glitch"
+msgstr "グリッチ"
+
+msgid "Starfield"
+msgstr "スターフィールド"
+
+msgid "Modem build-up"
+msgstr "モデム風の表示"
+
+msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
+msgstr "2400 ボーの BBS のように NFO が 1 行ずつ表示されます。クリックかキーでスキップできます"
+
+msgid "Tube"
+msgstr "ブラウン管"
+
+msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
+msgstr "NfoGlow が {name} をお届けします ... 今も手で描き続けるすべての人にあいさつを ... F9 でエフェクトを開きます ... "
+
+msgid "Classic"
+msgstr "クラシック"
+
+msgid "Light on the block graphics"
+msgstr "ブロック図形に光を当てます"
+
+msgid "Thank you for the music"
+msgstr "音楽への感謝"
+
+msgid "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look"
+msgstr "起動のたびにサプライズの見た目を表示します (その回のみ)。エフェクトのサイドバーで「保持」を押すと、設定として残せます"
+
+msgid "Neon glow to the beat; needs Neon"
+msgstr "ネオンの光がビートに合わせて脈打ちます。「ネオン」が必要です"
+
+msgid "Stennish – chiptune {number} of {count}"
+msgstr "Stennish – チップチューン {number}/{count}"
+
+msgid "Quit"
+msgstr "終了"
+
+msgid "Enter"
+msgstr "Enter"
+
+msgid "Ctrl"
+msgstr "Ctrl"
+
+msgid "Shift"
+msgstr "Shift"
+
+msgid "Next match"
+msgstr "次の一致"
+
+msgid "Page up"
+msgstr "ページアップ"
+
+msgid "Previous match"
+msgstr "前の一致"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Mouse wheel"
+msgstr "マウスホイール"
+
+msgid "Page down"
+msgstr "ページダウン"
+
+msgid "Zoom in"
+msgstr "拡大"
+
+msgid "Scroll up"
+msgstr "上にスクロール"
+
+msgid "Next NFO in the folder"
+msgstr "フォルダー内の次の NFO"
+
+msgid "Space"
+msgstr "スペース"
+
+msgid "Zoom"
+msgstr "ズーム"
+
+msgid "Close the window"
+msgstr "ウィンドウを閉じる"
+
+msgid "View"
+msgstr "表示"
+
+msgid "Previous NFO in the folder"
+msgstr "フォルダー内の前の NFO"
+
+msgid "Keyboard shortcuts"
+msgstr "キーボードショートカット"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Zoom out"
+msgstr "縮小"
+
+msgid "Effects sidebar"
+msgstr "エフェクトのサイドバー"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Moving around"
+msgstr "移動"
+
+msgid "Save as PNG"
+msgstr "PNG として保存"
+
+msgid "End"
+msgstr "End"
+
+msgid "Art or text only"
+msgstr "アートまたはテキストのみ"
+
+msgid "Scroll down"
+msgstr "下にスクロール"
+
+msgid "A wavy running text along the bottom"
+msgstr "画面下部を流れる波打つ文字"
+
+msgid "Demoscene"
+msgstr "デモシーン"
+
+msgid "Drifting"
+msgstr "ゆったり流れる"
+
+msgid "Like the demos of the C64 days"
+msgstr "C64 時代のデモのように"
+
+msgid "Stars"
+msgstr "星"
+
+msgid "Stars behind the NFO"
+msgstr "NFO の背後に星を表示"
+
+msgid "Supported formats: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+msgstr "対応形式: MOD、XM、S3M、IT、OGG、MP3、FLAC、WAV"
+
+msgid "The logo sways in a wave; the text stays still"
+msgstr "ロゴが波のように揺れます。テキストは動きません"
+
+msgid "Warp flight"
+msgstr "ワープ飛行"
+
+msgid "Wobble"
+msgstr "揺れ"
+
+msgid "Undo"
+msgstr "元に戻す"
+
+msgid "Undo the last change to the look"
+msgstr "見た目の直前の変更を元に戻します"
+
+msgid "Undo: back to the look before your last change"
+msgstr "元に戻す: 直前の変更の前の見た目に戻ります"
+
+msgid "Gentle"
+msgstr "弱め"
+
+msgid "Medium"
+msgstr "標準"
+
+msgid "Strong"
+msgstr "強め"
+
+msgid "Wobble strength"
+msgstr "揺れの強さ"
+
+msgid "Scroller text ({name} becomes the file name; empty: a greeting)"
+msgstr "スクローラーの文字 ({name} はファイル名になります。空欄: あいさつ)"
+
+msgid "Show the track name"
+msgstr "曲名を表示"
+
+msgid "A short note at the bottom when a new track starts"
+msgstr "新しい曲が始まると、下部に短いメモを表示します"
+
+msgid "Music on or off"
+msgstr "音楽のオン/オフ"
+
+msgid "Fade in and out"
+msgstr "フェードイン/フェードアウト"
+
+msgid "The music starts quietly, and every track ends softly"
+msgstr "音楽は小さな音で始まり、各曲はやわらかく終わります"
+
+msgid "Retrowave"
+msgstr "レトロウェーブ"
+
+msgid "Copy for NFO forums"
+msgstr "NFO フォーラム用にコピー"
+
+msgid "Copied for NFO forums"
+msgstr "NFO フォーラム用にコピーしました"
+
+msgid "Pulse rhythm"
+msgstr "パルスのリズム"
+
+msgid "To the music"
+msgstr "音楽に合わせる"
+
+msgid "Breathing"
+msgstr "呼吸"
+
+msgid "C64"
+msgstr "C64"
+
+msgid "Tape loader"
+msgstr "テープローダー"
+
+msgid "A C64 screen types LOAD and loads with colored stripes in its border; a click or key skips it"
+msgstr "C64 風の画面が LOAD と入力し、縁に色付きのストライプを走らせながら読み込みます。クリックかキーでスキップできます"
+
+msgid "Scanlines"
+msgstr "スキャンライン"
+
+msgid "Live CRT"
+msgstr "ライブ CRT"
+
+msgid "None"
+msgstr "なし"
+
+msgid "CRT power-on"
+msgstr "CRT の電源オン"
+
+msgid "DOS boot"
+msgstr "DOS 起動"
+
+msgid "Dither fade-in"
+msgstr "ディザでフェードイン"
+
+msgid "Neon flicker-on"
+msgstr "ネオンのちらつき点灯"
+
+msgid "Opens at once"
+msgstr "すぐに開きます"
+
+msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgstr "明るい線が画面いっぱいに広がります。ブラウン管テレビの電源を入れたときのように。クリックかキーでスキップできます"
+
+msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
+msgstr "░ ▒ ▓ █ のようにディザの段階を踏んで画面ができあがります。クリックかキーでスキップできます"
+
+msgid "The art flickers on like a neon sign; a click or key skips it"
+msgstr "ネオンサインのようにアートがちらつきながら点灯します。クリックかキーでスキップできます"
+
+msgid "Opening effect"
+msgstr "開くときのエフェクト"
+
+msgid "Play the effect now"
+msgstr "エフェクトを今すぐ再生"
+
+msgid "Colors in motion"
+msgstr "動く色"
+
+msgid "Logo and stars"
+msgstr "ロゴと星"
+
+msgid "Scroller"
+msgstr "スクローラー"
+
+msgid "Text glow"
+msgstr "テキストの光彩"
+
+msgid "Soft light around the text, like phosphor on an old monitor"
+msgstr "文字周围柔和的光，就像老式显示器的荧光粉"
+
+msgid "Flicker"
+msgstr "ちらつき"
+
+msgid "Flickers now and then, like an old sign; needs Neon"
+msgstr "古い看板のように、ときどきちらつきます。「ネオン」が必要です"
+
+msgid "A DOS prompt boots, lists the file and types it out; a click or key skips it"
+msgstr "DOS のプロンプトが起動し、ファイルを一覧表示してから内容を表示します。クリックかキーでスキップできます"
+
+msgid "Back to the theme’s colors"
+msgstr "テーマの色に戻す"
+
+msgid "This NFO is too long for a PNG. Save it as a PDF instead."
+msgstr "この NFO は PNG にするには長すぎます。代わりに PDF で保存してください。"
+
+msgid "Only files on this computer can be opened."
+msgstr "このコンピューター上のファイルだけを開けます。"
+
+msgid "Are you really sure?"
+msgstr "本当によろしいですか？"
+
+msgid "Back to the default colors"
+msgstr "既定の色に戻す"
+
+msgid "Black & White"
+msgstr "白黒"
+
+msgid "Effects and sound"
+msgstr "エフェクトとサウンド"
+
+msgid "Code rain"
+msgstr "コードの雨"
+
+msgid "Ones and zeros rain down the window and leave the NFO behind; a click or key skips it"
+msgstr "1と0がウィンドウに降り注ぎ、その後にNFOが現れます。クリックかキーでスキップできます"
+
+msgid "Gleam"
+msgstr "光沢"
+
+msgid "A light sweeps across the art now and then"
+msgstr "ときどき光の帯がアートの上を横切ります"
+
+msgid "Sparkle"
+msgstr "きらめき"
+
+msgid "Single blocks of the art glint"
+msgstr "アートのブロックがところどころきらめきます"
+
+msgid "Color fringe"
+msgstr "色ずれ"
+
+msgid "Red and blue edges, like an old tube or a VHS tape"
+msgstr "古いブラウン管やVHSテープのような赤と青の縁取り"
+
+msgid "A roll bar, flicker, noise and round corners"
+msgstr "流れるバー、ちらつき、ノイズ、丸い角"
+
+msgid "CRT screen"
+msgstr "CRT画面"
+
+msgid "Pattern"
+msgstr "模様"
+
+msgid "Shadow mask"
+msgstr "シャドーマスク"
+
+msgid "Aperture grille"
+msgstr "アパーチャーグリル"
+
+msgid "Scanlines and dark corners, like an old monitor"
+msgstr "古いモニターのようなスキャンラインと暗い四隅"
+
+msgid "DOS font"
+msgstr "DOSフォント"
+
+msgid "The IBM VGA font, as NFOs looked under DOS"
+msgstr "IBM VGAフォント。DOSでのNFOの見た目です"
+
+msgid "More settings"
+msgstr "その他の設定"
+
+msgid "The look, the language and everything else go back to their defaults."
+msgstr "見た目、言語、その他すべてが既定値に戻ります。"
+
+msgid "How much sparkle"
+msgstr "きらめきの量"
+
+msgid "Few"
+msgstr "少なめ"
+
+msgid "Some"
+msgstr "ふつう"
+
+msgid "Many"
+msgstr "多め"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Look"
+msgstr "見た目"
+
+msgid "Copy look"
+msgstr "見た目をコピー"
+
+msgid "Paste look"
+msgstr "見た目を貼り付け"
+
+msgid "Look copied to the clipboard"
+msgstr "見た目をクリップボードにコピーしました"
+
+msgid "Look applied (Ctrl+Z undoes it)"
+msgstr "見た目を適用しました（Ctrl+Z で元に戻せます）"
+
+msgid "The clipboard holds no NfoGlow look code"
+msgstr "クリップボードに NfoGlow の見た目コードがありません"
+
+
+
+#: src/ui_app.py
+msgid "Mascot"
+msgstr "マスコット"
+
+#: src/ui_about.py
+msgid "3 more clicks …"
+msgstr "あと3回クリック …"
+
+#: src/ui_about.py
+msgid "2 more clicks …"
+msgstr "あと2回クリック …"
+
+#: src/ui_about.py
+msgid "1 more click …"
+msgstr "あと1回クリック …"

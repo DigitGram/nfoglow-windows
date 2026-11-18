@@ -1,0 +1,953 @@
+# German translation of NfoGlow.
+# Copyright (C) 2026 DigitGram
+# This file is distributed under the same license as the NfoGlow package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NfoGlow 1.0\n"
+"Last-Translator: DigitGram\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/ui.py
+msgid "Light"
+msgstr "Hell"
+
+#: src/ui.py
+msgid "Dark"
+msgstr "Dunkel"
+
+#: src/ui.py
+msgid "Amber"
+msgstr "Bernstein"
+
+#: src/ui.py
+msgid "Terminal"
+msgstr "Terminal"
+
+#: src/ui.py
+msgid "Paper"
+msgstr "Papier"
+
+#: src/ui.py
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: src/ui.py
+msgid "Inspired by"
+msgstr "Inspiriert von"
+
+#: src/ui.py
+msgid "Default zoom"
+msgstr "Standard-Zoom"
+
+#: src/ui.py
+msgid "In percent; Ctrl+0 goes back to it"
+msgstr "In Prozent; Strg+0 kehrt dorthin zurück"
+
+#: src/ui.py
+msgid "Fit width"
+msgstr "An Breite anpassen"
+
+#: src/ui.py
+msgid "Encoding"
+msgstr "Zeichenkodierung"
+
+#: src/ui.py
+msgid "Copy"
+msgstr "Kopieren"
+
+#: src/ui.py
+msgid "Select all"
+msgstr "Alles auswählen"
+
+#: src/ui.py
+msgid "Save as PNG…"
+msgstr "Als PNG speichern …"
+
+#: src/ui.py
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: src/ui.py
+msgid "About NfoGlow"
+msgstr "Über NfoGlow"
+
+#: src/ui.py
+msgid "A viewer for NFO and ANSI art, the way the scene meant it: crisp block graphics with an optional soft glow, CP437 out of the box, clickable links and a text-only view."
+msgstr "Ein Betrachter für NFO- und ANSI-Art, so wie die Szene sie gemeint hat: scharfe Blockgrafik mit optionalem weichem Glühen, CP437 ab Werk, anklickbare Links und eine Nur-Text-Ansicht."
+
+#: src/ui.py
+msgid "Appearance"
+msgstr "Darstellung"
+
+#: src/ui.py
+msgid "Theme"
+msgstr "Farbschema"
+
+#: src/ui.py
+msgid "Font"
+msgstr "Schrift"
+
+#: src/ui.py
+msgid "Monospace fonts only"
+msgstr "Nur Festbreitenschriften"
+
+#: src/ui.py
+msgid "Behavior"
+msgstr "Verhalten"
+
+#: src/ui.py
+msgid "Copy text only"
+msgstr "Nur Text kopieren"
+
+#: src/ui.py
+msgid "Selecting and copying leave out block and line graphics"
+msgstr "Markieren und Kopieren lassen Block- und Liniengrafik aus"
+
+#: src/ui.py
+msgid "Language"
+msgstr "Sprache"
+
+#: src/ui.py
+msgid "Open…"
+msgstr "Öffnen …"
+
+#: src/ui.py
+msgid "No NFO open"
+msgstr "Keine NFO geöffnet"
+
+#: src/ui.py
+msgid "Drop a file here or press Ctrl+O."
+msgstr "Datei hierher ziehen oder Strg+O drücken."
+
+#: src/ui.py
+msgid "Search (Ctrl+F)"
+msgstr "Suchen (Strg+F)"
+
+#: src/ui.py
+msgid "Default zoom (Ctrl+0)"
+msgstr "Standard-Zoom (Strg+0)"
+
+#: src/ui_window.py
+msgid "Save as default"
+msgstr "Als Standard speichern"
+
+#: src/ui_window.py
+msgid "Open every NFO at this zoom from now on"
+msgstr "Ab jetzt jede NFO mit diesem Zoom öffnen"
+
+#: src/ui.py
+msgid "Main menu"
+msgstr "Hauptmenü"
+
+#: src/ui.py
+msgid "Search"
+msgstr "Suchen"
+
+#: src/ui.py
+msgid "Previous match (Shift+Enter)"
+msgstr "Vorheriger Treffer (Umschalt+Eingabe)"
+
+#: src/ui.py
+msgid "Next match (Enter)"
+msgstr "Nächster Treffer (Eingabe)"
+
+#: src/ui.py
+msgid "NFO, ANSI, SRR and ZIP files"
+msgstr "NFO-, ANSI-, SRR- und ZIP-Dateien"
+
+#: src/ui.py
+msgid "All files"
+msgstr "Alle Dateien"
+
+#: src/ui.py
+msgid "System default"
+msgstr "Systemvorgabe"
+
+#: src/ui.py
+msgid "Open (Ctrl+O)"
+msgstr "Öffnen (Strg+O)"
+
+#: src/ui.py
+msgid "Zoom out (Ctrl+−)"
+msgstr "Verkleinern (Strg+−)"
+
+#: src/ui.py
+msgid "Zoom in (Ctrl++)"
+msgstr "Vergrößern (Strg++)"
+
+#: src/ui.py
+msgid "Copied to the clipboard"
+msgstr "In die Zwischenablage kopiert"
+
+#: src/ui.py
+msgid "No matches"
+msgstr "Keine Treffer"
+
+#: src/ui.py
+msgid "Cannot open {name}: {error}"
+msgstr "{name} kann nicht geöffnet werden: {error}"
+
+#: src/ui.py
+msgid "Could not save the image: {error}"
+msgstr "Das Bild konnte nicht gespeichert werden: {error}"
+
+#: src/ui.py
+msgid "Save as PDF…"
+msgstr "Als PDF speichern …"
+
+#: src/ui.py
+msgid "Links"
+msgstr "Links"
+
+#: src/ui.py
+msgid "No recent files"
+msgstr "Keine zuletzt geöffneten Dateien"
+
+#: src/ui.py
+msgid "Clear list"
+msgstr "Liste leeren"
+
+#: src/ui.py
+msgid "Text"
+msgstr "Text"
+
+#: src/ui.py
+msgid "Background"
+msgstr "Hintergrund"
+
+#: src/ui.py
+msgid "Reload"
+msgstr "Neu laden"
+
+#: src/ui.py
+msgid "Picking a color switches to the Custom theme"
+msgstr "Eine Farbwahl schaltet auf das eigene Farbschema um"
+
+#: src/ui.py
+msgid "Custom"
+msgstr "Eigenes"
+
+#: src/ui.py
+msgid "Block graphics"
+msgstr "Blockgrafik"
+
+#: src/ui.py
+msgid "Custom colors"
+msgstr "Eigene Farben"
+
+#: src/ui.py
+msgid "Recent files"
+msgstr "Zuletzt geöffnet"
+
+#: src/ui.py
+#: src/ui.py
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: src/ui.py
+msgid "Reset settings"
+msgstr "Einstellungen zurücksetzen"
+
+#: src/ui.py
+msgid "Back to the default values."
+msgstr "Zurück zu den Standardwerten."
+
+#: src/ui.py
+msgid "Reset all settings?"
+msgstr "Alle Einstellungen zurücksetzen?"
+
+#: src/ui.py
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/ui.py
+msgid "Remember recent files"
+msgstr "Zuletzt geöffnete Dateien merken"
+
+#: src/ui.py
+msgid "Turning it off also clears the list"
+msgstr "Ausschalten leert auch die Liste"
+
+#: src/ui.py
+msgid "Each block of art runs from the top to the bottom color"
+msgstr "Jeder Grafikblock verläuft von der oberen zur unteren Farbe"
+
+#: src/ui.py
+msgid "Soft edges"
+msgstr "Weiche Kanten"
+
+#: src/ui.py
+msgid "Glow"
+msgstr "Glühen"
+
+#: src/ui.py
+msgid "Style"
+msgstr "Stil"
+
+#: src/ui.py
+msgid "Retro"
+msgstr "Retro"
+
+#: src/ui.py
+msgid "Top"
+msgstr "Oben"
+
+#: src/ui.py
+msgid "Effects"
+msgstr "Effekte"
+
+#: src/ui.py
+#: src/ui.py
+msgid "Colors"
+msgstr "Farben"
+
+#: src/ui.py
+msgid "Bottom"
+msgstr "Unten"
+
+#: src/ui.py
+msgid "Strength"
+msgstr "Stärke"
+
+#: src/ui.py
+#: src/ui.py
+msgid "Middle"
+msgstr "Mitte"
+
+#: src/ui.py
+msgid "Color ramp"
+msgstr "Farbverlauf"
+
+#: src/ui.py
+msgid "Off"
+msgstr "Aus"
+
+#: src/ui.py
+msgid "Colors and more…"
+msgstr "Farben und mehr …"
+
+#: src/ui.py
+msgid "Volume"
+msgstr "Lautstärke"
+
+#: src/ui.py
+msgid "Choose a folder with MOD, XM, S3M, IT, OGG, MP3, FLAC or WAV files"
+msgstr "Ordner mit MOD-, XM-, S3M-, IT-, OGG-, MP3-, FLAC- oder WAV-Dateien wählen"
+
+#: src/ui.py
+msgid "Color cycling"
+msgstr "Farbzyklus"
+
+#: src/ui.py
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: src/ui.py
+#: src/ui.py
+msgid "Music needs GStreamer, which is not installed."
+msgstr "Für Musik wird GStreamer benötigt, das nicht installiert ist."
+
+#: src/ui.py
+msgid "Plays while NfoGlow is open"
+msgstr "Spielt, solange NfoGlow geöffnet ist"
+
+#: src/ui.py
+msgid "Animation"
+msgstr "Animation"
+
+#: src/ui.py
+msgid "In order"
+msgstr "Der Reihe nach"
+
+#: src/ui.py
+msgid "Music"
+msgstr "Musik"
+
+
+#: src/ui.py
+msgid "Random"
+msgstr "Zufällig"
+
+#: src/ui.py
+msgid "Music folder"
+msgstr "Musikordner"
+
+#: src/ui.py
+msgid "Pulse"
+msgstr "Pulsieren"
+
+#: src/ui.py
+msgid "Cycling colors"
+msgstr "Farben für den Zyklus"
+
+#: src/ui.py
+msgid "C64 colors"
+msgstr "C64-Farben"
+
+#: src/ui.py
+msgid "Color ramp colors"
+msgstr "Farben des Farbverlaufs"
+
+
+#: src/ui.py
+msgid "Colors move through the block graphics"
+msgstr "Farben wandern durch die Blockgrafik"
+
+#: src/ui.py
+msgid "Random"
+msgstr "Zufall"
+
+#: src/ui.py
+msgid "Roll a new look (not saved yet)"
+msgstr "Ein neues Aussehen würfeln (noch nicht gespeichert)"
+
+#: src/ui.py
+msgid "Keep"
+msgstr "Übernehmen"
+
+#: src/ui.py
+msgid "Save this look as your settings"
+msgstr "Dieses Aussehen in deine Einstellungen übernehmen"
+
+#: src/ui.py
+msgid "Back"
+msgstr "Zurück"
+
+#: src/ui.py
+msgid "Back to the look in your settings"
+msgstr "Zurück zum Aussehen aus deinen Einstellungen"
+
+#: src/ui.py
+msgid "Random look"
+msgstr "Zufälliges Aussehen"
+
+#: src/ui.py
+msgid "A new look at every start"
+msgstr "Bei jedem Start ein neues Aussehen"
+
+#: src/ui.py
+#: src/ui.py
+#: src/ui.py
+msgid "None: the built-in chiptunes by Stennish"
+msgstr "Keiner: die eingebauten Chiptunes von Stennish"
+
+#: src/ui.py
+msgid "Back to the built-in chiptunes"
+msgstr "Zurück zu den eingebauten Chiptunes"
+
+#: src/ui.py
+msgid "Music (CC BY 4.0)"
+msgstr "Musik (CC BY 4.0)"
+
+#: src/ui.py
+msgid "The neon glow beats to the music, or breathes without it"
+msgstr "Das Neon-Glühen pulsiert im Takt der Musik, ohne Musik atmet es"
+
+#: src/ui.py
+msgid "Art"
+msgstr "Grafik"
+
+#: src/ui.py
+msgid "Sound"
+msgstr "Klang"
+
+#: src/ui.py
+msgid "Only the text, without the graphics (Ctrl+T)"
+msgstr "Nur der Text, ohne Grafik (Strg+T)"
+
+#: src/ui.py
+msgid "Down"
+msgstr "Nach unten"
+
+#: src/ui.py
+msgid "The NFO with its graphics"
+msgstr "Die NFO mit ihrer Grafik"
+
+#: src/ui.py
+msgid "Effects (F9)"
+msgstr "Effekte (F9)"
+
+#: src/ui.py
+msgid "Neon"
+msgstr "Neon"
+
+#: src/ui.py
+msgid "Up"
+msgstr "Nach oben"
+
+#: src/ui.py
+msgid "Cycling direction"
+msgstr "Richtung des Zyklus"
+
+#: src/ui.py
+msgid "This look is not saved yet."
+msgstr "Dieses Aussehen ist noch nicht gespeichert."
+
+#: src/ui.py
+msgid "Soft"
+msgstr "Weich"
+
+#: src/ui.py
+msgid "On opening"
+msgstr "Beim Öffnen"
+
+#: src/ui.py
+msgid "Sine scroller"
+msgstr "Laufschrift"
+
+#: src/ui.py
+msgid "A short flicker of torn lines, like a crackling loader"
+msgstr "Ein kurzes Flackern zerrissener Zeilen, wie ein knackender Lader"
+
+#: src/ui.py
+msgid "Glitch"
+msgstr "Glitch"
+
+#: src/ui.py
+msgid "Starfield"
+msgstr "Sternenfeld"
+
+#: src/ui.py
+#: src/ui.py
+msgid "Modem build-up"
+msgstr "Modem-Aufbau"
+
+#: src/ui.py
+msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
+msgstr "Die NFO erscheint Zeile für Zeile wie über eine 2400-Baud-Mailbox; ein Klick oder eine Taste überspringt es"
+
+#: src/ui.py
+msgid "Tube"
+msgstr "Röhre"
+
+#: src/ui.py
+#: src/ui.py
+msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
+msgstr "NfoGlow präsentiert {name} ... Grüße an alle, die noch von Hand zeichnen ... F9 öffnet die Effekte ... "
+
+#: src/ui.py
+msgid "Classic"
+msgstr "Klassisch"
+
+#: src/ui.py
+msgid "Light on the block graphics"
+msgstr "Licht auf der Blockgrafik"
+
+#: src/ui.py
+msgid "Thank you for the music"
+msgstr "Danke für die Musik"
+
+#: src/ui_settings.py
+msgid "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look"
+msgstr "Jeder Start zeigt ein Überraschungs-Aussehen, nur für dieses Mal; „Übernehmen“ in der Effekte-Seitenleiste macht es zu deinem Aussehen"
+
+#: src/ui_sidebar.py
+msgid "Neon glow to the beat; needs Neon"
+msgstr "Neon-Glühen im Takt; braucht Neon"
+
+#: src/ui_common.py
+msgid "Stennish – chiptune {number} of {count}"
+msgstr "Stennish – Chiptune {number} von {count}"
+
+#: src/ui_common.py
+msgid "Quit"
+msgstr "Beenden"
+
+#: src/ui_common.py
+msgid "Enter"
+msgstr "Eingabe"
+
+#: src/ui_common.py
+msgid "Ctrl"
+msgstr "Strg"
+
+#: src/ui_common.py
+msgid "Shift"
+msgstr "Umschalt"
+
+#: src/ui_common.py
+msgid "Next match"
+msgstr "Nächster Treffer"
+
+#: src/ui_common.py
+msgid "Page up"
+msgstr "Seite hoch"
+
+#: src/ui_common.py
+msgid "Previous match"
+msgstr "Vorheriger Treffer"
+
+#: src/ui_common.py
+msgid "Home"
+msgstr "Pos1"
+
+#: src/ui_common.py
+msgid "Mouse wheel"
+msgstr "Mausrad"
+
+#: src/ui_common.py
+msgid "Page down"
+msgstr "Seite runter"
+
+#: src/ui_common.py
+msgid "Zoom in"
+msgstr "Vergrößern"
+
+#: src/ui_common.py
+msgid "Scroll up"
+msgstr "Nach oben scrollen"
+
+#: src/ui_common.py
+msgid "Next NFO in the folder"
+msgstr "Nächste NFO im Ordner"
+
+#: src/ui_common.py
+msgid "Space"
+msgstr "Leertaste"
+
+#: src/ui_common.py
+msgid "Zoom"
+msgstr "Zoomen"
+
+#: src/ui_common.py
+msgid "Close the window"
+msgstr "Fenster schließen"
+
+#: src/ui_common.py
+msgid "View"
+msgstr "Ansicht"
+
+#: src/ui_common.py
+msgid "Previous NFO in the folder"
+msgstr "Vorherige NFO im Ordner"
+
+#: src/ui_common.py
+msgid "Keyboard shortcuts"
+msgstr "Tastenkürzel"
+
+#: src/ui_common.py
+msgid "Open"
+msgstr "Öffnen"
+
+#: src/ui_common.py
+msgid "Zoom out"
+msgstr "Verkleinern"
+
+#: src/ui_common.py
+msgid "Effects sidebar"
+msgstr "Effekte-Seitenleiste"
+
+#: src/ui_common.py
+msgid "General"
+msgstr "Allgemein"
+
+#: src/ui_common.py
+msgid "Moving around"
+msgstr "Bewegen"
+
+#: src/ui_common.py
+msgid "Save as PNG"
+msgstr "Als PNG speichern"
+
+#: src/ui_common.py
+msgid "End"
+msgstr "Ende"
+
+#: src/ui_common.py
+msgid "Art or text only"
+msgstr "Grafik oder nur Text"
+
+#: src/ui_common.py
+msgid "Scroll down"
+msgstr "Nach unten scrollen"
+
+msgid "A wavy running text along the bottom"
+msgstr "Eine wellige Laufschrift am unteren Rand"
+
+msgid "Demoscene"
+msgstr "Demoszene"
+
+msgid "Drifting"
+msgstr "Treibend"
+
+msgid "Like the demos of the C64 days"
+msgstr "Wie die Demos zu C64-Zeiten"
+
+msgid "Stars"
+msgstr "Sterne"
+
+msgid "Stars behind the NFO"
+msgstr "Sterne hinter dem NFO"
+
+msgid "Supported formats: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+msgstr "Unterstützte Formate: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+
+msgid "The logo sways in a wave; the text stays still"
+msgstr "Das Logo schwingt in einer Welle; der Text bleibt ruhig"
+
+msgid "Warp flight"
+msgstr "Warp-Flug"
+
+msgid "Wobble"
+msgstr "Wabbeln"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Undo the last change to the look"
+msgstr "Letzte Änderung am Aussehen zurücknehmen"
+
+msgid "Undo: back to the look before your last change"
+msgstr "Rückgängig: zurück zum Aussehen vor deiner letzten Änderung"
+
+msgid "Gentle"
+msgstr "Sanft"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Strong"
+msgstr "Stark"
+
+msgid "Wobble strength"
+msgstr "Stärke des Wabbelns"
+
+msgid "Scroller text ({name} becomes the file name; empty: a greeting)"
+msgstr "Laufschrift ({name} wird zum Dateinamen; leer: ein Gruß)"
+
+msgid "Show the track name"
+msgstr "Titel anzeigen"
+
+msgid "A short note at the bottom when a new track starts"
+msgstr "Ein kurzer Hinweis unten, wenn ein neuer Titel beginnt"
+
+msgid "Music on or off"
+msgstr "Musik an oder aus"
+
+msgid "Fade in and out"
+msgstr "Ein- und ausblenden"
+
+msgid "The music starts quietly, and every track ends softly"
+msgstr "Die Musik beginnt leise, und jeder Titel klingt sanft aus"
+
+msgid "Retrowave"
+msgstr "Retrowave"
+
+msgid "Copy for NFO forums"
+msgstr "Für NFO-Foren kopieren"
+
+msgid "Copied for NFO forums"
+msgstr "Für NFO-Foren kopiert"
+
+msgid "Pulse rhythm"
+msgstr "Rhythmus des Pulsierens"
+
+msgid "To the music"
+msgstr "Im Takt der Musik"
+
+msgid "Breathing"
+msgstr "Atmend"
+
+msgid "C64"
+msgstr "C64"
+
+msgid "Tape loader"
+msgstr "Kassetten-Lader"
+
+msgid "A C64 screen types LOAD and loads with colored stripes in its border; a click or key skips it"
+msgstr "Ein C64-Bildschirm tippt LOAD und lädt mit bunten Streifen im Rand; ein Klick oder eine Taste überspringt ihn"
+
+msgid "Scanlines"
+msgstr "Scanlines"
+
+msgid "Live CRT"
+msgstr "Live-CRT"
+
+msgid "None"
+msgstr "Keiner"
+
+msgid "CRT power-on"
+msgstr "Röhre einschalten"
+
+msgid "DOS boot"
+msgstr "DOS-Start"
+
+msgid "Dither fade-in"
+msgstr "Dither-Einblendung"
+
+msgid "Neon flicker-on"
+msgstr "Neon-Anflimmern"
+
+msgid "Opens at once"
+msgstr "Öffnet sofort"
+
+msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgstr "Eine helle Linie wächst zum Bild, wie bei einem Röhrenfernseher, der angeht; ein Klick oder eine Taste überspringt es"
+
+msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
+msgstr "Das Bild baut sich in Rasterstufen auf, wie ░ ▒ ▓ █; ein Klick oder eine Taste überspringt es"
+
+msgid "The art flickers on like a neon sign; a click or key skips it"
+msgstr "Die Grafik flackert an wie eine Leuchtreklame; ein Klick oder eine Taste überspringt es"
+
+msgid "Opening effect"
+msgstr "Effekt beim Öffnen"
+
+msgid "Play the effect now"
+msgstr "Effekt jetzt abspielen"
+
+msgid "Colors in motion"
+msgstr "Farben in Bewegung"
+
+msgid "Logo and stars"
+msgstr "Logo und Sterne"
+
+msgid "Scroller"
+msgstr "Laufschrift"
+
+msgid "Text glow"
+msgstr "Text-Glühen"
+
+msgid "Soft light around the text, like phosphor on an old monitor"
+msgstr "Weiches Licht um den Text, wie Phosphor auf einem alten Monitor"
+
+msgid "Flicker"
+msgstr "Flackern"
+
+msgid "Flickers now and then, like an old sign; needs Neon"
+msgstr "Flackert hin und wieder, wie eine alte Leuchtreklame; braucht Neon"
+
+msgid "A DOS prompt boots, lists the file and types it out; a click or key skips it"
+msgstr "Ein DOS-Prompt startet, listet die Datei auf und gibt sie aus; ein Klick oder eine Taste überspringt es"
+
+msgid "Back to the theme’s colors"
+msgstr "Zurück zu den Farben des Schemas"
+
+msgid "This NFO is too long for a PNG. Save it as a PDF instead."
+msgstr "Diese NFO ist zu lang für ein PNG. Speichere sie stattdessen als PDF."
+
+msgid "Only files on this computer can be opened."
+msgstr "Nur Dateien auf diesem Computer können geöffnet werden."
+
+msgid "Are you really sure?"
+msgstr "Bist du wirklich sicher?"
+
+msgid "Back to the default colors"
+msgstr "Zurück zu den Standardfarben"
+
+msgid "Black & White"
+msgstr "Schwarz-Weiß"
+
+msgid "Effects and sound"
+msgstr "Effekte und Klang"
+
+msgid "Code rain"
+msgstr "Code-Regen"
+
+msgid "Ones and zeros rain down the window and leave the NFO behind; a click or key skips it"
+msgstr "Einsen und Nullen regnen durchs Fenster und lassen die NFO zurück; ein Klick oder eine Taste überspringt es"
+
+msgid "Gleam"
+msgstr "Glanzlicht"
+
+msgid "A light sweeps across the art now and then"
+msgstr "Ab und zu läuft ein Lichtstreifen über die Grafik"
+
+msgid "Sparkle"
+msgstr "Glitzern"
+
+msgid "Single blocks of the art glint"
+msgstr "Einzelne Blöcke der Grafik blitzen auf"
+
+msgid "Color fringe"
+msgstr "Farbsaum"
+
+msgid "Red and blue edges, like an old tube or a VHS tape"
+msgstr "Rote und blaue Ränder, wie bei einer alten Röhre oder einer VHS-Kassette"
+
+msgid "A roll bar, flicker, noise and round corners"
+msgstr "Ein durchlaufender Balken, Flimmern, Rauschen und runde Ecken"
+
+msgid "CRT screen"
+msgstr "CRT-Bildschirm"
+
+msgid "Pattern"
+msgstr "Muster"
+
+msgid "Shadow mask"
+msgstr "Lochmaske"
+
+msgid "Aperture grille"
+msgstr "Streifenmaske"
+
+msgid "Scanlines and dark corners, like an old monitor"
+msgstr "Scanlines und dunkle Ecken, wie bei einem alten Monitor"
+
+msgid "DOS font"
+msgstr "DOS-Schrift"
+
+msgid "The IBM VGA font, as NFOs looked under DOS"
+msgstr "Die IBM-VGA-Schrift, so wie NFOs unter DOS aussahen"
+
+msgid "More settings"
+msgstr "Weitere Einstellungen"
+
+msgid "The look, the language and everything else go back to their defaults."
+msgstr "Aussehen, Sprache und alles andere werden auf die Standardwerte zurückgesetzt."
+
+msgid "How much sparkle"
+msgstr "Wie viel Glitzern"
+
+msgid "Few"
+msgstr "Wenig"
+
+msgid "Some"
+msgstr "Mittel"
+
+msgid "Many"
+msgstr "Viel"
+
+msgid "Export"
+msgstr "Exportieren"
+
+msgid "Look"
+msgstr "Aussehen"
+
+msgid "Copy look"
+msgstr "Aussehen kopieren"
+
+msgid "Paste look"
+msgstr "Aussehen einfügen"
+
+msgid "Look copied to the clipboard"
+msgstr "Aussehen in die Zwischenablage kopiert"
+
+msgid "Look applied (Ctrl+Z undoes it)"
+msgstr "Aussehen übernommen (Strg+Z nimmt es zurück)"
+
+msgid "The clipboard holds no NfoGlow look code"
+msgstr "Die Zwischenablage enthält keinen NfoGlow-Code für das Aussehen"
+
+
+
+#: src/ui_app.py
+msgid "Mascot"
+msgstr "Maskottchen"
+
+#: src/ui_about.py
+msgid "3 more clicks …"
+msgstr "Noch 3 Klicks …"
+
+#: src/ui_about.py
+msgid "2 more clicks …"
+msgstr "Noch 2 Klicks …"
+
+#: src/ui_about.py
+msgid "1 more click …"
+msgstr "Noch 1 Klick …"

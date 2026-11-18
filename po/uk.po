@@ -1,0 +1,781 @@
+# Ukrainian translation of NfoGlow.
+# Copyright (C) 2026 DigitGram
+# This file is distributed under the same license as the NfoGlow package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NfoGlow 1.0\n"
+"Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
+"Language-Team: Ukrainian\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Light"
+msgstr "Світла"
+
+msgid "Dark"
+msgstr "Темна"
+
+msgid "Amber"
+msgstr "Бурштин"
+
+msgid "Terminal"
+msgstr "Термінал"
+
+msgid "Paper"
+msgstr "Папір"
+
+msgid "Automatic"
+msgstr "Автоматично"
+
+msgid "Inspired by"
+msgstr "Натхненно"
+
+msgid "Default zoom"
+msgstr "Масштаб за промовчанням"
+
+msgid "In percent; Ctrl+0 goes back to it"
+msgstr "У відсотках; Ctrl+0 повертає до нього"
+
+msgid "Fit width"
+msgstr "За шириною"
+
+msgid "Encoding"
+msgstr "Кодування"
+
+msgid "Copy"
+msgstr "Копіювати"
+
+msgid "Select all"
+msgstr "Вибрати все"
+
+msgid "Save as PNG…"
+msgstr "Зберегти як PNG…"
+
+msgid "Preferences"
+msgstr "Параметри"
+
+msgid "About NfoGlow"
+msgstr "Про NfoGlow"
+
+msgid "A viewer for NFO and ANSI art, the way the scene meant it: crisp block graphics with an optional soft glow, CP437 out of the box, clickable links and a text-only view."
+msgstr "Програма для перегляду NFO та ANSI-арту так, як це задумувала сцена: чітка блокова графіка з необов’язковим м’яким сяйвом, CP437 з коробки, клікабельні посилання та режим «лише текст»."
+
+msgid "Appearance"
+msgstr "Вигляд"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Monospace fonts only"
+msgstr "Лише моноширинні шрифти"
+
+msgid "Behavior"
+msgstr "Поведінка"
+
+msgid "Copy text only"
+msgstr "Копіювати лише текст"
+
+msgid "Selecting and copying leave out block and line graphics"
+msgstr "Виділення й копіювання пропускають блокову та лінійну графіку"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Open…"
+msgstr "Відкрити…"
+
+msgid "No NFO open"
+msgstr "Жодного NFO не відкрито"
+
+msgid "Drop a file here or press Ctrl+O."
+msgstr "Перетягніть сюди файл або натисніть Ctrl+O."
+
+msgid "Search (Ctrl+F)"
+msgstr "Пошук (Ctrl+F)"
+
+msgid "Default zoom (Ctrl+0)"
+msgstr "Масштаб за промовчанням (Ctrl+0)"
+
+#: src/ui_window.py
+msgid "Save as default"
+msgstr "Зберегти як типовий"
+
+#: src/ui_window.py
+msgid "Open every NFO at this zoom from now on"
+msgstr "Відтепер відкривати кожен NFO з цим масштабом"
+
+msgid "Main menu"
+msgstr "Головне меню"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Previous match (Shift+Enter)"
+msgstr "Попередній збіг (Shift+Enter)"
+
+msgid "Next match (Enter)"
+msgstr "Наступний збіг (Enter)"
+
+msgid "NFO, ANSI, SRR and ZIP files"
+msgstr "Файли NFO, ANSI, SRR та ZIP"
+
+msgid "All files"
+msgstr "Усі файли"
+
+msgid "System default"
+msgstr "Як у системі"
+
+msgid "Open (Ctrl+O)"
+msgstr "Відкрити (Ctrl+O)"
+
+msgid "Zoom out (Ctrl+−)"
+msgstr "Зменшити (Ctrl+−)"
+
+msgid "Zoom in (Ctrl++)"
+msgstr "Збільшити (Ctrl++)"
+
+msgid "Copied to the clipboard"
+msgstr "Скопійовано до буфера обміну"
+
+msgid "No matches"
+msgstr "Збігів немає"
+
+msgid "Cannot open {name}: {error}"
+msgstr "Не вдалося відкрити {name}: {error}"
+
+msgid "Could not save the image: {error}"
+msgstr "Не вдалося зберегти зображення: {error}"
+
+msgid "Save as PDF…"
+msgstr "Зберегти як PDF…"
+
+msgid "Links"
+msgstr "Посилання"
+
+msgid "No recent files"
+msgstr "Немає недавніх файлів"
+
+msgid "Clear list"
+msgstr "Очистити список"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Background"
+msgstr "Тло"
+
+msgid "Reload"
+msgstr "Перезавантажити"
+
+msgid "Picking a color switches to the Custom theme"
+msgstr "Вибір кольору перемикає на тему «Власна»"
+
+msgid "Custom"
+msgstr "Власна"
+
+msgid "Block graphics"
+msgstr "Блокова графіка"
+
+msgid "Custom colors"
+msgstr "Власні кольори"
+
+msgid "Recent files"
+msgstr "Недавні файли"
+
+msgid "Reset"
+msgstr "Скинути"
+
+msgid "Reset settings"
+msgstr "Скинути параметри"
+
+msgid "Back to the default values."
+msgstr "Повернення до типових значень."
+
+msgid "Reset all settings?"
+msgstr "Скинути всі параметри?"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Remember recent files"
+msgstr "Пам’ятати недавні файли"
+
+msgid "Turning it off also clears the list"
+msgstr "Вимкнення також очищує список"
+
+msgid "Each block of art runs from the top to the bottom color"
+msgstr "Кожен блок графіки переходить від верхнього кольору до нижнього"
+
+msgid "Soft edges"
+msgstr "М’які краї"
+
+msgid "Glow"
+msgstr "Сяйво"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Retro"
+msgstr "Ретро"
+
+msgid "Top"
+msgstr "Угорі"
+
+msgid "Effects"
+msgstr "Ефекти"
+
+msgid "Colors"
+msgstr "Кольори"
+
+msgid "Bottom"
+msgstr "Унизу"
+
+msgid "Strength"
+msgstr "Інтенсивність"
+
+msgid "Middle"
+msgstr "Середина"
+
+msgid "Color ramp"
+msgstr "Градієнт кольорів"
+
+msgid "Off"
+msgstr "Вимкнено"
+
+msgid "Colors and more…"
+msgstr "Кольори та інше…"
+
+msgid "Volume"
+msgstr "Гучність"
+
+msgid "Choose a folder with MOD, XM, S3M, IT, OGG, MP3, FLAC or WAV files"
+msgstr "Виберіть теку з файлами MOD, XM, S3M, IT, OGG, MP3, FLAC або WAV"
+
+msgid "Color cycling"
+msgstr "Циклічна зміна кольорів"
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Music needs GStreamer, which is not installed."
+msgstr "Для музики потрібен GStreamer, який не встановлено."
+
+msgid "Plays while NfoGlow is open"
+msgstr "Грає, поки відкрито NfoGlow"
+
+msgid "Animation"
+msgstr "Анімація"
+
+msgid "In order"
+msgstr "По порядку"
+
+msgid "Music"
+msgstr "Музика"
+
+msgid "Random"
+msgstr "Випадково"
+
+msgid "Music folder"
+msgstr "Тека з музикою"
+
+msgid "Pulse"
+msgstr "Пульсація"
+
+msgid "Cycling colors"
+msgstr "Кольори циклу"
+
+msgid "C64 colors"
+msgstr "Кольори C64"
+
+msgid "Color ramp colors"
+msgstr "Кольори градієнта"
+
+msgid "Colors move through the block graphics"
+msgstr "Кольори рухаються крізь блокову графіку"
+
+msgid "Roll a new look (not saved yet)"
+msgstr "Згенерувати новий вигляд (ще не збережено)"
+
+msgid "Keep"
+msgstr "Залишити"
+
+msgid "Save this look as your settings"
+msgstr "Зберегти цей вигляд як ваші параметри"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Back to the look in your settings"
+msgstr "Повернутися до вигляду з ваших параметрів"
+
+msgid "Random look"
+msgstr "Випадковий вигляд"
+
+msgid "A new look at every start"
+msgstr "Новий вигляд під час кожного запуску"
+
+msgid "None: the built-in chiptunes by Stennish"
+msgstr "Немає: вбудовані чіптюни від Stennish"
+
+msgid "Back to the built-in chiptunes"
+msgstr "Повернутися до вбудованих чіптюнів"
+
+msgid "Music (CC BY 4.0)"
+msgstr "Музика (CC BY 4.0)"
+
+msgid "The neon glow beats to the music, or breathes without it"
+msgstr "Неонове сяйво пульсує в такт музиці або «дихає» без неї"
+
+msgid "Art"
+msgstr "Графіка"
+
+msgid "Sound"
+msgstr "Звук"
+
+msgid "Only the text, without the graphics (Ctrl+T)"
+msgstr "Лише текст, без графіки (Ctrl+T)"
+
+msgid "Down"
+msgstr "Вниз"
+
+msgid "The NFO with its graphics"
+msgstr "NFO з його графікою"
+
+msgid "Effects (F9)"
+msgstr "Ефекти (F9)"
+
+msgid "Neon"
+msgstr "Неон"
+
+msgid "Up"
+msgstr "Вгору"
+
+msgid "Cycling direction"
+msgstr "Напрямок циклу"
+
+msgid "This look is not saved yet."
+msgstr "Цей вигляд ще не збережено."
+
+msgid "Soft"
+msgstr "М’яке"
+
+msgid "On opening"
+msgstr "Під час відкриття"
+
+msgid "Sine scroller"
+msgstr "Синусоїдний скролер"
+
+msgid "A short flicker of torn lines, like a crackling loader"
+msgstr "Короткий спалах розірваних рядків, наче в завантажувачі, що тріщить"
+
+msgid "Glitch"
+msgstr "Глітч"
+
+msgid "Starfield"
+msgstr "Зоряне поле"
+
+msgid "Modem build-up"
+msgstr "Завантаження як через модем"
+
+msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
+msgstr "NFO з’являється рядок за рядком, як на BBS зі швидкістю 2400 бод; клацання або клавіша пропускає це"
+
+msgid "Tube"
+msgstr "Кінескоп"
+
+msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
+msgstr "NfoGlow представляє {name} ... вітання всім, хто досі малює вручну ... F9 відкриває ефекти ... "
+
+msgid "Classic"
+msgstr "Класичний"
+
+msgid "Light on the block graphics"
+msgstr "Світло на блоковій графіці"
+
+msgid "Thank you for the music"
+msgstr "Дякуємо за музику"
+
+msgid "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look"
+msgstr "Кожен запуск показує несподіваний вигляд лише цього разу; «Залишити» на бічній панелі ефектів робить його вашим"
+
+msgid "Neon glow to the beat; needs Neon"
+msgstr "Неонове сяйво в такт; потрібен «Неон»"
+
+msgid "Stennish – chiptune {number} of {count}"
+msgstr "Stennish – чіптюн {number} з {count}"
+
+msgid "Quit"
+msgstr "Вийти"
+
+msgid "Enter"
+msgstr "Enter"
+
+msgid "Ctrl"
+msgstr "Ctrl"
+
+msgid "Shift"
+msgstr "Shift"
+
+msgid "Next match"
+msgstr "Наступний збіг"
+
+msgid "Page up"
+msgstr "Сторінка вгору"
+
+msgid "Previous match"
+msgstr "Попередній збіг"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Mouse wheel"
+msgstr "Колесо миші"
+
+msgid "Page down"
+msgstr "Сторінка вниз"
+
+msgid "Zoom in"
+msgstr "Збільшити"
+
+msgid "Scroll up"
+msgstr "Прокрутити вгору"
+
+msgid "Next NFO in the folder"
+msgstr "Наступний NFO у теці"
+
+msgid "Space"
+msgstr "Пропуск"
+
+msgid "Zoom"
+msgstr "Масштаб"
+
+msgid "Close the window"
+msgstr "Закрити вікно"
+
+msgid "View"
+msgstr "Вигляд"
+
+msgid "Previous NFO in the folder"
+msgstr "Попередній NFO у теці"
+
+msgid "Keyboard shortcuts"
+msgstr "Комбінації клавіш"
+
+msgid "Open"
+msgstr "Відкрити"
+
+msgid "Zoom out"
+msgstr "Зменшити"
+
+msgid "Effects sidebar"
+msgstr "Бічна панель ефектів"
+
+msgid "General"
+msgstr "Загальні"
+
+msgid "Moving around"
+msgstr "Навігація"
+
+msgid "Save as PNG"
+msgstr "Зберегти як PNG"
+
+msgid "End"
+msgstr "End"
+
+msgid "Art or text only"
+msgstr "Графіка або лише текст"
+
+msgid "Scroll down"
+msgstr "Прокрутити вниз"
+
+msgid "A wavy running text along the bottom"
+msgstr "Хвилястий рядок, що біжить уздовж нижнього краю"
+
+msgid "Demoscene"
+msgstr "Демосцена"
+
+msgid "Drifting"
+msgstr "Дрейфуючі"
+
+msgid "Like the demos of the C64 days"
+msgstr "Як демо часів C64"
+
+msgid "Stars"
+msgstr "Зорі"
+
+msgid "Stars behind the NFO"
+msgstr "Зорі позаду NFO"
+
+msgid "Supported formats: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+msgstr "Підтримувані формати: MOD, XM, S3M, IT, OGG, MP3, FLAC, WAV"
+
+msgid "The logo sways in a wave; the text stays still"
+msgstr "Логотип хвилею коливається; текст залишається нерухомим"
+
+msgid "Warp flight"
+msgstr "Варп-політ"
+
+msgid "Wobble"
+msgstr "Хитання"
+
+msgid "Undo"
+msgstr "Відмінити"
+
+msgid "Undo the last change to the look"
+msgstr "Скасувати останню зміну вигляду"
+
+msgid "Undo: back to the look before your last change"
+msgstr "Відмінити: повернення до вигляду до вашої останньої зміни"
+
+msgid "Gentle"
+msgstr "Легке"
+
+msgid "Medium"
+msgstr "Середнє"
+
+msgid "Strong"
+msgstr "Сильне"
+
+msgid "Wobble strength"
+msgstr "Сила хвилеподібного руху"
+
+msgid "Scroller text ({name} becomes the file name; empty: a greeting)"
+msgstr "Текст скролера ({name} стає назвою файлу; порожньо: привітання)"
+
+msgid "Show the track name"
+msgstr "Показувати назву доріжки"
+
+msgid "A short note at the bottom when a new track starts"
+msgstr "Коротке повідомлення внизу, коли починається нова доріжка"
+
+msgid "Music on or off"
+msgstr "Увімкнути або вимкнути музику"
+
+msgid "Fade in and out"
+msgstr "Плавна поява й зникнення"
+
+msgid "The music starts quietly, and every track ends softly"
+msgstr "Музика починається тихо, а кожна доріжка плавно завершується"
+
+msgid "Retrowave"
+msgstr "Ретровейв"
+
+msgid "Copy for NFO forums"
+msgstr "Копіювати для форумів NFO"
+
+msgid "Copied for NFO forums"
+msgstr "Скопійовано для форумів NFO"
+
+msgid "Pulse rhythm"
+msgstr "Ритм пульсації"
+
+msgid "To the music"
+msgstr "У такт музиці"
+
+msgid "Breathing"
+msgstr "Дихання"
+
+msgid "C64"
+msgstr "C64"
+
+msgid "Tape loader"
+msgstr "Завантаження з касети"
+
+msgid "A C64 screen types LOAD and loads with colored stripes in its border; a click or key skips it"
+msgstr "Екран C64 вводить LOAD і завантажує з кольоровими смугами на рамці; клацання або клавіша пропускає це"
+
+msgid "Scanlines"
+msgstr "Scanlines"
+
+msgid "Live CRT"
+msgstr "Анімований CRT"
+
+msgid "None"
+msgstr "Немає"
+
+msgid "CRT power-on"
+msgstr "Увімкнення CRT"
+
+msgid "DOS boot"
+msgstr "Запуск DOS"
+
+msgid "Dither fade-in"
+msgstr "Поява з растром"
+
+msgid "Neon flicker-on"
+msgstr "Мерехтливе вмикання неону"
+
+msgid "Opens at once"
+msgstr "Відкривається одразу"
+
+msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgstr "Яскрава лінія розростається в зображення, як у кінескопному телевізорі під час вмикання; клацання або клавіша пропускає це"
+
+msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
+msgstr "Зображення формується растровими кроками, як ░ ▒ ▓ █; клацання або клавіша пропускає це"
+
+msgid "The art flickers on like a neon sign; a click or key skips it"
+msgstr "Графіка вмикається з мерехтінням, як неонова вивіска; клацання або клавіша пропускає це"
+
+msgid "Opening effect"
+msgstr "Ефект під час відкриття"
+
+msgid "Play the effect now"
+msgstr "Відтворити ефект зараз"
+
+msgid "Colors in motion"
+msgstr "Кольори в русі"
+
+msgid "Logo and stars"
+msgstr "Логотип і зорі"
+
+msgid "Scroller"
+msgstr "Скролер"
+
+msgid "Text glow"
+msgstr "Сяйво тексту"
+
+msgid "Soft light around the text, like phosphor on an old monitor"
+msgstr "М’яке світло навколо тексту, як люмінофор старого монітора"
+
+msgid "Flicker"
+msgstr "Мерехтіння"
+
+msgid "Flickers now and then, like an old sign; needs Neon"
+msgstr "Час від часу мерехтить, як стара вивіска; потрібен «Неон»"
+
+msgid "A DOS prompt boots, lists the file and types it out; a click or key skips it"
+msgstr "Запрошення DOS запускається, показує файл у списку й виводить його; клацання або клавіша пропускає це"
+
+msgid "Back to the theme’s colors"
+msgstr "Повернутися до кольорів теми"
+
+msgid "This NFO is too long for a PNG. Save it as a PDF instead."
+msgstr "Цей NFO задовгий для PNG. Збережіть його як PDF."
+
+msgid "Only files on this computer can be opened."
+msgstr "Відкривати можна лише файли на цьому комп’ютері."
+
+msgid "Are you really sure?"
+msgstr "Ви справді впевнені?"
+
+msgid "Back to the default colors"
+msgstr "Повернути стандартні кольори"
+
+msgid "Black & White"
+msgstr "Чорно-білий"
+
+msgid "Effects and sound"
+msgstr "Ефекти та звук"
+
+msgid "Code rain"
+msgstr "Дощ коду"
+
+msgid "Ones and zeros rain down the window and leave the NFO behind; a click or key skips it"
+msgstr "Одиниці й нулі падають вікном і залишають по собі NFO; клацання або клавіша пропускає це"
+
+msgid "Gleam"
+msgstr "Відблиск"
+
+msgid "A light sweeps across the art now and then"
+msgstr "Час від часу графікою пробігає смуга світла"
+
+msgid "Sparkle"
+msgstr "Іскри"
+
+msgid "Single blocks of the art glint"
+msgstr "Окремі блоки графіки спалахують"
+
+msgid "Color fringe"
+msgstr "Кольорова облямівка"
+
+msgid "Red and blue edges, like an old tube or a VHS tape"
+msgstr "Червоні й сині краї, як на старому кінескопі чи касеті VHS"
+
+msgid "A roll bar, flicker, noise and round corners"
+msgstr "Смуга, що прокручується, мерехтіння, шум та округлі кути"
+
+msgid "CRT screen"
+msgstr "Екран CRT"
+
+msgid "Pattern"
+msgstr "Візерунок"
+
+msgid "Shadow mask"
+msgstr "Тіньова маска"
+
+msgid "Aperture grille"
+msgstr "Апертурна решітка"
+
+msgid "Scanlines and dark corners, like an old monitor"
+msgstr "Scanlines і темні кути, як на старому моніторі"
+
+msgid "DOS font"
+msgstr "Шрифт DOS"
+
+msgid "The IBM VGA font, as NFOs looked under DOS"
+msgstr "Шрифт IBM VGA, як NFO виглядали в DOS"
+
+msgid "More settings"
+msgstr "Більше налаштувань"
+
+msgid "The look, the language and everything else go back to their defaults."
+msgstr "Вигляд, мова та все інше повертаються до типових значень."
+
+msgid "How much sparkle"
+msgstr "Скільки іскор"
+
+msgid "Few"
+msgstr "Мало"
+
+msgid "Some"
+msgstr "Середньо"
+
+msgid "Many"
+msgstr "Багато"
+
+msgid "Export"
+msgstr "Експорт"
+
+msgid "Look"
+msgstr "Вигляд"
+
+msgid "Copy look"
+msgstr "Копіювати вигляд"
+
+msgid "Paste look"
+msgstr "Вставити вигляд"
+
+msgid "Look copied to the clipboard"
+msgstr "Вигляд скопійовано до буфера обміну"
+
+msgid "Look applied (Ctrl+Z undoes it)"
+msgstr "Вигляд застосовано (Ctrl+Z скасовує)"
+
+msgid "The clipboard holds no NfoGlow look code"
+msgstr "У буфері обміну немає коду вигляду NfoGlow"
+
+
+
+#: src/ui_app.py
+msgid "Mascot"
+msgstr "Талісман"
+
+#: src/ui_about.py
+msgid "3 more clicks …"
+msgstr "Ще 3 кліки …"
+
+#: src/ui_about.py
+msgid "2 more clicks …"
+msgstr "Ще 2 кліки …"
+
+#: src/ui_about.py
+msgid "1 more click …"
+msgstr "Ще 1 клік …"
