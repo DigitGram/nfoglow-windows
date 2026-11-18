@@ -1,0 +1,6 @@
+# LF everywhere, also in a Windows checkout: the .po files and the 8x8 loader font are read line by line
+* text=auto eol=lf
+*.ogg binary
+*.ttf binary
+*.ico binary
+*.png binary
