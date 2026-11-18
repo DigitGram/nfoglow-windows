@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 DigitGram
+#
+# Tests and builds NfoGlow on Windows: nfoglow.exe and NfoGlow-Setup-<version>.exe, as a download of the run.
+# A tag v<version> must match the version in Cargo.toml. Publishing a release stays a step by hand.
+name: Windows build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: The tag matches the version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
+          [ "v$version" = "$GITHUB_REF_NAME" ] || { echo "The tag is $GITHUB_REF_NAME, Cargo.toml says $version"; exit 1; }
+
+      - name: Test
+        run: cargo test --locked
+
+      - name: Build
+        run: cargo build --release --locked
+
+      - name: Setup
+        shell: bash
+        run: |
+          makensis="/c/Program Files (x86)/NSIS/makensis.exe"
+          [ -x "$makensis" ] || choco install nsis --yes --no-progress
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
+          "$makensis" -DVERSION="$version" installer/nfoglow.nsi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NfoGlow-Windows
+          path: |
+            target/NfoGlow-Setup-*.exe
+            target/release/nfoglow.exe
+          if-no-files-found: error
