@@ -217,15 +217,16 @@ impl App {
         let glow = self.glow_style();
         let halo = glow == "halo";
         let opening = OPENINGS.iter().find(|o| cfg["opening"] == o.0).unwrap_or(&OPENINGS[0]);
-        let sections: [(Icon, &str, Vec<String>); 6] = [
+        // Animation leads with the opening effect (nothing when "None"), then the switches that are on
+        let animation = [if opening.0 == "off" { vec![] } else { vec![tr(opening.1)] },
+            names(&[("cycle", "Color cycling"), ("wobble", "Wobble"), ("stars", "Starfield"), ("scroller", "Sine scroller"),
+                ("sheen", "Gleam"), ("sparkle", "Sparkle")])].concat();
+        let sections: [(Icon, &str, Vec<String>); 4] = [
             (ui::GLOW, "Glow", [vec![tr(GLOW_STYLES.iter().find(|g| g.0 == glow).unwrap().1)],
                 names(&[("ramp", "Color ramp"), ("text_glow", "Text glow"), ("neon_flicker", "Flicker"), ("pulse", "Pulse")])].concat()),
-            (ui::EDGES, "Edges", names(&[("smooth", "Smooth edges")])),
-            (ui::PLAY, "Animation", names(&[("cycle", "Color cycling"), ("wobble", "Wobble"), ("stars", "Starfield"), ("scroller", "Sine scroller"),
-                ("sheen", "Gleam"), ("sparkle", "Sparkle")])),
+            (ui::PLAY, "Animation", animation),
             (ui::RETRO, "Retro", [names(&[("crt", "CRT screen"), ("chroma", "Color fringe")]), if self.dos_font() { vec![tr("DOS font")] } else { vec![] }].concat()),
-            (ui::OPEN, "On opening", vec![tr(opening.1)]),
-            (ui::SOUND, "Sound", names(&[("music", "Music")])),
+            (ui::MORE, "Other", names(&[("smooth", "Smooth edges"), ("music", "Music")])),
         ];
         ui::card(ui, |ui| {
             for (i, (sign, title, on)) in sections.iter().enumerate() {
@@ -260,8 +261,8 @@ impl App {
                         self.effect(ui, asks, "neon_flicker", "Flicker", Some("Flickers now and then, like an old sign; needs Neon"), halo);
                         self.effect(ui, asks, "pulse", "Pulse", Some("Neon glow to the beat; needs Neon"), halo);
                     }
-                    1 => self.effect(ui, asks, "smooth", "Smooth edges", Some("Rounds the pixel steps of the block art, with anti-aliasing"), true),
-                    2 => {
+                    1 => {
+                        self.opening_row(ui, asks, false);
                         self.effect(ui, asks, "cycle", "Color cycling", None, true);
                         self.effect(ui, asks, "wobble", "Wobble", None, true);
                         self.effect(ui, asks, "stars", "Starfield", None, true);
@@ -269,7 +270,7 @@ impl App {
                         self.effect(ui, asks, "sheen", "Gleam", Some("A light sweeps across the art now and then"), true);
                         self.effect(ui, asks, "sparkle", "Sparkle", Some("Single blocks of the art glint"), true);
                     }
-                    3 => {
+                    2 => {
                         self.effect(ui, asks, "crt", "CRT screen", None, true);
                         self.effect(ui, asks, "chroma", "Color fringe", Some("Red and blue edges, like an old tube or a VHS tape"), true);
                         let dos = self.dos_font();
@@ -277,8 +278,10 @@ impl App {
                             asks.font = Some(on);
                         }
                     }
-                    4 => self.opening_row(ui, asks, false),
-                    _ => self.effect(ui, asks, "music", "Music", None, true),
+                    _ => {
+                        self.effect(ui, asks, "smooth", "Smooth edges", Some("Rounds the pixel steps of the block art, with anti-aliasing"), true);
+                        self.effect(ui, asks, "music", "Music", None, true);
+                    }
                 }
             }
         });
