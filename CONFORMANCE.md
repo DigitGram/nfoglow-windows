@@ -5,7 +5,7 @@ effects, the openings, the colours and the options; the window (settings, menus)
 
 ## Replay test (`src/conformance.rs`)
 Replays what was recorded from the Python original and compares it with this port:
-core (settings, look codes, themes, text cleaning), decode (encodings, ANSI, forum text, SRR, files), overlays (tape loader,
+core (settings, look codes, themes, text cleaning), decode (encodings, ANSI, SRR, files), overlays (tape loader,
 DOS boot, opening durations), page (lines, links, logo groups, search, selection, copying), the glow, the colour cycling,
 the neon flicker, the music beat and every message of the nine translations.
 

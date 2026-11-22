@@ -208,12 +208,6 @@ fn run_decode(r: &mut Report, c: &Case) {
                 r.check("decode.parse_ansi", same(&want, &got), || format!("{text:?} width={width:?}\n   python {:.300}\n   ours   {:.300}", want.to_string(), got.to_string()));
             }
         }
-        "forum_text" => {
-            if let Some(lines) = a.first().and_then(strings) {
-                let got = decode::forum_text(&lines);
-                r.check("decode.forum_text", c.ok == json!(got), || format!("{lines:?}\n   python {}\n   ours   {got:?}", c.ok));
-            }
-        }
         "srr_files" => {
             let Some(data) = a.first().and_then(bytes_of) else { return };
             let Ok(files) = decode::srr_files(&data) else { return };

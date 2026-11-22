@@ -86,6 +86,7 @@ struct App {
     rolls: u64,
     section: Option<usize>,  // the open section of the effects sidebar
     settings: Option<usize>, // the page of the settings window while it is open
+    flash: Option<(&'static str, std::time::Instant)>, // the row of the settings the gear pointed at, and since when it lights up
     asking_reset: bool,
     logo: Option<egui::TextureHandle>,
     about: Option<about::About>, // the About window while it is open
@@ -729,7 +730,10 @@ impl App {
             }
         });
         ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-            ui.menu_button(ui::icon(ui, ui::MENU, 16.), |ui| self.main_menu(ui)).response.on_hover_text(tr("Main menu"));
+            // stays open while the zoom is changed, as the menu of NfoGlow for Linux; the other entries close it
+            egui::containers::menu::MenuButton::from_button(egui::Button::new(ui::icon(ui, ui::MENU, 16.)))
+                .config(egui::containers::menu::MenuConfig::new().close_behavior(egui::PopupCloseBehavior::CloseOnClickOutside))
+                .ui(ui, |ui| self.main_menu(ui)).0.on_hover_text(tr("Main menu"));
             if ui::icon_button(ui, ui::EFFECTS, &tr("Effects (F9)"), self.cfg["sidebar"] == true).clicked() {
                 self.change(&ctx, "sidebar", json!(self.cfg["sidebar"] != true));
             }
@@ -763,6 +767,7 @@ impl App {
         });
         if self.cfg["zoom"] != self.zoom && !self.fit && ui.button(tr("Save as default")).on_hover_text(tr("Open every NFO at this zoom from now on")).clicked() {
             self.set(&ctx, "zoom", json!(self.zoom));
+            ui.close();
         }
         ui.separator();
         let mut fit = self.fit;
@@ -774,66 +779,62 @@ impl App {
                 self.zoom = self.zoom_before_fit.unwrap_or_else(|| self.cfg["zoom"].as_i64().unwrap_or(100));
             }
             self.fit = fit;
+            ui.close();
         }
         if ui.add_enabled(open, egui::Button::new(tr("Reload"))).clicked() {
             self.reread(&ctx);
+            ui.close();
+        }
+        let mut music = self.cfg["music"] == true;
+        if ui.checkbox(&mut music, tr("Music")).on_hover_text(tr("Music on or off")).changed() {
+            self.change(&ctx, "music", json!(music));
+            ui.close();
         }
         egui::containers::menu::SubMenuButton::from_button(egui::Button::new(tr("Encoding")).right_text("›")).ui(ui, |ui| {
             for (key, name) in ENCODINGS {
                 if ui.radio(self.cfg["encoding"] == key, tr(name)).clicked() {
                     self.change(&ctx, "encoding", json!(key));
-                }
-            }
-        });
-        egui::containers::menu::SubMenuButton::from_button(egui::Button::new(tr("Language")).right_text("›")).ui(ui, |ui| {
-            if ui.radio(self.cfg["language"] == "auto", tr("System default")).clicked() {
-                self.change(&ctx, "language", json!("auto"));
-            }
-            for (code, name, _) in i18n::LANGUAGES {
-                // their own script needs the big font, which is only read while one of them is the language
-                let cjk = matches!(i18n::current(), "ja" | "zh_CN");
-                let name = match code {
-                    "ja" if !cjk => "Japanese",
-                    "zh_CN" if !cjk => "Chinese (Simplified)",
-                    _ => name,
-                };
-                if ui.radio(self.cfg["language"] == code, name).clicked() {
-                    self.change(&ctx, "language", json!(code));
+                    ui.close();
                 }
             }
         });
         ui.separator();
-        if ui.add_enabled(open, egui::Button::new(tr("Copy for NFO forums"))).clicked() {
-            ctx.copy_text(decode::forum_text(&self.page.text()));
-            self.toast(&ctx, tr("Copied for NFO forums"), 2.);
-        }
-        for (name, suffix) in [("Save as PNG…", ".png"), ("Save as PDF…", ".pdf")] {
-            if ui.add_enabled(open, egui::Button::new(tr(name))).clicked() {
-                self.export(&ctx, suffix);
+        egui::containers::menu::SubMenuButton::from_button(egui::Button::new(tr("Export")).right_text("›")).ui(ui, |ui| {
+            if ui.add_enabled(open, egui::Button::new(tr("Copy to clipboard"))).clicked() {
+                ctx.copy_text(self.page.text().join("\n"));
+                self.toast(&ctx, tr("Copied to the clipboard"), 1.);
+                ui.close();
             }
-        }
-        ui.separator();
-        if ui.button(tr("Copy look")).clicked() {
-            ctx.copy_text(core::look_code(&self.cfg, core::LOOK));
-            self.toast(&ctx, tr("Look copied to the clipboard"), 2.);
-        }
-        if ui.button(tr("Paste look")).on_hover_text(tr("Ctrl+V")).clicked() {
-            ctx.send_viewport_cmd(egui::ViewportCommand::RequestPaste);
-        }
-        ui.separator();
-        let mut music = self.cfg["music"] == true;
-        if ui.checkbox(&mut music, tr("Music")).on_hover_text(tr("Music on or off")).changed() {
-            self.change(&ctx, "music", json!(music));
-        }
+            for (name, suffix) in [("Save as PNG…", ".png"), ("Save as PDF…", ".pdf")] {
+                if ui.add_enabled(open, egui::Button::new(tr(name))).clicked() {
+                    self.export(&ctx, suffix);
+                    ui.close();
+                }
+            }
+        });
+        egui::containers::menu::SubMenuButton::from_button(egui::Button::new(tr("Look")).right_text("›")).ui(ui, |ui| {
+            if ui.button(tr("Copy look")).clicked() {
+                ctx.copy_text(core::look_code(&self.cfg, core::LOOK));
+                self.toast(&ctx, tr("Look copied to the clipboard"), 2.);
+                ui.close();
+            }
+            if ui.button(tr("Paste look")).on_hover_text(tr("Ctrl+V")).clicked() {
+                ctx.send_viewport_cmd(egui::ViewportCommand::RequestPaste);
+                ui.close();
+            }
+        });
         ui.separator();
         if ui.add(egui::Button::new(tr("Preferences")).shortcut_text(format!("{}+,", tr("Ctrl")))).clicked() {
             self.settings = Some(sidebar::GENERAL);
+            ui.close();
         }
         if ui.add(egui::Button::new(tr("Keyboard shortcuts")).shortcut_text(format!("{}+?", tr("Ctrl")))).clicked() {
             self.shortcuts = true;
+            ui.close();
         }
         if ui.button(tr("About NfoGlow")).clicked() {
             self.about.get_or_insert_default();
+            ui.close();
         }
     }
 
@@ -1312,6 +1313,7 @@ fn main() -> eframe::Result {
                 rolls: 0,
                 section: None,
                 settings: None,
+                flash: None,
                 asking_reset: false,
                 logo: None,
                 about: None,

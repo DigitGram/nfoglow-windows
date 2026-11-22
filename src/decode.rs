@@ -2,7 +2,7 @@
 // Copyright (C) 2026 DigitGram
 //! From bytes to text: CP437 or UTF-8 (and NFOs broken by a wrong encoding), ANSI art with its colours and cursor
 //! moves, and the NFO inside a ZIP or a pyReScene .srr. No drawing here. Ported from decode.py of NfoGlow for Linux.
-use crate::core::{is_art, Rgb, DOS_GLYPHS, VGA};
+use crate::core::{is_art, Rgb, VGA};
 use std::collections::HashMap;
 use std::io::Read;
 use std::path::Path;
@@ -25,29 +25,6 @@ fn from_page(data: &[u8], upper: &str) -> String {
 
 fn latin1(data: &[u8]) -> String {
     data.iter().map(|&b| b as char).collect()
-}
-
-/// The NFO as the NFO plugins of forums want it pasted: its CP437 bytes read as Windows text, so █ comes out as Û
-/// and ▀ as ß (what a text editor shows); the plugin turns that back into the art.
-pub fn forum_text<S: AsRef<str>>(lines: &[S]) -> String {
-    let text = lines.iter().map(AsRef::as_ref).collect::<Vec<_>>().join("\n");
-    text.chars()
-        .map(|ch| {
-            let byte = match ch {
-                _ if (ch as u32) < 128 => ch as u32,
-                _ => match (DOS_GLYPHS.chars().position(|g| g == ch), CP437.chars().position(|g| g == ch)) {
-                    (Some(i), _) if !matches!(i + 1, 9 | 10 | 13) => i as u32 + 1, // ♦ goes back to its byte 4; tab, LF and CR keep their bytes, their symbols are no CP437
-                    (_, Some(i)) => i as u32 + 128,
-                    (Some(_), _) => '?' as u32,
-                    _ => '?' as u32,
-                },
-            };
-            match byte {
-                128..=159 => CP1252.chars().nth(byte as usize - 128).unwrap(),
-                _ => char::from_u32(byte).unwrap(),
-            }
-        })
-        .collect()
 }
 
 /// bytes -> (text, encoding label, SAUCE width).
@@ -411,14 +388,6 @@ mod tests {
         // read as Windows-1252: byte 0x9b (¢ in CP437) became ›, which Latin-1 does not have
         let broken = format!("›{}", "Û".repeat(10));
         assert_eq!(decode(broken.as_bytes(), "auto").0, format!("¢{}", "█".repeat(10)));
-    }
-
-    #[test]
-    fn forum_text_is_the_file_read_as_windows_text() {
-        // █ as Û, ▀ as ß, ü (0x81) kept
-        let lines = [from_page(b"\xdb\xdf\xdc\xb0 Gr\x81\xe1e \xf9", CP437)];
-        assert_eq!(forum_text(&lines), "ÛßÜ° Gr\u{81}áe ù");
-        assert_eq!(forum_text(&["♦ x ♦", "€"]), "\x04 x \x04\n?"); // a forum gets the bytes the file had
     }
 
     fn zip_file(path: &Path, members: &[(&str, &[u8])], method: zip::CompressionMethod) {

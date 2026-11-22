@@ -23,6 +23,26 @@ fn colour(ui: &mut Ui, hex: &Value) -> Option<String> {
     ui.color_edit_button_srgb(&mut c).changed().then(|| format!("#{:02x}{:02x}{:02x}", c[0], c[1], c[2]))
 }
 
+/// A row that lights up in the accent colour and fades (1.6 s) when the gear in the sidebar points at it, and is scrolled
+/// into view at the start. flash: what the gear pointed at; key: this row's setting.
+fn lit<R>(ui: &mut Ui, flash: Option<(&'static str, std::time::Instant)>, key: &str, add: impl FnOnce(&mut Ui) -> R) -> R {
+    let under = ui.painter().add(egui::Shape::Noop);
+    let out = ui.scope(add);
+    if let Some((_, since)) = flash.filter(|f| f.0 == key) {
+        let age = since.elapsed().as_secs_f32();
+        if age < 1.6 {
+            let c = ui::accent(ui);
+            let alpha = (0.5 * (1. - age / 1.6) * 255.) as u8;
+            ui.painter().set(under, egui::Shape::rect_filled(out.response.rect, 6, egui::Color32::from_rgba_unmultiplied(c.r(), c.g(), c.b(), alpha)));
+            if age < 0.3 {
+                ui.scroll_to_rect(out.response.rect, Some(egui::Align::Center));
+            }
+            ui.ctx().request_repaint();
+        }
+    }
+    out.inner
+}
+
 impl App {
     /// The settings window, while it is open (self.settings holds its page).
     pub(crate) fn settings_window(&mut self, ctx: &egui::Context) {
@@ -143,7 +163,7 @@ impl App {
                 }
             });
         });
-        ui.add_space(16.);
+        ui::heading(ui, &tr("Other"));
         ui::card(ui, |ui| {
             ui::row(ui, &tr("Reset settings"), Some(&tr("Back to the default values.")), true, |ui| {
                 let red = egui::Button::new(RichText::new(tr("Reset")).color(egui::Color32::WHITE)).fill(egui::Color32::from_rgb(0xc4, 0x2b, 0x1c));
@@ -185,11 +205,19 @@ impl App {
     fn page_effects(&mut self, ui: &mut Ui, asks: &mut Asks) {
         let cfg = &self.cfg;
         let (glow, halo) = (cfg["soft"] == true, self.glow_style() == "halo");
+        let flash = self.flash;
         let switch = |ui: &mut Ui, asks: &mut Asks, key: &'static str, title: &str, subtitle: &str, enabled: bool| {
-            if let Some(on) = ui::switch_row(ui, &tr(title), Some(&tr(subtitle)), cfg[key] == true, enabled, |_| {}) {
-                asks.changes.push((key, json!(on)));
-            }
+            lit(ui, flash, key, |ui| {
+                if let Some(on) = ui::switch_row(ui, &tr(title), Some(&tr(subtitle)), cfg[key] == true, enabled, |_| {}) {
+                    asks.changes.push((key, json!(on)));
+                }
+            });
         };
+        ui::heading(ui, &tr("Random look"));
+        ui::card(ui, |ui| {
+            switch(ui, asks, "random_on_start", "A new look at every start",
+                "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look", true);
+        });
         ui::heading(ui, &tr("Glow"));
         ui::card(ui, |ui| {
             switch(ui, asks, "soft", "Glow", "Light on the block graphics", true);
@@ -211,9 +239,11 @@ impl App {
             ui::divider(ui);
             switch(ui, asks, "pulse", "Pulse", "The neon glow beats to the music, or breathes without it", halo);
             ui::divider(ui);
-            if let Some(mode) = ui::combo_row(ui, &tr("Pulse rhythm"), None, halo && cfg["pulse"] == true, cfg["pulse_mode"].as_str().unwrap_or("beat"), &options(&[("beat", "To the music"), ("breathe", "Breathing")])) {
-                asks.changes.push(("pulse_mode", json!(mode)));
-            }
+            lit(ui, flash, "pulse_mode", |ui| {
+                if let Some(mode) = ui::combo_row(ui, &tr("Pulse rhythm"), None, halo && cfg["pulse"] == true, cfg["pulse_mode"].as_str().unwrap_or("beat"), &options(&[("beat", "To the music"), ("breathe", "Breathing")])) {
+                    asks.changes.push(("pulse_mode", json!(mode)));
+                }
+            });
         });
         ui::heading(ui, &tr("Colors"));
         ui::card(ui, |ui| {
@@ -239,18 +269,22 @@ impl App {
         ui::card(ui, |ui| {
             switch(ui, asks, "smooth", "Smooth edges", "Rounds the pixel steps of the block art, with anti-aliasing", true);
             ui::divider(ui);
-            if let Some(value) = ui::combo_row(ui, &tr("Smoothing"), None, cfg["smooth"] == true, cfg["smooth_amount"].as_str().unwrap_or("mid"), &options(&[("low", "Slight"), ("mid", "Medium"), ("high", "Strong")])) {
-                asks.changes.push(("smooth_amount", json!(value)));
-            }
+            lit(ui, flash, "smooth_amount", |ui| {
+                if let Some(value) = ui::combo_row(ui, &tr("Smoothing"), None, cfg["smooth"] == true, cfg["smooth_amount"].as_str().unwrap_or("mid"), &options(&[("low", "Slight"), ("mid", "Medium"), ("high", "Strong")])) {
+                    asks.changes.push(("smooth_amount", json!(value)));
+                }
+            });
         });
         ui::heading(ui, &tr("Retro"));
         ui::card(ui, |ui| {
             switch(ui, asks, "crt", "CRT screen", "Scanlines and dark corners, like an old monitor", true);
             ui::divider(ui);
             let masks = [("lines", "Scanlines"), ("dots", "Shadow mask"), ("stripes", "Aperture grille")];
-            if let Some(value) = ui::combo_row(ui, &tr("Pattern"), None, cfg["crt"] == true, cfg["crt_mask"].as_str().unwrap_or("lines"), &options(&masks)) {
-                asks.changes.push(("crt_mask", json!(value)));
-            }
+            lit(ui, flash, "crt_mask", |ui| {
+                if let Some(value) = ui::combo_row(ui, &tr("Pattern"), None, cfg["crt"] == true, cfg["crt_mask"].as_str().unwrap_or("lines"), &options(&masks)) {
+                    asks.changes.push(("crt_mask", json!(value)));
+                }
+            });
             ui::divider(ui);
             switch(ui, asks, "crt_live", "Live CRT", "A roll bar, flicker, noise and round corners", cfg["crt"] == true);
             ui::divider(ui);
@@ -260,24 +294,22 @@ impl App {
                 asks.font = Some(on);
             }
         });
-        ui::heading(ui, &tr("Random look"));
-        ui::card(ui, |ui| {
-            switch(ui, asks, "random_on_start", "A new look at every start",
-                "Each start shows a surprise look, only for this time; “Keep” in the effects sidebar makes it your look", true);
-        });
     }
 
     fn page_animation(&mut self, ui: &mut Ui, asks: &mut Asks) {
         let cfg = &self.cfg;
+        let flash = self.flash;
         let switch = |ui: &mut Ui, asks: &mut Asks, key: &'static str, title: &str, subtitle: &str| {
             if let Some(on) = ui::switch_row(ui, &tr(title), Some(&tr(subtitle)), cfg[key] == true, true, |_| {}) {
                 asks.changes.push((key, json!(on)));
             }
         };
         let combo = |ui: &mut Ui, asks: &mut Asks, key: &'static str, title: &str, parent: &str, list: &[(&'static str, &str)]| {
-            if let Some(value) = ui::combo_row(ui, &tr(title), None, cfg[parent] == true, cfg[key].as_str().unwrap_or(""), &options(list)) {
-                asks.changes.push((key, json!(value)));
-            }
+            lit(ui, flash, key, |ui| {
+                if let Some(value) = ui::combo_row(ui, &tr(title), None, cfg[parent] == true, cfg[key].as_str().unwrap_or(""), &options(list)) {
+                    asks.changes.push((key, json!(value)));
+                }
+            });
         };
         ui::heading(ui, &tr("Colors in motion"));
         ui.label(RichText::new(tr("Like the demos of the C64 days")).weak());
@@ -309,13 +341,15 @@ impl App {
         ui::card(ui, |ui| {
             switch(ui, asks, "scroller", "Sine scroller", "A wavy running text along the bottom");
             ui::divider(ui);
-            egui::Frame::new().inner_margin(egui::Margin::symmetric(12, 10)).show(ui, |ui| {
-                ui.add_enabled_ui(cfg["scroller"] == true, |ui| {
-                    ui.label(RichText::new(tr("Scroller text ({name} becomes the file name; empty: a greeting)")).small().weak());
-                    let mut text = cfg["scroller_text"].as_str().unwrap_or("").to_string();
-                    if ui.add(egui::TextEdit::singleline(&mut text).desired_width(f32::INFINITY)).changed() {
-                        asks.changes.push(("scroller_text", json!(text)));
-                    }
+            lit(ui, flash, "scroller_text", |ui| {
+                egui::Frame::new().inner_margin(egui::Margin::symmetric(12, 10)).show(ui, |ui| {
+                    ui.add_enabled_ui(cfg["scroller"] == true, |ui| {
+                        ui.label(RichText::new(tr("Scroller text ({name} becomes the file name; empty: a greeting)")).small().weak());
+                        let mut text = cfg["scroller_text"].as_str().unwrap_or("").to_string();
+                        if ui.add(egui::TextEdit::singleline(&mut text).desired_width(f32::INFINITY)).changed() {
+                            asks.changes.push(("scroller_text", json!(text)));
+                        }
+                    });
                 });
             });
         });
@@ -336,13 +370,15 @@ impl App {
             ui::divider(ui);
             let dir = cfg["music_dir"].as_str().unwrap_or("");
             let shown = if dir.is_empty() { tr("None: the built-in chiptunes by Stennish") } else { dir.to_string() };
-            ui::row(ui, &tr("Music folder"), Some(&shown), on, |ui| {
-                if !dir.is_empty() && ui::icon_button(ui, ui::CLEAR, &tr("Back to the built-in chiptunes"), false).clicked() {
-                    asks.changes.push(("music_dir", json!("")));
-                }
-                if ui::icon_button(ui, ui::FOLDER, &tr("Music folder"), false).clicked() {
-                    asks.folder = true;
-                }
+            lit(ui, self.flash, "music_dir", |ui| {
+                ui::row(ui, &tr("Music folder"), Some(&shown), on, |ui| {
+                    if !dir.is_empty() && ui::icon_button(ui, ui::CLEAR, &tr("Back to the built-in chiptunes"), false).clicked() {
+                        asks.changes.push(("music_dir", json!("")));
+                    }
+                    if ui::icon_button(ui, ui::FOLDER, &tr("Music folder"), false).clicked() {
+                        asks.folder = true;
+                    }
+                });
             });
             ui::divider(ui);
             let order = if cfg["music_shuffle"] == true { "random" } else { "order" };

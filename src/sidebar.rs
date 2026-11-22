@@ -16,14 +16,22 @@ pub const EFFECTS: usize = 1;
 pub const ANIMATION: usize = 2;
 pub const MUSIC: usize = 3;
 
-/// The switches that have more settings: the page of the settings where they are (a gear beside the switch opens it).
-pub fn more(key: &str) -> Option<usize> {
-    match key {
-        "ramp" | "crt" | "pulse" | "smooth" => Some(EFFECTS),
-        "cycle" | "wobble" | "stars" | "scroller" | "sparkle" => Some(ANIMATION),
-        "music" => Some(MUSIC),
-        _ => None,
-    }
+/// The switches that have more settings: the page of the settings where they are and the first of those settings (a gear
+/// beside the switch opens the page there and lights the row up, as in NfoGlow for Linux).
+pub fn more(key: &str) -> Option<(usize, &'static str)> {
+    Some(match key {
+        "ramp" => (EFFECTS, "ramp"),
+        "crt" => (EFFECTS, "crt_mask"),
+        "pulse" => (EFFECTS, "pulse_mode"),
+        "smooth" => (EFFECTS, "smooth_amount"),
+        "cycle" => (ANIMATION, "cycle_palette"),
+        "wobble" => (ANIMATION, "wobble_amount"),
+        "stars" => (ANIMATION, "stars_mode"),
+        "scroller" => (ANIMATION, "scroller_text"),
+        "sparkle" => (ANIMATION, "sparkle_amount"),
+        "music" => (MUSIC, "music_dir"),
+        _ => return None,
+    })
 }
 
 pub const GLOW_STYLES: [(&str, &str); 3] = [("off", "Off"), ("soft", "Soft"), ("halo", "Neon")];
@@ -35,6 +43,7 @@ pub struct Asks {
     pub theme: Option<&'static str>,
     pub look: Option<core::Cfg>,
     pub settings: Option<usize>,
+    pub show: Option<&'static str>, // with it: the setting to light up there
     pub roll: bool,
     pub replay: bool,
     pub undo: bool,
@@ -80,6 +89,7 @@ impl App {
         }
         if asks.settings.is_some() {
             self.settings = asks.settings;
+            self.flash = asks.show.map(|key| (key, std::time::Instant::now()));
         }
         if asks.roll {
             self.roll_look(ctx);
@@ -107,9 +117,10 @@ impl App {
     fn effect(&self, ui: &mut Ui, asks: &mut Asks, key: &'static str, title: &str, subtitle: Option<&str>, enabled: bool) {
         let on = self.cfg[key] == true;
         let gear = |ui: &mut Ui| {
-            if let Some(page) = more(key).filter(|_| on && enabled) {
+            if let Some((page, show)) = more(key).filter(|_| on && enabled) {
                 if ui::icon_button(ui, ui::SETTINGS, &tr("More settings"), false).clicked() {
                     asks.settings = Some(page);
+                    asks.show = Some(show);
                 }
             }
         };
@@ -225,7 +236,7 @@ impl App {
             (ui::GLOW, "Glow", [vec![tr(GLOW_STYLES.iter().find(|g| g.0 == glow).unwrap().1)],
                 names(&[("ramp", "Color ramp"), ("text_glow", "Text glow"), ("neon_flicker", "Flicker"), ("pulse", "Pulse")])].concat()),
             (ui::PLAY, "Animation", animation),
-            (ui::RETRO, "Retro", [names(&[("crt", "CRT screen"), ("chroma", "Color fringe")]), if self.dos_font() { vec![tr("DOS font")] } else { vec![] }].concat()),
+            (ui::RETRO, "Retro", [names(&[("crt", "CRT screen"), ("crt_live", "Live CRT"), ("chroma", "Color fringe")]), if self.dos_font() { vec![tr("DOS font")] } else { vec![] }].concat()),
             (ui::MORE, "Other", names(&[("smooth", "Smooth edges"), ("music", "Music")])),
         ];
         ui::card(ui, |ui| {
@@ -272,6 +283,7 @@ impl App {
                     }
                     2 => {
                         self.effect(ui, asks, "crt", "CRT screen", None, true);
+                        self.effect(ui, asks, "crt_live", "Live CRT", Some("A roll bar, flicker, noise and round corners"), self.cfg["crt"] == true);
                         self.effect(ui, asks, "chroma", "Color fringe", Some("Red and blue edges, like an old tube or a VHS tape"), true);
                         let dos = self.dos_font();
                         if let Some(on) = ui::switch_row(ui, &tr("DOS font"), Some(&tr("The IBM VGA font, as NFOs looked under DOS")), dos, true, |_| {}) {
