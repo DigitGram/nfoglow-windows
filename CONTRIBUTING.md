@@ -11,7 +11,7 @@ NfoGlow for Linux is the reference: what an NFO looks like, the effects and the 
 
 ## Before you send a pull request
 
-These must pass (CI runs the tests and the build on Windows):
+How the project is laid out and how to build and run it is in [docs/development.md](docs/development.md). In short, these must pass (CI runs the tests and the build on Windows):
 
 ```sh
 cargo test
