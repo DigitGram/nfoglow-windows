@@ -375,8 +375,15 @@ impl App {
         self.change_all(ctx, &look);
     }
 
-    /// A look from a shared code, as one step on the Undo list.
+    /// A look from a shared code, as one step on the Undo list. Like a rolled look it is on trial until kept (the Keep
+    /// card in the sidebar, which opens for it), whether or not the sidebar was open.
     fn apply_look(&mut self, ctx: &egui::Context, mut look: core::Cfg) {
+        if self.saved_look.is_none() {
+            self.saved_look = Some(self.look_now());
+        }
+        if self.cfg["sidebar"] != true {
+            self.set(ctx, "sidebar", json!(true));
+        }
         if let Some(dos) = look.remove("dos_font").and_then(|v| v.as_bool()) {
             if dos != self.dos_font() {
                 look.insert("font".into(), json!(if dos { core::DOS_FONT } else { core::FONT }));
