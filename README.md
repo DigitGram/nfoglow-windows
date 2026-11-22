@@ -23,6 +23,10 @@
   <a href="#support">Support</a>
 </p>
 
+<p align="center">
+  <img src="docs/media/nfoglow-tour.webp" width="100%" alt="A tour of NfoGlow: effects on opening, neon glow, the demoscene mode, a retro tube, eight themes and six styles, shown on the demo NFO (recorded on Linux; the Windows version looks the same)">
+</p>
+
 This is the official Windows port of [NfoGlow](https://github.com/DigitGram/nfoglow), rewritten in Rust. It shows an NFO
 the same way as NfoGlow for Linux, with the same effects, themes and options, and reads the same look codes; only the
 window follows the style of Windows 11.
@@ -62,6 +66,12 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 - **Share your look.** Copy look puts one line of text on the clipboard, Paste look applies it, also between Windows and Linux. No paths or file lists are shared.
 - **Save as PNG or PDF** (Ctrl+S), also from the command line.
 - **Ten languages**, the same as NfoGlow for Linux.
+
+<p align="center">
+  <img src="docs/screenshots/dark.png" width="29%" alt="The dark theme with neon glow">
+  <img src="docs/screenshots/demoscene.png" width="42%" alt="The Demoscene style with the effects sidebar: colour cycling, stars and the sine scroller">
+  <img src="docs/screenshots/crt.png" width="29%" alt="Amber theme as a tube with shadow mask and scanlines">
+</p>
 
 ## Install
 
