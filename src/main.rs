@@ -193,6 +193,10 @@ fn set_style(ctx: &egui::Context, dark: bool) {
     v.widgets.inactive.bg_stroke = egui::Stroke::new(1., grey(0xd6, 0x3f));
     v.window_corner_radius = egui::CornerRadius::same(8);
     v.menu_corner_radius = egui::CornerRadius::same(8);
+    // egui keeps one style per theme and takes the one of Windows in its first frame; at the start it does not know it
+    // yet, so the colours would go into the wrong one (a dark theme with a light window on a light Windows). The theme
+    // of the NFO decides here, not Windows.
+    ctx.set_theme(if dark { egui::Theme::Dark } else { egui::Theme::Light });
     ctx.set_visuals(v);
     ctx.all_styles_mut(|s| {
         for (style, size) in [(egui::TextStyle::Body, 14.), (egui::TextStyle::Button, 14.), (egui::TextStyle::Small, 12.), (egui::TextStyle::Heading, 16.)] {
