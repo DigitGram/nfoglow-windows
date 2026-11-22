@@ -198,6 +198,18 @@ impl<S: Source> Source for Meter<S> {
     }
 }
 
+const BUILTIN_NAMES: [&str; 9] = [
+    "stennish-2020-06-10-906pm.ogg",
+    "stennish-2020-12-03-1146am.ogg",
+    "stennish-2020-12-04-247am.ogg",
+    "stennish-2020-12-05-1136am.ogg",
+    "stennish-2020-12-05-518am.ogg",
+    "stennish-2020-12-06-207pm.ogg",
+    "stennish-2020-12-06-256am.ogg",
+    "stennish-2020-12-08-105pm.ogg",
+    "stennish-2021-06-18-135am.ogg",
+];
+
 const BUILTIN: [&[u8]; 9] = [
     include_bytes!("../assets/music/stennish-2020-06-10-906pm.ogg"),
     include_bytes!("../assets/music/stennish-2020-12-03-1146am.ogg"),
@@ -209,6 +221,49 @@ const BUILTIN: [&[u8]; 9] = [
     include_bytes!("../assets/music/stennish-2020-12-08-105pm.ogg"),
     include_bytes!("../assets/music/stennish-2021-06-18-135am.ogg"),
 ];
+
+/// The pulse of a built-in track, from its measured beat grid (tools/analyze_beats.py of NfoGlow for Linux).
+///
+/// The built-in tracks run at 120 bpm and are so dense that loudness hardly shows the beat. So the pulse does not
+/// listen: it follows the grid of eighth notes of the track. A beat (every second eighth) flashes fully, the eighth in
+/// between a little, each by the accent measured for that position of the bar; then it fades until the next.
+pub struct Grid {
+    phase: f32,
+    accents: Vec<f32>,
+}
+
+impl Grid {
+    const STEP: f32 = 0.25; // seconds per eighth note
+    const RELEASE: f32 = 0.18; // seconds for the pulse to fall to a third
+    const OFF: f32 = 0.35; // strength of the eighth between two beats
+
+    /// The pulse 0..1 at t seconds in the file.
+    pub fn at(&self, t: f32) -> f32 {
+        let u = (t - self.phase) / Self::STEP;
+        let k = u.floor();
+        let accent = self.accents[(k as i64).rem_euclid(self.accents.len() as i64) as usize];
+        (if k as i64 % 2 == 0 { 1. } else { Self::OFF }) * (0.5 + 0.5 * accent) * (-(u - k) * Self::STEP / Self::RELEASE).exp()
+    }
+}
+
+/// The grids of the built-in tracks, in the order of BUILTIN (empty when the data does not read).
+fn grids() -> Vec<Grid> {
+    let read = || -> Option<Vec<Grid>> {
+        let json: serde_json::Value = serde_json::from_str(include_str!("../assets/music/beats.json")).ok()?;
+        BUILTIN_NAMES.iter().map(|name| {
+            let track = &json["tracks"][name];
+            Some(Grid { phase: track["phase"].as_f64()? as f32, accents: track["accents"].as_array()?.iter().filter_map(|a| a.as_f64().map(|a| a as f32)).collect::<Vec<_>>() })
+                .filter(|g| !g.accents.is_empty())
+        }).collect()
+    };
+    read().unwrap_or_default()
+}
+
+/// Where in the file the built-in track sounds when the player is p seconds into it: the intro once, then the loop
+/// (8..48 s) again and again.
+fn file_time(p: f32) -> f32 {
+    if p < LOOP_END { p } else { INTRO + (p - LOOP_END) % (LOOP_END - INTRO) }
+}
 
 /// One player for the whole app. tick() keeps it going: the next track, the fades. level(): the beat of what is
 /// heard, 0..1, for the pulsing glow.
@@ -229,6 +284,7 @@ pub struct Player {
     seed: u64,
     levels: Arc<Mutex<VecDeque<f32>>>,
     beat: Beat,
+    grids: Vec<Grid>, // the beat grids of the built-in tracks
 }
 
 impl Player {
@@ -243,7 +299,7 @@ impl Player {
     fn with(out: rodio::Player, device: Option<rodio::MixerDeviceSink>) -> Self {
         let seed = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(1, |d| d.as_nanos() as u64);
         Player { _device: device, out, queue: Vec::new(), order: Vec::new(), current: None, length: None, playing: false, shuffle: true,
-            fade: true, fade_in: 1., off: None, volume: 0.6, errors: 0, seed, levels: Arc::default(), beat: Beat::new() }
+            fade: true, fade_in: 1., off: None, volume: 0.6, errors: 0, seed, levels: Arc::default(), beat: Beat::new(), grids: grids() }
     }
 
     fn count(&self) -> usize {
@@ -336,6 +392,10 @@ impl Player {
     pub fn level(&mut self) -> Option<f32> {
         for db in self.levels.lock().unwrap().drain(..) {
             self.beat.feed(db);
+        }
+        // a built-in track follows its measured beat grid; music of your own the loudness
+        if let (true, true, Some(grid)) = (self.playing, self.queue.is_empty(), self.current.and_then(|t| self.grids.get(t))) {
+            return Some(grid.at(file_time(self.out.get_pos().as_secs_f32())));
         }
         self.playing.then_some(self.beat.value)
     }
@@ -451,6 +511,18 @@ mod tests {
         assert_eq!(tracks(&dir), [dir.join("a.mp3"), dir.join("b.OGG"), dir.join("c.flac"), dir.join("d.XM"), dir.join("e.mod")]);
         assert!(tracks(&dir.join("missing")).is_empty());
         std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn built_in_tracks_pulse_on_their_beat_grid() {
+        let grids = grids();
+        assert_eq!(grids.len(), BUILTIN.len());
+        let grid = &grids[0];
+        for beat in [0., 2., 10.5, 47.5] {
+            assert!(grid.at(beat) > 0.7 && grid.at(beat + 0.15) < grid.at(beat), "{beat}");
+        }
+        assert!(grid.at(0.25) < grid.at(0.) * 0.5); // the eighth between two beats is softer
+        assert_eq!((file_time(10.), file_time(48.), file_time(50.), file_time(88.)), (10., 8., 10., 8.));
     }
 
     /// The player without a sound card: what it would send to the speakers is read here instead.
