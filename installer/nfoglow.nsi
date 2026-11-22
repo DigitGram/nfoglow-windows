@@ -1,4 +1,4 @@
-; SPDX-License-Identifier: GPL-3.0-or-later
+﻿; SPDX-License-Identifier: GPL-3.0-or-later
 ; Copyright (C) 2026 DigitGram
 ;
 ; The setup of NfoGlow for Windows. A page asks for whom: all users (C:\Program Files\NfoGlow, the registry entries in
@@ -13,14 +13,14 @@ Unicode true
   !error "Give the version: makensis -DVERSION=1.0.0 installer/nfoglow.nsi"
 !endif
 !ifndef EXE
-  !define EXE "../target/release/nfoglow.exe"
+  !define EXE "..\target\release\nfoglow.exe"
 !endif
 !define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\NfoGlow"
 !define PROGID "NfoGlow.nfo"
 !define TYPES ".nfo .diz .ans .asc .srr"   ; what the arrow keys step through in a folder; a ZIP stays with Explorer
 
 Name "NfoGlow"
-OutFile "../target/NfoGlow-Setup-${VERSION}.exe"
+OutFile "..\target\NfoGlow-Setup-${VERSION}.exe"
 SetCompressor /SOLID lzma
 ManifestDPIAware true
 VIProductVersion "${VERSION}.0"
@@ -44,8 +44,8 @@ VIAddVersionKey /LANG=0 "LegalCopyright" "© 2026 DigitGram, GPL-3.0-or-later"
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 !include "x64.nsh"
-!define MUI_ICON "../assets/nfoglow.ico"
-!define MUI_UNICON "../assets/nfoglow.ico"
+!define MUI_ICON "..\assets\nfoglow.ico"
+!define MUI_UNICON "..\assets\nfoglow.ico"
 !define MUI_COMPONENTSPAGE_NODESC
 !define MUI_FINISHPAGE_RUN "$INSTDIR\nfoglow.exe"
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
@@ -189,13 +189,13 @@ Section "NfoGlow" SecMain
   !insertmacro CloseApp inst
   SetOutPath "$INSTDIR"
   File "/oname=nfoglow.exe" "${EXE}"
-  File "../assets/nfo-file.ico"
-  File "/oname=LICENSE.txt" "../LICENSE"
-  File "/oname=THIRD-PARTY-LICENSES.txt" "../THIRD-PARTY-LICENSES.txt"
+  File "..\assets\nfo-file.ico"
+  File "/oname=LICENSE.txt" "..\LICENSE"
+  File "/oname=THIRD-PARTY-LICENSES.txt" "..\THIRD-PARTY-LICENSES.txt"
   SetOutPath "$INSTDIR\licenses"
-  File "/oname=font-CC-BY-SA-4.0.txt" "../assets/LICENSE.txt"
-  File "/oname=font-README.md" "../assets/font-README.md"
-  File "/oname=music-README.md" "../assets/music/README.md"
+  File "/oname=font-CC-BY-SA-4.0.txt" "..\assets\LICENSE.txt"
+  File "/oname=font-README.md" "..\assets\font-README.md"
+  File "/oname=music-README.md" "..\assets\music\README.md"
   WriteUninstaller "$INSTDIR\uninstall.exe"
   CreateShortcut "$SMPROGRAMS\NfoGlow.lnk" "$INSTDIR\nfoglow.exe"
   WriteRegStr SHCTX "Software\NfoGlow" "InstallDir" "$INSTDIR"

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 DigitGram
 """Writes THIRD-PARTY-LICENSES.txt: every crate that goes into the program (as `cargo metadata` lists it, for the
-Windows target), with its version, licence and the licence texts that come with its sources; crates with the same text
+two Windows targets, GNU and MSVC), with its version, licence and the licence texts that come with its sources; crates with the same text
 are listed together. The licences of these crates ask for their notice to travel with the program.
   python3 tools/third_party.py > THIRD-PARTY-LICENSES.txt        (run `cargo fetch` first so the sources are there)"""
 import hashlib
@@ -11,12 +11,17 @@ import subprocess
 import sys
 from pathlib import Path
 
-meta = json.loads(subprocess.run(["cargo", "metadata", "--format-version", "1", "--filter-platform", "x86_64-pc-windows-gnu"],
-                                 capture_output=True, text=True, check=True).stdout)
-root = meta["resolve"]["root"]
-by_id = {p["id"]: p for p in meta["packages"]}
+# both Windows targets: the GNU one of the build on Linux and the MSVC one of GitHub Actions link different crates
+metas = [json.loads(subprocess.run(["cargo", "metadata", "--format-version", "1", "--filter-platform", target],
+                                   capture_output=True, text=True, check=True).stdout)
+         for target in ("x86_64-pc-windows-gnu", "x86_64-pc-windows-msvc")]
+root = metas[0]["resolve"]["root"]
+by_id = {p["id"]: p for meta in metas for p in meta["packages"]}
 reachable, todo = set(), [root]
-nodes = {n["id"]: n for n in meta["resolve"]["nodes"]}
+nodes = {}
+for meta in metas:
+    for n in meta["resolve"]["nodes"]:
+        nodes.setdefault(n["id"], {"deps": []})["deps"].extend(n["deps"])
 while todo:
     i = todo.pop()
     if i in reachable:
@@ -27,7 +32,7 @@ while todo:
         if any(k["kind"] in (None, "normal", "build") for k in d["dep_kinds"]):
             todo.append(d["pkg"])
 texts, listing = {}, []
-for i in sorted(reachable, key=lambda i: by_id[i]["name"]):
+for i in sorted(reachable, key=lambda i: (by_id[i]["name"], by_id[i]["version"])):
     p = by_id[i]
     if i == root:
         continue

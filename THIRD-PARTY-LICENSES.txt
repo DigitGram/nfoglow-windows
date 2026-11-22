@@ -20,8 +20,8 @@ autocfg 1.5.1  [Apache-2.0 OR MIT]  https://github.com/cuviper/autocfg
 base64 0.23.1  [MIT OR Apache-2.0]  https://github.com/marshallpierce/rust-base64
 bit-set 0.9.1  [Apache-2.0 OR MIT]  https://github.com/contain-rs/bit-set
 bit-vec 0.9.1  [Apache-2.0 OR MIT]  https://github.com/contain-rs/bit-vec
-bitflags 2.13.2  [MIT OR Apache-2.0]  https://github.com/bitflags/bitflags
 bitflags 1.3.2  [MIT/Apache-2.0]  https://github.com/bitflags/bitflags
+bitflags 2.13.2  [MIT OR Apache-2.0]  https://github.com/bitflags/bitflags
 bytemuck 1.25.2  [Zlib OR Apache-2.0 OR MIT]  https://github.com/Lokathor/bytemuck
 bytemuck_derive 1.12.1  [Zlib OR Apache-2.0 OR MIT]  https://github.com/Lokathor/bytemuck
 byteorder-lite 0.1.0  [Unlicense OR MIT]  https://github.com/image-rs/byteorder-lite
@@ -79,9 +79,9 @@ gpu-descriptor-types 0.2.0  [MIT OR Apache-2.0]  https://github.com/zakarumych/g
 guillotiere 0.7.0  [MIT/Apache-2.0]  https://github.com/nical/guillotiere
 half 2.7.1  [MIT OR Apache-2.0]  https://github.com/VoidStarKat/half-rs
 harfrust 0.7.0  [MIT]  https://github.com/harfbuzz/harfrust
+hashbrown 0.15.5  [MIT OR Apache-2.0]  https://github.com/rust-lang/hashbrown
 hashbrown 0.16.1  [MIT OR Apache-2.0]  https://github.com/rust-lang/hashbrown
 hashbrown 0.17.1  [MIT OR Apache-2.0]  https://github.com/rust-lang/hashbrown
-hashbrown 0.15.5  [MIT OR Apache-2.0]  https://github.com/rust-lang/hashbrown
 hexf-parse 0.2.1  [CC0-1.0]  https://github.com/lifthrasiir/hexf
 icu_collections 2.4.0  [Unicode-3.0]  https://github.com/unicode-org/icu4x
 icu_locale_core 2.4.0  [Unicode-3.0]  https://github.com/unicode-org/icu4x
@@ -110,8 +110,8 @@ lock_api 0.4.14  [MIT OR Apache-2.0]  https://github.com/Amanieu/parking_lot
 log 0.4.35  [MIT OR Apache-2.0]  https://github.com/rust-lang/log
 memchr 2.8.3  [Unlicense OR MIT]  https://github.com/BurntSushi/memchr
 memoffset 0.9.1  [MIT]  https://github.com/Gilnaa/memoffset
-miniz_oxide 0.9.1  [MIT OR Zlib OR Apache-2.0]  https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide
 miniz_oxide 0.8.9  [MIT OR Zlib OR Apache-2.0]  https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide
+miniz_oxide 0.9.1  [MIT OR Zlib OR Apache-2.0]  https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide
 moxcms 0.8.1  [BSD-3-Clause OR Apache-2.0]  https://github.com/awxkee/moxcms.git
 multiversion_no_op 1.0.0  [Apache-2.0 OR MIT]  https://github.com/hsivonen/multiversion_no_op
 naga 29.0.4  [MIT OR Apache-2.0]  https://github.com/gfx-rs/wgpu
@@ -229,6 +229,7 @@ windows-sys 0.61.2  [MIT OR Apache-2.0]  https://github.com/microsoft/windows-rs
 windows-targets 0.52.6  [MIT OR Apache-2.0]  https://github.com/microsoft/windows-rs
 windows-threading 0.2.1  [MIT OR Apache-2.0]  https://github.com/microsoft/windows-rs
 windows_x86_64_gnu 0.52.6  [MIT OR Apache-2.0]  https://github.com/microsoft/windows-rs
+windows_x86_64_msvc 0.52.6  [MIT OR Apache-2.0]  https://github.com/microsoft/windows-rs
 winit 0.30.13  [Apache-2.0]  https://github.com/rust-windowing/winit
 winnow 1.0.5  [MIT]  https://github.com/winnow-rs/winnow
 winresource 0.1.34  [MIT]  https://github.com/BenjaminRi/winresource
@@ -506,7 +507,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 ==============================================================================
-Used by: ahash 0.8.12, arrayvec 0.7.8, autocfg 1.5.1, base64 0.23.1, bit-set 0.9.1, bit-vec 0.9.1, bitflags 2.13.2, bitflags 1.3.2, bytemuck 1.25.2, bytemuck_derive 1.12.1, cfg-if 1.0.5, ciborium 0.2.2, ciborium-io 0.2.2, ciborium-ll 0.2.2, codespan-reporting 0.13.1, core_detect 1.0.0, cpal 0.18.2, displaydoc 0.2.7, document-features 0.2.12, either 1.19.0, encoding_rs 0.8.44, equivalent 1.0.3, euclid 0.22.14, flate2 1.1.11, form_urlencoded 1.2.2, glow 0.17.0, hashbrown 0.16.1, hashbrown 0.17.1, hashbrown 0.15.5, idna 1.1.0, idna_adapter 1.2.2, indexmap 2.14.2, itertools 0.14.0, khronos-egl 6.0.0, kurbo 0.13.1, lazy_static 1.5.1, lock_api 0.4.14, log 0.4.35, multiversion_no_op 1.0.0, nohash-hasher 0.2.0, num-bigint 0.4.8, num-integer 0.1.47, num-rational 0.4.2, num-traits 0.2.19, once_cell 1.21.4, parking_lot 0.12.5, parking_lot_core 0.9.12, peniko 0.6.1, percent-encoding 2.3.2, pkg-config 0.3.34, png 0.18.1, pollster 0.4.0, polycool 0.4.0, presser 0.3.1, renderdoc-sys 1.1.0, rustc-hash 1.1.0, scopeguard 1.2.0, self_cell 1.3.0, smallvec 1.16.5, smol_str 0.2.2, stable_deref_trait 1.2.1, static_assertions 1.1.0, sys-locale 0.3.2, unicode-segmentation 1.13.3, unicode-width 0.2.3, url 2.5.8, utf8_iter 1.1.0, utf_types 1.0.0, uuid 1.29.2, version_check 0.9.5, weezl 0.1.12, zeroize 1.9.1, zeroize_derive 1.5.0, zune-core 0.5.3, zune-jpeg 0.5.15
+Used by: ahash 0.8.12, arrayvec 0.7.8, autocfg 1.5.1, base64 0.23.1, bit-set 0.9.1, bit-vec 0.9.1, bitflags 1.3.2, bitflags 2.13.2, bytemuck 1.25.2, bytemuck_derive 1.12.1, cfg-if 1.0.5, ciborium 0.2.2, ciborium-io 0.2.2, ciborium-ll 0.2.2, codespan-reporting 0.13.1, core_detect 1.0.0, cpal 0.18.2, displaydoc 0.2.7, document-features 0.2.12, either 1.19.0, encoding_rs 0.8.44, equivalent 1.0.3, euclid 0.22.14, flate2 1.1.11, form_urlencoded 1.2.2, glow 0.17.0, hashbrown 0.15.5, hashbrown 0.16.1, hashbrown 0.17.1, idna 1.1.0, idna_adapter 1.2.2, indexmap 2.14.2, itertools 0.14.0, khronos-egl 6.0.0, kurbo 0.13.1, lazy_static 1.5.1, lock_api 0.4.14, log 0.4.35, multiversion_no_op 1.0.0, nohash-hasher 0.2.0, num-bigint 0.4.8, num-integer 0.1.47, num-rational 0.4.2, num-traits 0.2.19, once_cell 1.21.4, parking_lot 0.12.5, parking_lot_core 0.9.12, peniko 0.6.1, percent-encoding 2.3.2, pkg-config 0.3.34, png 0.18.1, pollster 0.4.0, polycool 0.4.0, presser 0.3.1, renderdoc-sys 1.1.0, rustc-hash 1.1.0, scopeguard 1.2.0, self_cell 1.3.0, smallvec 1.16.5, smol_str 0.2.2, stable_deref_trait 1.2.1, static_assertions 1.1.0, sys-locale 0.3.2, unicode-segmentation 1.13.3, unicode-width 0.2.3, url 2.5.8, utf8_iter 1.1.0, utf_types 1.0.0, uuid 1.29.2, version_check 0.9.5, weezl 0.1.12, zeroize 1.9.1, zeroize_derive 1.5.0, zune-core 0.5.3, zune-jpeg 0.5.15
 ==============================================================================
 Apache License
                         Version 2.0, January 2004
@@ -740,7 +741,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 ==============================================================================
-Used by: allocator-api2 0.2.21, arboard 3.7.0, color 0.3.3, constant_time_eq 0.6.1, fdeflate 0.3.7, fearless_simd 0.4.1, glifo 0.1.1, half 2.7.1, image 0.25.10, itoa 1.0.19, libc 0.2.191, linebender_resource_handle 0.1.1, litrs 1.0.1, miniz_oxide 0.9.1, miniz_oxide 0.8.9, naga 29.0.4, pin-project-lite 0.2.17, proc-macro2 1.0.107, quote 1.0.47, range-alloc 0.1.5, raw-window-handle 0.6.2, rodio 0.23.0, rustc-hash 2.1.3, rustversion 1.0.23, serde 1.0.229, serde_core 1.0.229, serde_derive 1.0.229, serde_json 1.0.154, simdutf8 0.1.5, syn 2.0.119, syn 3.0.10, thiserror 2.0.21, thiserror-impl 2.0.21, typed-path 0.13.0, unicode-ident 1.0.27, vello_common 0.0.9, vello_cpu 0.0.9, wgpu 29.0.4, wgpu-core 29.0.4, wgpu-core-deps-windows-linux-android 29.0.4, wgpu-hal 29.0.4, wgpu-naga-bridge 29.0.4, wgpu-types 29.0.4
+Used by: allocator-api2 0.2.21, arboard 3.7.0, color 0.3.3, constant_time_eq 0.6.1, fdeflate 0.3.7, fearless_simd 0.4.1, glifo 0.1.1, half 2.7.1, image 0.25.10, itoa 1.0.19, libc 0.2.191, linebender_resource_handle 0.1.1, litrs 1.0.1, miniz_oxide 0.8.9, miniz_oxide 0.9.1, naga 29.0.4, pin-project-lite 0.2.17, proc-macro2 1.0.107, quote 1.0.47, range-alloc 0.1.5, raw-window-handle 0.6.2, rodio 0.23.0, rustc-hash 2.1.3, rustversion 1.0.23, serde 1.0.229, serde_core 1.0.229, serde_derive 1.0.229, serde_json 1.0.154, simdutf8 0.1.5, syn 2.0.119, syn 3.0.10, thiserror 2.0.21, thiserror-impl 2.0.21, typed-path 0.13.0, unicode-ident 1.0.27, vello_common 0.0.9, vello_cpu 0.0.9, wgpu 29.0.4, wgpu-core 29.0.4, wgpu-core-deps-windows-linux-android 29.0.4, wgpu-hal 29.0.4, wgpu-naga-bridge 29.0.4, wgpu-types 29.0.4
 ==============================================================================
 Apache License
                         Version 2.0, January 2004
@@ -1186,7 +1187,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 ==============================================================================
-Used by: bitflags 2.13.2, bitflags 1.3.2, log 0.4.35, num-bigint 0.4.8, num-integer 0.1.47, num-rational 0.4.2, num-traits 0.2.19
+Used by: bitflags 1.3.2, bitflags 2.13.2, log 0.4.35, num-bigint 0.4.8, num-integer 0.1.47, num-rational 0.4.2, num-traits 0.2.19
 ==============================================================================
 Copyright (c) 2014 The Rust Project Developers
 
@@ -3334,7 +3335,7 @@ Used by: harfrust 0.7.0
 ../LICENSE
 
 ==============================================================================
-Used by: hashbrown 0.16.1, hashbrown 0.17.1, hashbrown 0.15.5
+Used by: hashbrown 0.15.5, hashbrown 0.16.1, hashbrown 0.17.1
 ==============================================================================
 Copyright (c) 2016 Amanieu d'Antras
 
@@ -3895,7 +3896,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ==============================================================================
-Used by: miniz_oxide 0.9.1, miniz_oxide 0.9.1, miniz_oxide 0.8.9, miniz_oxide 0.8.9
+Used by: miniz_oxide 0.8.9, miniz_oxide 0.8.9, miniz_oxide 0.9.1, miniz_oxide 0.9.1
 ==============================================================================
 MIT License
 
@@ -3924,7 +3925,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ==============================================================================
-Used by: miniz_oxide 0.9.1, miniz_oxide 0.8.9
+Used by: miniz_oxide 0.8.9, miniz_oxide 0.9.1
 ==============================================================================
 Copyright 2013-2014 RAD Game Tools and Valve Software
 Copyright 2010-2014 Rich Geldreich and Tenacious Software LLC
@@ -6485,7 +6486,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 ==============================================================================
-Used by: windows 0.62.2, windows-collections 0.3.2, windows-core 0.62.2, windows-future 0.3.2, windows-implement 0.60.2, windows-interface 0.59.3, windows-link 0.2.1, windows-numerics 0.3.1, windows-result 0.4.1, windows-strings 0.5.1, windows-sys 0.52.0, windows-sys 0.61.2, windows-targets 0.52.6, windows-threading 0.2.1, windows_x86_64_gnu 0.52.6
+Used by: windows 0.62.2, windows-collections 0.3.2, windows-core 0.62.2, windows-future 0.3.2, windows-implement 0.60.2, windows-interface 0.59.3, windows-link 0.2.1, windows-numerics 0.3.1, windows-result 0.4.1, windows-strings 0.5.1, windows-sys 0.52.0, windows-sys 0.61.2, windows-targets 0.52.6, windows-threading 0.2.1, windows_x86_64_gnu 0.52.6, windows_x86_64_msvc 0.52.6
 ==============================================================================
 Apache License
                            Version 2.0, January 2004
@@ -6690,7 +6691,7 @@ Apache License
    limitations under the License.
 
 ==============================================================================
-Used by: windows 0.62.2, windows-collections 0.3.2, windows-core 0.62.2, windows-future 0.3.2, windows-implement 0.60.2, windows-interface 0.59.3, windows-link 0.2.1, windows-numerics 0.3.1, windows-result 0.4.1, windows-strings 0.5.1, windows-sys 0.52.0, windows-sys 0.61.2, windows-targets 0.52.6, windows-threading 0.2.1, windows_x86_64_gnu 0.52.6
+Used by: windows 0.62.2, windows-collections 0.3.2, windows-core 0.62.2, windows-future 0.3.2, windows-implement 0.60.2, windows-interface 0.59.3, windows-link 0.2.1, windows-numerics 0.3.1, windows-result 0.4.1, windows-strings 0.5.1, windows-sys 0.52.0, windows-sys 0.61.2, windows-targets 0.52.6, windows-threading 0.2.1, windows_x86_64_gnu 0.52.6, windows_x86_64_msvc 0.52.6
 ==============================================================================
 MIT License
 
