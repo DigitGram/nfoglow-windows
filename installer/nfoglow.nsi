@@ -110,6 +110,17 @@ LangString PURGE ${LANG_PORTUGUESEBR} "Excluir também as configurações do Nfo
 LangString PURGE ${LANG_UKRAINIAN} "Також видалити налаштування NfoGlow (тему, ефекти, нещодавні файли)?"
 LangString PURGE ${LANG_SIMPCHINESE} "同时删除 NfoGlow 的设置（主题、效果、最近使用的文件）吗？"
 
+LangString CLOSE_APP ${LANG_ENGLISH} "NfoGlow is still running. Close all NfoGlow windows, then click Retry."
+LangString CLOSE_APP ${LANG_GERMAN} "NfoGlow läuft noch. Schließen Sie alle NfoGlow-Fenster und klicken Sie dann auf Wiederholen."
+LangString CLOSE_APP ${LANG_SPANISH} "NfoGlow sigue en ejecución. Cierre todas las ventanas de NfoGlow y pulse Reintentar."
+LangString CLOSE_APP ${LANG_FRENCH} "NfoGlow est toujours en cours d'exécution. Fermez toutes les fenêtres de NfoGlow, puis cliquez sur Réessayer."
+LangString CLOSE_APP ${LANG_ITALIAN} "NfoGlow è ancora in esecuzione. Chiudi tutte le finestre di NfoGlow, poi fai clic su Riprova."
+LangString CLOSE_APP ${LANG_JAPANESE} "NfoGlowが実行中です。すべてのNfoGlowのウィンドウを閉じてから、［再試行］をクリックしてください。"
+LangString CLOSE_APP ${LANG_POLISH} "NfoGlow jest nadal uruchomiony. Zamknij wszystkie okna NfoGlow, a następnie kliknij Ponów."
+LangString CLOSE_APP ${LANG_PORTUGUESEBR} "O NfoGlow ainda está em execução. Feche todas as janelas do NfoGlow e clique em Tentar novamente."
+LangString CLOSE_APP ${LANG_UKRAINIAN} "NfoGlow усе ще запущено. Закрийте всі вікна NfoGlow і натисніть «Повторити»."
+LangString CLOSE_APP ${LANG_SIMPCHINESE} "NfoGlow 仍在运行。请关闭所有 NfoGlow 窗口，然后单击“重试”。"
+
 ; one registry change for each file type: ${TYPES} has no loop in NSIS, so the macro names them
 !macro ForEachType DO
   !insertmacro ${DO} ".nfo"
@@ -134,6 +145,31 @@ LangString PURGE ${LANG_SIMPCHINESE} "同时删除 NfoGlow 的设置（主题、
   DeleteRegKey /ifempty SHCTX "Software\Classes\${EXT}"
 !macroend
 
+; A running nfoglow.exe cannot be replaced or deleted: Windows keeps it open for writing. So before touching it, try to open
+; it for writing (no change is made). If that fails: a normal setup asks to close NfoGlow (Retry / Cancel; Cancel stops
+; before anything has changed), a silent one ends NfoGlow, as there is nobody to ask. ID makes the labels of each use apart.
+!macro CloseApp ID
+  IfFileExists "$INSTDIR\nfoglow.exe" 0 ${ID}_done
+  ${ID}_retry:
+  ClearErrors
+  FileOpen $0 "$INSTDIR\nfoglow.exe" a
+  IfErrors 0 ${ID}_free
+    IfSilent ${ID}_kill
+    MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "$(CLOSE_APP)" IDRETRY ${ID}_retry
+    Abort
+  ${ID}_kill:
+    nsExec::Exec '"$SYSDIR\taskkill.exe" /F /IM nfoglow.exe'
+    Pop $0
+    Sleep 1500
+    ClearErrors
+    FileOpen $0 "$INSTDIR\nfoglow.exe" a
+    IfErrors 0 ${ID}_free
+      Abort
+  ${ID}_free:
+  FileClose $0
+  ${ID}_done:
+!macroend
+
 Function .onInit
   ${IfNot} ${RunningX64}
     MessageBox MB_OK|MB_ICONSTOP "NfoGlow needs a 64-bit Windows."
@@ -150,6 +186,7 @@ FunctionEnd
 
 Section "NfoGlow" SecMain
   SectionIn RO
+  !insertmacro CloseApp inst
   SetOutPath "$INSTDIR"
   File "/oname=nfoglow.exe" "${EXE}"
   File "../assets/nfo-file.ico"
@@ -197,6 +234,7 @@ Section /o "$(DESKTOP)" SecDesktop
 SectionEnd
 
 Section "Uninstall"
+  !insertmacro CloseApp uninst
   Delete "$INSTDIR\nfoglow.exe"
   Delete "$INSTDIR\nfo-file.ico"
   Delete "$INSTDIR\LICENSE.txt"

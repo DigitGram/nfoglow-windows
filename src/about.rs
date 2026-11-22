@@ -696,6 +696,7 @@ impl App {
         let mut close = false;
         ctx.show_viewport_immediate(egui::ViewportId::from_hash_of("about"), builder, |ui, _class| {
             close = ui.input(|i| i.viewport().close_requested() || i.key_pressed(egui::Key::Escape));
+            crate::fit_new_window(ui.ctx(), "about", close);
             let now = ui.input(|i| i.time);
             egui::CentralPanel::default().frame(egui::Frame::new().fill(ui.visuals().panel_fill).inner_margin(20)).show(ui, |ui| {
                 if let Some(page) = about.page {

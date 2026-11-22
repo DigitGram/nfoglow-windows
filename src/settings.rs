@@ -52,6 +52,7 @@ impl App {
         let mut close = false;
         ctx.show_viewport_immediate(egui::ViewportId::from_hash_of("settings"), builder, |ui, _class| {
             close = ui.input(|i| i.viewport().close_requested() || i.key_pressed(egui::Key::Escape));
+            crate::fit_new_window(ui.ctx(), "settings", close);
             egui::Panel::left("pages").resizable(false).exact_size(210.).frame(egui::Frame::new().fill(ui.visuals().panel_fill).inner_margin(12)).show(ui, |ui| {
                 ui.add_space(8.);
                 for (i, (sign, name)) in PAGES.iter().enumerate() {

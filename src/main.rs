@@ -106,6 +106,9 @@ struct App {
     content: Vec2,  // the size of the page
     cell: (f32, f32), // width and height of a character, as last drawn
     resize: bool,   // fit the window to the page at the next frame
+    sidebar_was: Option<bool>, // whether the sidebar was open at the last frame: the window grows and shrinks with it
+    settle: u8,        // frames in which the window is still kept inside the screen (see fit_to_screen)
+    settle_until: f64, // the latest time (egui time) for that, however slow the frames are; -1: not started yet
     drag_from: Option<page::Cell>,
     looks_before: Vec<core::Cfg>, // the Undo list
     saved_look: Option<core::Cfg>, // the look in the settings while another one is tried in the sidebar
@@ -675,7 +678,8 @@ impl App {
         let page = self.visible.y * 0.9;
         let ch = self.cell.1;
         let mut by = None;
-        for (m, k, dy) in [(Modifiers::NONE, Key::Space, page), (Modifiers::SHIFT, Key::Space, -page), (Modifiers::NONE, Key::PageDown, page),
+        // Shift+Space comes before Space: consume_key matches "logically", so Space alone would also take Shift+Space
+        for (m, k, dy) in [(Modifiers::SHIFT, Key::Space, -page), (Modifiers::NONE, Key::Space, page), (Modifiers::NONE, Key::PageDown, page),
             (Modifiers::NONE, Key::PageUp, -page), (Modifiers::NONE, Key::ArrowDown, ch * 3.), (Modifiers::NONE, Key::ArrowUp, -ch * 3.),
             (Modifiers::NONE, Key::Home, -1e9), (Modifiers::NONE, Key::End, 1e9)] {
             if hit(m, k) {
@@ -1012,6 +1016,7 @@ impl App {
                 want.y += 2. * (core::C64_FRAME * want.x).round();
             }
             ctx.send_viewport_cmd(egui::ViewportCommand::InnerSize((want + bars).min(screen).max(Vec2::new(600., 420.))));
+            (self.settle, self.settle_until) = (SETTLE_FRAMES, ctx.input(|i| i.time) + SETTLE_SECONDS);
         }
         // the clock of everything that moves, and the effect on opening while it runs
         let now = ctx.input(|i| i.time);
@@ -1178,6 +1183,28 @@ impl eframe::App for App {
         } else if self.cfg["maximized"] != maximized {
             self.set(&ctx, "maximized", json!(maximized));
         }
+        // the sidebar takes its width from the window, not from the page: opened, the window grows by it (as far as the
+        // screen allows), closed, it shrinks back
+        let sidebar = self.cfg["sidebar"] == true;
+        if let Some(was) = self.sidebar_was.replace(sidebar).filter(|&was| was != sidebar) {
+            let (info, floor) = (ctx.input(|i| i.viewport().clone()), 420.);
+            if !info.maximized.unwrap_or(false) && !info.fullscreen.unwrap_or(false) {
+                if let Some(inner) = info.inner_rect {
+                    let width = if was { (inner.width() - SIDEBAR).max(floor) } else { inner.width() + SIDEBAR };
+                    ctx.send_viewport_cmd(egui::ViewportCommand::InnerSize(Vec2::new(width, inner.height())));
+                    (self.settle, self.settle_until) = (SETTLE_FRAMES, ctx.input(|i| i.time) + SETTLE_SECONDS);
+                }
+            }
+        }
+        // for a moment after the start and after every resize: no bigger than the screen the taskbar leaves, not over its edge
+        let clock = ctx.input(|i| i.time);
+        if self.settle_until < 0. {
+            (self.settle, self.settle_until) = (SETTLE_FRAMES, clock + SETTLE_SECONDS); // the first frame: starting the program took its time
+        }
+        if self.settle > 0 && clock < self.settle_until {
+            self.settle -= u8::from(fit_to_screen(&ctx)); // only a frame in which the window could be looked at counts
+            ctx.request_repaint_after_secs(0.05);
+        }
         if std::mem::take(&mut self.system_look) {
             self.use_system_theme(&ctx);
         }
@@ -1233,6 +1260,93 @@ const SHORTCUTS: [(&str, &[(&[&str], &str)]); 4] = [
         (&["Ctrl", "A"], "Select all"), (&["Ctrl", "S"], "Save as PNG")]),
 ];
 
+const SETTLE_FRAMES: u8 = 6; // the window needs a few frames to take a new size and position
+const SETTLE_SECONDS: f64 = 10.; // and gives up after this, when the window never says where it is
+
+/// The primary screen in physical pixels, without the part the taskbar covers: (screen width and height, then the work
+/// area as left, top, right, bottom). Windows only; elsewhere there is nothing to ask.
+#[cfg(windows)]
+fn screen_and_work_area() -> Option<([i32; 2], [i32; 4])> {
+    #[repr(C)]
+    struct Rect {
+        left: i32,
+        top: i32,
+        right: i32,
+        bottom: i32,
+    }
+    #[link(name = "user32")]
+    extern "system" {
+        fn SystemParametersInfoW(action: u32, param: u32, data: *mut Rect, flags: u32) -> i32;
+        fn GetSystemMetrics(index: i32) -> i32;
+    }
+    const SPI_GETWORKAREA: u32 = 0x0030;
+    let mut work = Rect { left: 0, top: 0, right: 0, bottom: 0 };
+    // SAFETY: SPI_GETWORKAREA writes one RECT, and `work` is one
+    let ok = unsafe { SystemParametersInfoW(SPI_GETWORKAREA, 0, &mut work, 0) } != 0;
+    // SAFETY: no pointers; 0 and 1 are SM_CXSCREEN and SM_CYSCREEN
+    let screen = unsafe { [GetSystemMetrics(0), GetSystemMetrics(1)] };
+    (ok && work.right > work.left && work.bottom > work.top).then_some((screen, [work.left, work.top, work.right, work.bottom]))
+}
+
+#[cfg(not(windows))]
+fn screen_and_work_area() -> Option<([i32; 2], [i32; 4])> {
+    None
+}
+
+/// Keep the window on the screen: no bigger than what the taskbar leaves free, and not hanging over its edges. Windows
+/// puts a new window where it likes (stepping it down and to the right with every start) and a window of 860 x 900 does
+/// not fit a 1366 x 768 screen. Only a window on the primary screen is touched; a window the user has put elsewhere, or
+/// has maximized, stays as it is. Called for a moment after the start and after a resize, because the window reports its
+/// size and position a frame or more after the command.
+fn fit_to_screen(ctx: &egui::Context) -> bool {
+    let info = ctx.input(|i| i.viewport().clone());
+    if info.maximized.unwrap_or(false) || info.fullscreen.unwrap_or(false) {
+        return true;
+    }
+    let Some((screen, area)) = screen_and_work_area() else { return true }; // nothing to ask: nothing to do
+    let (Some(outer), Some(inner)) = (info.outer_rect, info.inner_rect) else { return false }; // the window has not said yet
+    let ppp = info.native_pixels_per_point.unwrap_or_else(|| ctx.pixels_per_point()).max(0.5);
+    let to_points = |x: i32, y: i32| Pos2::new(x as f32 / ppp, y as f32 / ppp);
+    let primary = egui::Rect::from_min_max(Pos2::ZERO, to_points(screen[0], screen[1]));
+    if !primary.contains(outer.center()) {
+        return true;
+    }
+    let work = egui::Rect::from_min_max(to_points(area[0], area[1]), to_points(area[2], area[3]));
+    // the frame around the drawing area (title bar, borders) takes its share of the free screen
+    let frame = outer.size() - inner.size();
+    let smallest = Vec2::new(420., 300.); // the minimum of the window
+    let size = inner.size().min((work.size() - frame).max(smallest));
+    if (size - inner.size()).abs().max_elem() > 0.5 {
+        ctx.send_viewport_cmd(egui::ViewportCommand::InnerSize(size));
+        return true; // the position follows when the new size has arrived
+    }
+    let at = Pos2::new(
+        outer.min.x.clamp(work.min.x, (work.max.x - outer.width()).max(work.min.x)),
+        outer.min.y.clamp(work.min.y, (work.max.y - outer.height()).max(work.min.y)),
+    );
+    if at.distance(outer.min) > 0.5 {
+        ctx.send_viewport_cmd(egui::ViewportCommand::OuterPosition(at));
+    }
+    true
+}
+
+/// The same for a second window (Preferences, About), called in every frame of it: only for the first moments after it
+/// opened, so that the user can move it where they like afterwards. `closed` forgets the window for its next opening.
+fn fit_new_window(ctx: &egui::Context, key: &str, closed: bool) {
+    let id = egui::Id::new(("settle", key));
+    if closed {
+        ctx.data_mut(|d| d.remove::<(u8, f64)>(id));
+        return;
+    }
+    let now = ctx.input(|i| i.time);
+    let (left, until) = ctx.data_mut(|d| *d.get_temp_mut_or_insert_with(id, || (SETTLE_FRAMES, now + SETTLE_SECONDS)));
+    if left > 0 && now < until {
+        let left = left - u8::from(fit_to_screen(ctx));
+        ctx.data_mut(|d| d.insert_temp(id, (left, until)));
+        ctx.request_repaint_after_secs(0.05);
+    }
+}
+
 /// The icon in the title bar and the taskbar.
 fn window_icon() -> egui::IconData {
     let decoder = png::Decoder::new(std::io::Cursor::new(include_bytes!("../assets/nfoglow-256.png")));
@@ -1287,7 +1401,7 @@ fn main() -> eframe::Result {
     let cfg = core::load_settings(&choices);
     i18n::set_language(cfg["language"].as_str().unwrap());
     let options = eframe::NativeOptions {
-        viewport: egui::ViewportBuilder::default().with_inner_size([860., 900.]).with_min_inner_size([420., 300.]).with_app_id("nfoglow").with_icon(window_icon()),
+        viewport: egui::ViewportBuilder::default().with_inner_size([860., 640.]).with_min_inner_size([420., 300.]).with_app_id("nfoglow").with_icon(window_icon()),
         ..Default::default()
     };
     eframe::run_native(
@@ -1333,6 +1447,9 @@ fn main() -> eframe::Result {
                 content: Vec2::ZERO,
                 cell: (8., 16.),
                 resize: false,
+                sidebar_was: None,
+                settle: 0,
+                settle_until: -1.,
                 drag_from: None,
                 looks_before: Vec::new(),
                 saved_look: None,
