@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea (not a bug)
+    url: https://github.com/DigitGram/nfoglow-windows/discussions
+    about: Ask how something works or talk about an idea before opening an issue
+  - name: A wrong or awkward translation
+    url: https://github.com/DigitGram/nfoglow/issues/new?template=translation.yml
+    about: Translations are shared with NfoGlow for Linux and fixed there
+  - name: Report a security problem
+    url: https://github.com/DigitGram/nfoglow-windows/security/advisories/new
+    about: Privately, please do not open a public issue

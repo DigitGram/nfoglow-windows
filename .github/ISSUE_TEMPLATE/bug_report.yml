@@ -1,0 +1,85 @@
+name: Bug report
+description: Something in NfoGlow for Windows does not work as expected
+labels:
+- bug
+body:
+- type: markdown
+  attributes:
+    value: Thanks for reporting! The more of this you fill in, the faster NfoGlow gets fixed. Please search the existing
+      issues first.
+- type: textarea
+  id: what
+  attributes:
+    label: What happened?
+    description: A short description of the problem. What did you expect instead?
+  validations:
+    required: true
+- type: textarea
+  id: steps
+  attributes:
+    label: Steps to reproduce
+    placeholder: '1. Open ...
+
+      2. Switch on ...
+
+      3. ...'
+  validations:
+    required: true
+- type: dropdown
+  id: area
+  attributes:
+    label: Where does it happen?
+    options:
+    - Showing an NFO (characters, encoding, ANSI colours)
+    - Glow, colours or the other effects
+    - Opening effects
+    - Music
+    - Search, links, copying
+    - ZIP or SRR files
+    - Save as PNG or PDF
+    - Settings
+    - Window size or position
+    - Setup, uninstall or file association
+    - Other
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: NfoGlow version
+    description: Main menu → About NfoGlow shows it.
+    placeholder: '1.0.0'
+  validations:
+    required: true
+- type: input
+  id: os
+  attributes:
+    label: Windows version
+    description: Settings → System → About, for example Windows 11 24H2 or Windows 10 22H2.
+    placeholder: Windows 11 24H2
+  validations:
+    required: true
+- type: input
+  id: display
+  attributes:
+    label: Screen and scaling (optional, for window or drawing problems)
+    description: The resolution and the scale in Settings → System → Display, and whether more than one monitor is connected.
+    placeholder: 1920 x 1080, 125 %, one monitor
+- type: input
+  id: gpu
+  attributes:
+    label: Graphics card (optional, for drawing problems or slowness)
+    description: The window is drawn by the graphics card. Device Manager → Display adapters shows it.
+    placeholder: Intel UHD Graphics 620
+- type: textarea
+  id: shots
+  attributes:
+    label: Screenshots or the file (optional)
+    description: Drag and drop images here. An `.nfo` that shows the problem can be attached zipped.
+- type: checkboxes
+  id: dupes
+  attributes:
+    label: Before sending
+    options:
+    - label: I searched the existing issues and found none for this problem
+      required: true
