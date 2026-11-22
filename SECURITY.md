@@ -13,4 +13,4 @@ Please include what you found, how to reproduce it and which version it affects.
 
 ## Verifying what you download
 
-Every release is built by GitHub Actions from the tagged commit and comes with `SHA256SUMS.txt`. How to check it is in the README under "Verify the download".
+Every release is built by GitHub Actions from the tagged commit and comes with `SHA256SUMS.txt`, which is signed with GPG (`SHA256SUMS.txt.asc`). How to check it is in the README under "Verify the download".

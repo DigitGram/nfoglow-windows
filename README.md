@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>NFO and ANSI art, the way the scene meant it.</b> A viewer for <code>.nfo</code>, <code>.diz</code> and <code>.ans</code> files<br>
-  on Windows 10 and 11, with exact pixels, glow, animations, effects and chiptunes.
+  on Windows 10 and 11, with exact pixels, glow, animations, effects and chiptunes. Installs for your user, no administrator needed.
 </p>
 
 <p align="center">
@@ -20,6 +20,7 @@
   <a href="#keyboard">Keyboard</a> ·
   <a href="#verify-the-download">Verify the download</a> ·
   <a href="https://github.com/DigitGram/nfoglow">NfoGlow for Linux</a> ·
+  <a href="https://digitgram.github.io/nfoglow/">Website</a> ·
   <a href="#support">Support</a>
 </p>
 
@@ -39,6 +40,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 ## Contents
 
 - [What you get](#what-you-get)
+- [Requirements](#requirements)
 - [Install](#install)
 - [Verify the download](#verify-the-download)
 - [Privacy](#privacy)
@@ -49,7 +51,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 - [Development](#development)
 - [How it was made](#how-it-was-made)
 - [Support](#support)
-- [Licence](#licence)
+- [License](#license)
 
 ## What you get
 
@@ -65,13 +67,22 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 - **Themes.** Light, Dark, Black & White, Amber, Terminal, Paper, C64 and Custom, with Consolas, Cascadia, Lucida Console, Courier New or JetBrains Mono. The first start follows the light or dark mode of Windows.
 - **Share your look.** Copy look puts one line of text on the clipboard, Paste look applies it, also between Windows and Linux. No paths or file lists are shared.
 - **Save as PNG or PDF** (Ctrl+S), also from the command line.
-- **Ten languages**, the same as NfoGlow for Linux.
+- **Windows look.** In the style of Windows 11, in ten languages, the same as NfoGlow for Linux.
 
 <p align="center">
   <img src="docs/screenshots/dark.png" width="29%" alt="The dark theme with neon glow">
   <img src="docs/screenshots/demoscene.png" width="42%" alt="The Demoscene style with the effects sidebar: colour cycling, stars and the sine scroller">
   <img src="docs/screenshots/crt.png" width="29%" alt="Amber theme as a tube with shadow mask and scanlines">
 </p>
+
+<p align="center"><sub>More screenshots on the <a href="https://digitgram.github.io/nfoglow/#gallery">project website</a>.</sub></p>
+
+## Requirements
+
+- Windows 10 or 11, 64-bit. Nothing else needs to be installed.
+- A graphics driver with DirectX 12 or Vulkan, which the PCs of the last ten years have. The window is drawn by the
+  graphics card; it was tested on an Intel HD 4400 from 2013, a weak one.
+- Optional, for music: a sound device. Without one NfoGlow works, just without music.
 
 ## Install
 
@@ -96,14 +107,29 @@ default); they are in `%APPDATA%\NfoGlow`.
 ## Verify the download
 
 Every release is built by [GitHub Actions](https://github.com/DigitGram/nfoglow-windows/actions/workflows/windows.yml)
-from the tagged commit; the log of that run is public. The release has a `SHA256SUMS.txt` with the checksums of the
-setup and of `nfoglow.exe`. In PowerShell, in your Downloads folder:
+from the tagged commit; the log of that run is public. It attaches the setup, `nfoglow.exe` and `SHA256SUMS.txt`, the
+checksums of both. The checksums are signed with the key of `digitgram@proton.me`, fingerprint
+`E7AA EB31 A4DE CF99 B314 7E1D FAAB 30B5 FD49 0E93`: the file `SHA256SUMS.txt.asc` is attached to the release.
+
+To check the checksum of your download, in PowerShell, in your Downloads folder:
 
 ```powershell
 Get-FileHash .\NfoGlow-Setup-1.0.0.exe -Algorithm SHA256
 ```
 
 The hash must be the same as the line for `NfoGlow-Setup-1.0.0.exe` in `SHA256SUMS.txt`.
+
+To check that `SHA256SUMS.txt` is from the author (needs [Gpg4win](https://www.gpg4win.org/) or another GnuPG):
+
+```powershell
+curl.exe -fsSLO https://github.com/DigitGram.gpg
+gpg --import DigitGram.gpg
+curl.exe -fsSLO https://github.com/DigitGram/nfoglow-windows/releases/latest/download/SHA256SUMS.txt
+curl.exe -fsSLO https://github.com/DigitGram/nfoglow-windows/releases/latest/download/SHA256SUMS.txt.asc
+gpg --verify SHA256SUMS.txt.asc SHA256SUMS.txt
+```
+
+Trust the checksums only if gpg reports a good signature and the fingerprint matches the one above.
 
 ## Privacy
 
@@ -141,6 +167,9 @@ nfoglow --export FILE OUT.pdf       or as a PDF
 
 `nfoglow.exe` is in the folder you installed to (for "Only for me": `%LOCALAPPDATA%\Programs\NfoGlow`).
 
+Exporting needs no window, so it works in a script. In the window, a page too long for a PNG (over 32767 pixels) is
+refused with a hint to save a PDF instead.
+
 ## Differences from NfoGlow for Linux
 
 - The text in a PDF cannot be selected; the page is one picture.
@@ -170,14 +199,20 @@ The code is open, the tests are in `src/` (`cargo test`), and issues and pull re
 
 NfoGlow is free and stays free. If it is useful to you, you can support its development on [GitHub Sponsors](https://github.com/sponsors/DigitGram) or [Liberapay](https://liberapay.com/DigitGram). Donations are voluntary and unlock nothing.
 
-## Licence
+## License
 
 Copyright (C) 2026 DigitGram. NfoGlow is free software: you can redistribute it and/or modify it under the terms of the
 [GNU General Public License](LICENSE) as published by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version. It comes without any warranty.
+(at your option) any later version. It comes without any warranty. The icon is part of the project and under the same
+license; the music and the font below are not. Inspired by iNFekt by syndicode.
 
-The bundled DOS font `assets/PxPlus_IBM_VGA_8x16.ttf` is from The Ultimate Oldschool PC Font Pack by VileR
-(<https://int10h.org/oldschool-pc-fonts/>), CC BY-SA 4.0, see `assets/LICENSE.txt`. The chiptunes in `assets/music` are
-by Stennish, CC BY 4.0, see `assets/music/README.md`. Tracker modules are played with
-[xmrsplayer](https://codeberg.org/sbechet/xmrsplayer) (MIT). The licences of all libraries in the program are in
-`THIRD-PARTY-LICENSES.txt`, which the setup also installs.
+The built-in music is by **Stennish** ([chiptunes](https://soundcloud.com/autistgamer1337/sets/chiptunes)),
+licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); see [assets/music](assets/music/README.md)
+for the tracks and what was changed. Thank you, Stennish!
+
+The DOS font is PxPlus IBM VGA 8x16 from [The Ultimate Oldschool PC Font Pack](https://int10h.org/oldschool-pc-fonts/)
+by **VileR**, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and included unchanged;
+see [assets](assets/font-README.md). Thank you, VileR!
+
+Tracker modules are played with [xmrsplayer](https://codeberg.org/sbechet/xmrsplayer) (MIT). The licenses of all
+libraries in the program are in [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt), which the setup also installs.
