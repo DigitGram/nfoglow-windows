@@ -30,6 +30,9 @@ gcc-mingw-w64-x86-64 and nsis):
     cargo build --release --target x86_64-pc-windows-gnu
     makensis -DVERSION=1.0.0 -DEXE=../target/x86_64-pc-windows-gnu/release/nfoglow.exe installer/nfoglow.nsi
 
+The release also carries the portable program: `nfoglow.exe` of the release build, as `NfoGlow-Portable-<version>.exe`
+(the workflow copies it).
+
 GitHub Actions (`.github/workflows/windows.yml`) tests and builds both on Windows for every push, and attaches them to a
 published release.
 

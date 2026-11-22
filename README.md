@@ -97,6 +97,10 @@ Windows 10 or 11, 64-bit.
 Installing a newer release over an existing one keeps your settings. If NfoGlow is running, the setup asks you to close
 it first.
 
+**Portable:** `NfoGlow-Portable-1.0.0.exe` is the program itself. It needs no installation and runs from any folder or a
+USB stick. It keeps your settings in `%APPDATA%\NfoGlow`, like the installed version (they share them), and sets up no
+Start menu entry, no file types and no entry for uninstalling: delete the file to remove it.
+
 Silent install, for example for a script: `NfoGlow-Setup-1.0.0.exe /S /CurrentUser` (or `/AllUsers` from an
 administrator prompt).
 
@@ -106,7 +110,7 @@ default); they are in `%APPDATA%\NfoGlow`.
 ## Verify the download
 
 Every release is built by [GitHub Actions](https://github.com/DigitGram/nfoglow-windows/actions/workflows/windows.yml)
-from the tagged commit; the log of that run is public. It attaches the setup, `nfoglow.exe` and `SHA256SUMS.txt`, the
+from the tagged commit; the log of that run is public. It attaches the setup, the portable exe and `SHA256SUMS.txt`, the
 checksums of both. The checksums are signed with the key of `digitgram@proton.me`, fingerprint
 `E7AA EB31 A4DE CF99 B314 7E1D FAAB 30B5 FD49 0E93`: the file `SHA256SUMS.txt.asc` is attached to the release.
 

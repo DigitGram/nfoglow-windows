@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 DigitGram
 #
-# Tests and builds NfoGlow on Windows: nfoglow.exe and NfoGlow-Setup-<version>.exe, as a download of the run.
+# Tests and builds NfoGlow on Windows: NfoGlow-Setup-<version>.exe and the portable NfoGlow-Portable-<version>.exe (the
+# program itself, no installation), as a download of the run.
 # A tag v<version> must match the version in Cargo.toml. A release published on GitHub (by hand, on such a tag) gets the
-# setup, nfoglow.exe and SHA256SUMS.txt attached by this workflow, built from the tag.
+# setup, the portable exe and SHA256SUMS.txt attached by this workflow, built from the tag.
 name: Windows build
 
 on:
@@ -47,6 +48,12 @@ jobs:
           version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
           "$makensis" -DVERSION="$version" installer/nfoglow.nsi
 
+      - name: Portable
+        shell: bash
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
+          cp target/release/nfoglow.exe "target/NfoGlow-Portable-$version.exe"
+
       - name: Attach to the release
         if: github.event_name == 'release'
         shell: bash
@@ -54,17 +61,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.release.tag_name }}
         run: |
-          cp target/release/nfoglow.exe nfoglow.exe
-          setup=$(ls target/NfoGlow-Setup-*.exe)
-          cp "$setup" .
-          sha256sum "$(basename "$setup")" nfoglow.exe > SHA256SUMS.txt
+          cp target/NfoGlow-Setup-*.exe target/NfoGlow-Portable-*.exe .
+          sha256sum NfoGlow-Setup-*.exe NfoGlow-Portable-*.exe > SHA256SUMS.txt
           cat SHA256SUMS.txt
-          gh release upload "$TAG" "$(basename "$setup")" nfoglow.exe SHA256SUMS.txt --clobber
+          gh release upload "$TAG" NfoGlow-Setup-*.exe NfoGlow-Portable-*.exe SHA256SUMS.txt --clobber
 
       - uses: actions/upload-artifact@v4
         with:
           name: NfoGlow-Windows
           path: |
             target/NfoGlow-Setup-*.exe
-            target/release/nfoglow.exe
+            target/NfoGlow-Portable-*.exe
           if-no-files-found: error
