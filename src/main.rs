@@ -192,6 +192,7 @@ fn set_style(ctx: &egui::Context, dark: bool) {
     v.widgets.inactive.weak_bg_fill = grey(0xfb, 0x2d);
     v.widgets.inactive.bg_stroke = egui::Stroke::new(1., grey(0xd6, 0x3f));
     v.window_corner_radius = egui::CornerRadius::same(8);
+    v.handle_shape = egui::style::HandleShape::Circle; // the knob of a slider is round in Windows 11
     v.menu_corner_radius = egui::CornerRadius::same(8);
     // egui keeps one style per theme and takes the one of Windows in its first frame; at the start it does not know it
     // yet, so the colours would go into the wrong one (a dark theme with a light window on a light Windows). The theme
