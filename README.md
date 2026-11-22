@@ -4,7 +4,7 @@ The Windows version of [NfoGlow](https://github.com/DigitGram/nfoglow), the NFO 
 for Windows 10 and 11.
 
 Work in progress. There: reading files (CP437, UTF-8, ANSI art, ZIP, SRR), themes, the six styles, glow, colour
-ramp, colour cycling, pulse, neon flicker, wobble, gleam, sparkle, starfield, sine scroller, CRT screen with the living
+ramp, colour cycling, pulse, neon flicker, wobble, gleam, sparkle, smooth edges, starfield, sine scroller, CRT screen with the living
 tube, text glow, the DOS font, the eight effects on opening, a random look, search, selection and copying, links,
 browsing a folder with the arrow keys, zoom, recent files, look codes with undo, music (the built-in chiptunes or a folder of
 tracker modules MOD, XM, S3M, IT and OGG, MP3, FLAC, WAV), ten languages, PNG and PDF export, the colour fringe and the shadow mask or aperture grille of the tube, a new look
@@ -43,6 +43,7 @@ Rust with egui; everything is in `src/`:
 | `decode.rs` | Bytes to text: CP437 and UTF-8, broken encodings, ANSI, ZIP and `.srr` |
 | `page.rs` | The page: lines, links, blocks of art, search matches, the selection |
 | `view.rs` | Drawing the page: blocks, glow, colour ramp and the effects on the art |
+| `smooth.rs` | Smooth edges for the block art (Scale2x, blur, steep cut), as in NfoGlow for Linux 1.1 |
 | `post.rs` | The view's own render pass: colour fringe, tube masks, the CRT power-on, openings over the stars |
 | `fx.rs` | What moves around the page: stars, scroller, the live CRT, the effects on opening |
 | `export.rs` | The page as PNG or PDF |

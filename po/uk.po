@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -567,12 +567,6 @@ msgstr "Музика починається тихо, а кожна доріжк
 msgid "Retrowave"
 msgstr "Ретровейв"
 
-msgid "Copy for NFO forums"
-msgstr "Копіювати для форумів NFO"
-
-msgid "Copied for NFO forums"
-msgstr "Скопійовано для форумів NFO"
-
 msgid "Pulse rhythm"
 msgstr "Ритм пульсації"
 
@@ -779,3 +773,71 @@ msgstr "Ще 2 кліки …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "Ще 1 клік …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "Копіювати до буфера обміну"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "Інше"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "Оновлення"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "Перевіряти оновлення щотижня"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "Раз на тиждень запитує в GitHub найновішу версію. Нічого не надсилається й не встановлюється."
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "Установлена версія: {version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "Перевірити зараз"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "Не вдалося перевірити оновлення. Ви в мережі?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow актуальний."
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "Доступний NfoGlow {version}"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "Примітки до випуску"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "Доступне оновлення: {version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "Краї"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "Згладжування країв"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "Заокруглює піксельні сходинки блокової графіки зі згладжуванням"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "Згладжування"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "Слабке"

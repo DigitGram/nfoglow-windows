@@ -20,6 +20,7 @@ pub const UNDO: Icon = Icon('\u{E7A7}', '↶');
 pub const SHUFFLE: Icon = Icon('\u{E8B1}', '⇄');
 pub const PLAY: Icon = Icon('\u{E768}', '▶');
 pub const GLOW: Icon = Icon('\u{E706}', '☀');
+pub const EDGES: Icon = Icon('\u{E7A8}', '◇');
 pub const RETRO: Icon = Icon('\u{E7F4}', '▣');
 pub const SOUND: Icon = Icon('\u{E8D6}', '♪');
 pub const DOWN: Icon = Icon('\u{E70D}', '⌄');

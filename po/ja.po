@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -567,12 +567,6 @@ msgstr "音楽は小さな音で始まり、各曲はやわらかく終わりま
 msgid "Retrowave"
 msgstr "レトロウェーブ"
 
-msgid "Copy for NFO forums"
-msgstr "NFO フォーラム用にコピー"
-
-msgid "Copied for NFO forums"
-msgstr "NFO フォーラム用にコピーしました"
-
 msgid "Pulse rhythm"
 msgstr "パルスのリズム"
 
@@ -779,3 +773,71 @@ msgstr "あと2回クリック …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "あと1回クリック …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "クリップボードにコピー"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "その他"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "アップデート"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "毎週アップデートを確認"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "週に一度、GitHub に最新バージョンを問い合わせます。何も送信せず、何もインストールしません。"
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "インストール済みのバージョン: {version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "今すぐ確認"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "アップデートを確認できませんでした。オンラインですか?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow は最新です。"
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "NfoGlow {version} が利用可能です"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "リリースノート"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "アップデートがあります: {version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "エッジ"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "エッジを滑らかに"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "ブロックアートのピクセルの階段を丸め、アンチエイリアスをかけます"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "滑らかさ"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "弱"

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: DigitGram\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -739,12 +739,6 @@ msgstr "Die Musik beginnt leise, und jeder Titel klingt sanft aus"
 msgid "Retrowave"
 msgstr "Retrowave"
 
-msgid "Copy for NFO forums"
-msgstr "Für NFO-Foren kopieren"
-
-msgid "Copied for NFO forums"
-msgstr "Für NFO-Foren kopiert"
-
 msgid "Pulse rhythm"
 msgstr "Rhythmus des Pulsierens"
 
@@ -951,3 +945,71 @@ msgstr "Noch 2 Klicks …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "Noch 1 Klick …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "Sonstiges"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "Updates"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "Wöchentlich nach Updates suchen"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "Fragt einmal pro Woche bei GitHub nach der neuesten Version. Es wird nichts gesendet und nichts installiert."
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "Installierte Version: {version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "Jetzt prüfen"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "Updates konnten nicht geprüft werden. Bist du online?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow ist aktuell."
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "NfoGlow {version} ist verfügbar"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "Neuerungen"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "Update verfügbar: {version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "Kanten"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "Kantenglättung"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "Rundet die Pixelstufen der Blockgrafik ab, mit Kantenglättung"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "Glättung"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "Gering"

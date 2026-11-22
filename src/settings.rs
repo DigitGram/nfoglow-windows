@@ -235,6 +235,14 @@ impl App {
                 }
             });
         });
+        ui::heading(ui, &tr("Edges"));
+        ui::card(ui, |ui| {
+            switch(ui, asks, "smooth", "Smooth edges", "Rounds the pixel steps of the block art, with anti-aliasing", true);
+            ui::divider(ui);
+            if let Some(value) = ui::combo_row(ui, &tr("Smoothing"), None, cfg["smooth"] == true, cfg["smooth_amount"].as_str().unwrap_or("mid"), &options(&[("low", "Slight"), ("mid", "Medium"), ("high", "Strong")])) {
+                asks.changes.push(("smooth_amount", json!(value)));
+            }
+        });
         ui::heading(ui, &tr("Retro"));
         ui::card(ui, |ui| {
             switch(ui, asks, "crt", "CRT screen", "Scanlines and dark corners, like an old monitor", true);

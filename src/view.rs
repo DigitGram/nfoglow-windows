@@ -4,6 +4,7 @@
 //! their colour ramp, selection and search matches, the text, and the CRT look over it all.
 use crate::core::{self, Cfg, Rgb, Theme};
 use crate::page::{Cell, Page};
+use crate::smooth;
 use eframe::egui::{self, text::LayoutJob, Color32, FontId, Mesh, Pos2, Rect, Stroke, TextFormat, TextureHandle, TextureOptions, Vec2};
 
 pub fn rgb(c: Rgb) -> Color32 {
@@ -42,6 +43,7 @@ impl Grid {
 pub struct Cache {
     key: String,
     glow: Vec<(TextureHandle, f32, f32)>, // image, k (page points per image pixel), margin
+    smooth: Option<(String, TextureHandle)>, // the smoothed blocks as the alpha of the whole page, at screen resolution
     text_key: String,
     text_glow: Vec<(TextureHandle, f32, f32, f32)>, // as glow, and how strong
     scanlines: Option<TextureHandle>,
@@ -55,12 +57,14 @@ fn mix(a: Rgb, b: Rgb, t: f32) -> Rgb {
 /// group of art rows.
 pub fn block_color(page: &Page, r: usize, y: f32, ramp: Option<&[Rgb; 3]>, art: Rgb) -> Rgb {
     match (ramp, page.group[r]) {
-        (Some(ramp), Some((top, end))) => {
-            let t = ((y - top as f32) / (end - top) as f32).clamp(0., 1.) * 2.;
-            if t < 1. { mix(ramp[0], ramp[1], t) } else { mix(ramp[1], ramp[2], t - 1.) }
-        }
+        (Some(ramp), Some((top, end))) => ramp_at(ramp, top, end, y),
         _ => art,
     }
+}
+
+fn ramp_at(ramp: &[Rgb; 3], top: usize, end: usize, y: f32) -> Rgb {
+    let t = ((y - top as f32) / (end - top) as f32).clamp(0., 1.) * 2.;
+    if t < 1. { mix(ramp[0], ramp[1], t) } else { mix(ramp[1], ramp[2], t - 1.) }
 }
 
 /// The blocks at 1/k size, every image pixel the average of what it covers: scaled back up smoothly, that is the
@@ -305,6 +309,88 @@ pub fn glow_parts(page: &Page, cfg: &Cfg, cw: f32, fx: &Fx) -> (bool, Vec<(f32, 
 
 const WHITE: Rgb = [255; 3];
 
+/// The size in screen pixels of the image of the whole page, None when it is too big for one image.
+fn smooth_size(page: &Page, g: Grid) -> Option<(usize, usize)> {
+    let (w, h) = ((page.cols as f32 * g.cw * g.ppp).round() as usize, (page.lines.len() as f32 * g.ch * g.ppp).round() as usize);
+    (w > 0 && h > 0 && w * h <= 16_000_000 && w.max(h) <= 8192).then_some((w, h))
+}
+
+/// Makes the image of the smoothed blocks if it is not there yet. False when there is none (a page too big for an
+/// image gets sharp edges, as NfoGlow for Linux does).
+fn smooth_image(cache: &mut Cache, ctx: &egui::Context, page: &Page, page_id: u64, cfg: &Cfg, g: Grid) -> bool {
+    let Some((w, h)) = smooth_size(page, g) else { return false };
+    let amount = cfg["smooth_amount"].as_str().unwrap_or("mid");
+    let key = format!("{page_id} {w} {h} {amount}");
+    if cache.smooth.as_ref().is_none_or(|(k, _)| *k != key) {
+        cache.smooth = smooth::alpha(page, w, h, smooth::amount(amount)).map(|a| {
+            let pixels = a.iter().map(|&a| Color32::from_white_alpha(a)).collect();
+            (key, ctx.load_texture("smooth", egui::ColorImage::new([w, h], pixels), TextureOptions::LINEAR))
+        });
+    }
+    cache.smooth.is_some()
+}
+
+/// The smoothed blocks of rows lo..hi: the image in strips, each coloured with the ramp or the cycling colours and
+/// each able to slide sideways (the wobble); during the neon flicker-on in upright slices as well.
+#[allow(clippy::too_many_arguments)]
+fn smooth_mesh(tex: &TextureHandle, page: &Page, cfg: &Cfg, theme: &Theme, g: Grid, lo: usize, hi: usize, ramp: Option<&[Rgb; 3]>, cycle: Option<&Bands>, sway: f32, dx: &dyn Fn(f32) -> f32, fx: &Fx, lit: &dyn Fn(f32) -> f32, slice_w: f32) -> Mesh {
+    let _ = cfg;
+    let rows = page.lines.len();
+    let size = tex.size_vec2() / g.ppp;
+    let rect = Rect::from_min_size(Pos2::new(g.x(0.), g.y(0.)), size);
+    let y_of = |r: f32| rect.top() + r / rows as f32 * rect.height();
+    let (top, bottom) = (y_of(lo as f32), y_of(hi.min(rows) as f32));
+    let mut cuts: Vec<f32> = (lo..=hi.min(rows)).map(|r| y_of(r as f32)).collect();
+    if let Some(bands) = cycle {
+        cuts.extend(bands.cuts(top - g.origin.y, bottom - g.origin.y).iter().map(|y| y + g.origin.y));
+    }
+    if sway > 0. {
+        cuts.extend((1..).map(|i| top + i as f32 * 2. / g.ppp).take_while(|y| *y < bottom));
+    }
+    cuts.sort_by(f32::total_cmp);
+    // the colour at a height; the rows around a group take its colours too, for the rounded edge
+    let color_at = |y: f32, mid: f32| -> Rgb {
+        let rel = y - rect.top();
+        if let Some(bands) = cycle {
+            return bands.at(if bands.hard { mid - rect.top() } else { rel } );
+        }
+        let row = (((mid - rect.top()) / rect.height() * rows as f32) as usize).min(rows - 1);
+        let near = |r: usize| page.group.get(r).copied().flatten();
+        let group = near(row).or_else(|| near(row + 1)).or_else(|| row.checked_sub(1).and_then(near));
+        match (ramp, group) {
+            (Some(ramp), Some((a, b))) => ramp_at(ramp, a, b, rel / rect.height() * rows as f32),
+            _ => theme.art,
+        }
+    };
+    let mut slices = Vec::new();
+    if fx.neon.is_some() {
+        let mut x = rect.left();
+        while x < rect.right() {
+            slices.push((x, (x + slice_w).min(rect.right())));
+            x = if x < g.origin.x { g.origin.x } else { x + slice_w };
+        }
+    } else {
+        slices.push((rect.left(), rect.right()));
+    }
+    let uv = |p: Pos2| ((p - rect.min) / rect.size()).to_pos2();
+    let mut mesh = Mesh::with_texture(tex.id());
+    for piece in cuts.windows(2).filter(|p| p[1] > p[0]) {
+        let mid = (piece[0] + piece[1]) / 2.;
+        let shift = if sway > 0. { dx((mid - g.origin.y) / g.ch) } else { 0. };
+        let (c0, c1) = (rgb(color_at(piece[0], mid)), rgb(color_at(piece[1], mid)));
+        for &(x0, x1) in &slices {
+            let alpha = lit(x0.max(g.origin.x));
+            let i = mesh.vertices.len() as u32;
+            for (pos, color) in [(Pos2::new(x0, piece[0]), c0), (Pos2::new(x1, piece[0]), c0), (Pos2::new(x1, piece[1]), c1), (Pos2::new(x0, piece[1]), c1)] {
+                mesh.vertices.push(egui::epaint::Vertex { pos: pos + Vec2::new(shift, 0.), uv: uv(pos), color: color.gamma_multiply(alpha) });
+            }
+            mesh.add_triangle(i, i + 1, i + 2);
+            mesh.add_triangle(i, i + 2, i + 3);
+        }
+    }
+    mesh
+}
+
 /// Draws rows lo..hi of the page. page_id: changes with every loaded file (the cache key).
 #[allow(clippy::too_many_arguments)]
 pub fn paint(painter: &egui::Painter, cache: &mut Cache, page: &Page, page_id: u64, cfg: &Cfg, theme: &Theme, font: &FontId, g: Grid, lo: usize, hi: usize, plain: bool, fx: &Fx) {
@@ -339,6 +425,9 @@ pub fn paint(painter: &egui::Painter, cache: &mut Cache, page: &Page, page_id: u
         cache.key = key;
     }
     let soft = soft && !cache.glow.is_empty(); // a page too big for the image gets sharp blocks instead
+    // smooth edges: the blocks as one image of the page at the screen's resolution (made again only when the page or the
+    // size changes), instead of the exact rectangles; with soft glow edges the blocks are blurred anyway
+    let smooth = on("smooth") && !soft && smooth_image(cache, ctx, page, page_id, cfg, g);
     let mut under = Mesh::default(); // ANSI backgrounds
     let mut blocks = Mesh::default(); // plain quads have no soft edges: no seams between blocks
     let mut shine = Mesh::default(); // the gleam
@@ -387,7 +476,7 @@ pub fn paint(painter: &egui::Painter, cache: &mut Cache, page: &Page, page_id: u
                             shine.add_triangle(i, i + 2, i + 3);
                         }
                     }
-                    if soft || alpha <= 0. {
+                    if soft || smooth || alpha <= 0. {
                         continue;
                     }
                     // cut where a colour band ends, and in the middle for the wave of the wobble
@@ -475,6 +564,11 @@ pub fn paint(painter: &egui::Painter, cache: &mut Cache, page: &Page, page_id: u
             }
         }
         painter.add(mesh);
+    }
+    if smooth {
+        if let Some((_, tex)) = &cache.smooth {
+            painter.add(smooth_mesh(tex, page, cfg, theme, g, lo, hi, ramp, cycle.as_ref(), sway, &dx, fx, &lit, slice_w));
+        }
     }
     painter.add(blocks);
     painter.add(shine);

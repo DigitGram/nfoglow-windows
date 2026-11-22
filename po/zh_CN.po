@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
 "Language-Team: Simplified Chinese\n"
 "Language: zh_CN\n"
@@ -567,12 +567,6 @@ msgstr "音乐从轻柔开始，每首曲目柔和结束"
 msgid "Retrowave"
 msgstr "复古浪潮"
 
-msgid "Copy for NFO forums"
-msgstr "为 NFO 论坛复制"
-
-msgid "Copied for NFO forums"
-msgstr "已为 NFO 论坛复制"
-
 msgid "Pulse rhythm"
 msgstr "脉动节奏"
 
@@ -779,3 +773,71 @@ msgstr "还需点击 2 次 …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "还需点击 1 次 …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "复制到剪贴板"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "其他"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "更新"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "每周检查更新"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "每周向 GitHub 询问一次最新版本。不会发送任何内容,也不会安装任何内容。"
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "已安装版本:{version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "立即检查"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "无法检查更新。您是否在线?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow 已是最新版本。"
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "NfoGlow {version} 现已可用"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "发行说明"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "有可用更新:{version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "边缘"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "平滑边缘"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "圆滑方块图形的像素台阶，并进行抗锯齿"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "平滑程度"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "轻微"

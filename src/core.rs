@@ -32,7 +32,7 @@ pub fn defaults() -> Cfg {
         "wobble": false, "wobble_amount": "mid", "stars_mode": "drift", "music_info": true,
         "maximized": false, "pulse_mode": "beat", "opening": "off", "text_glow": false,
         "neon_flicker": false, "sheen": false, "sparkle": false, "sparkle_amount": "some", "chroma": false,
-        "crt_mask": "lines"
+        "crt_mask": "lines", "smooth": false, "smooth_amount": "mid"
     }) else { unreachable!() };
     d
 }
@@ -42,6 +42,7 @@ pub const LOOK: &[&str] = &[
     "theme", "soft", "glow_mode", "glow", "ramp", "ramp_colors", "cycle", "cycle_palette", "pulse", "crt", "crt_live",
     "stars", "stars_mode", "scroller", "wobble", "wobble_amount", "text_glow", "neon_flicker", "cycle_dir",
     "pulse_mode", "opening", "sheen", "sparkle", "sparkle_amount", "chroma", "crt_mask",
+    "smooth", "smooth_amount",
 ];
 /// The settings of a look that are picked from a list.
 pub const LOOK_CHOICES: Choices = &[
@@ -55,6 +56,7 @@ pub const LOOK_CHOICES: Choices = &[
     ("opening", &["off", "modem", "glitch", "loader", "crt", "dos", "dither", "neon", "rain"]),
     ("sparkle_amount", &["few", "some", "many"]),
     ("crt_mask", &["lines", "dots", "stripes"]),
+    ("smooth_amount", &["low", "mid", "high"]),
 ];
 pub const ENCODINGS: &[&str] = &["auto", "cp437", "cp850", "latin-1", "utf-8"];
 
@@ -505,7 +507,21 @@ mod tests {
         let code = include_str!("../tests/look_from_python.txt");
         let look = read_look_code(code, LOOK, LOOK_CHOICES).unwrap();
         assert_eq!(look["theme"], "amber");
-        assert_eq!(look.len(), LOOK.len() + 1); // every setting of the look and dos_font
+        // every setting of the look of 1.0 and dos_font; the smooth edges came with 1.1, such a code leaves them alone
+        assert_eq!(look.len(), LOOK.len() + 1 - 2);
+        assert!(!look.contains_key("smooth") && !look.contains_key("smooth_amount"));
+    }
+
+    #[test]
+    fn smooth_edges_travel_in_a_look_code() {
+        let mut cfg = defaults();
+        cfg.insert("smooth".into(), json!(true));
+        cfg.insert("smooth_amount".into(), json!("high"));
+        let look = read_look_code(&look_code(&cfg, LOOK), LOOK, LOOK_CHOICES).unwrap();
+        assert_eq!((&look["smooth"], &look["smooth_amount"]), (&json!(true), &json!("high")));
+        cfg.insert("smooth_amount".into(), json!("extreme")); // not in the list: the code is refused or the key left out
+        let look = read_look_code(&look_code(&cfg, LOOK), LOOK, LOOK_CHOICES);
+        assert!(look.is_none_or(|l| !l.contains_key("smooth_amount")));
     }
 
     #[test]

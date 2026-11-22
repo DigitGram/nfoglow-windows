@@ -17,6 +17,7 @@ mod page;
 mod post;
 mod settings;
 mod sidebar;
+mod smooth;
 mod ui;
 mod view;
 
@@ -508,6 +509,7 @@ impl App {
             "opening": if rnd() < 0.5 { "off" } else { OPENINGS[1 + (rnd() * 8.) as usize % 8].0 },
             "sheen": rnd() < 0.2, "sparkle": rnd() < 0.2, "sparkle_amount": pick(rnd(), &["few", "some", "many"]), "chroma": crt && rnd() < 0.5,
             "crt_mask": pick(rnd(), &["lines", "lines", "dots", "stripes"]),
+            "smooth": rnd() < 1. / 6., "smooth_amount": pick(rnd(), &["low", "mid", "high"]), // rarely: some love their pixels
             "font": if rnd() < 0.25 { core::DOS_FONT } else { core::FONT }, // the VGA font now and then
             "neon_flicker": style == "halo" && !pulse && rnd() < 0.25, // not both: they beat the same glow
             "glow_mode": if style == "off" { self.cfg["glow_mode"].as_str().unwrap() } else { style }});

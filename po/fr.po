@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -567,12 +567,6 @@ msgstr "La musique démarre doucement et chaque morceau se termine en douceur"
 msgid "Retrowave"
 msgstr "Retrowave"
 
-msgid "Copy for NFO forums"
-msgstr "Copier pour les forums NFO"
-
-msgid "Copied for NFO forums"
-msgstr "Copié pour les forums NFO"
-
 msgid "Pulse rhythm"
 msgstr "Rythme de la pulsation"
 
@@ -779,3 +773,71 @@ msgstr "Encore 2 clics …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "Encore 1 clic …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "Copier dans le presse-papiers"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "Autre"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "Mises à jour"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "Rechercher les mises à jour chaque semaine"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "Demande une fois par semaine à GitHub la version la plus récente. Rien n’est envoyé et rien n’est installé."
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "Version installée : {version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "Vérifier maintenant"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "Impossible de rechercher les mises à jour. Êtes-vous en ligne ?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow est à jour."
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "NfoGlow {version} est disponible"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "Notes de version"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "Mise à jour disponible : {version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "Bords"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "Bords lissés"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "Arrondit les marches de pixels des graphiques en blocs, avec anticrénelage"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "Lissage"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "Léger"

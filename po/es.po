@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: NfoGlow 1.0\n"
+"Project-Id-Version: NfoGlow 1.1\n"
 "Last-Translator: Claude (AI-generated, not reviewed by a native speaker)\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -567,12 +567,6 @@ msgstr "La música empieza en voz baja y cada pista termina suavemente"
 msgid "Retrowave"
 msgstr "Retrowave"
 
-msgid "Copy for NFO forums"
-msgstr "Copiar para foros de NFO"
-
-msgid "Copied for NFO forums"
-msgstr "Copiado para foros de NFO"
-
 msgid "Pulse rhythm"
 msgstr "Ritmo del pulso"
 
@@ -779,3 +773,71 @@ msgstr "2 clics más …"
 #: src/ui_about.py
 msgid "1 more click …"
 msgstr "1 clic más …"
+
+#: src/ui_window.py
+msgid "Copy to clipboard"
+msgstr "Copiar al portapapeles"
+
+#: src/ui_settings.py
+msgid "Other"
+msgstr "Otros"
+
+#: src/ui_settings.py
+msgid "Updates"
+msgstr "Actualizaciones"
+
+#: src/ui_settings.py
+msgid "Check for updates weekly"
+msgstr "Buscar actualizaciones cada semana"
+
+#: src/ui_settings.py
+msgid "Asks GitHub once a week for the newest version. Nothing is sent and nothing is installed."
+msgstr "Pregunta a GitHub una vez por semana por la versión más reciente. No se envía nada y no se instala nada."
+
+#: src/ui_settings.py
+msgid "Installed version: {version}"
+msgstr "Versión instalada: {version}"
+
+#: src/ui_settings.py
+msgid "Check now"
+msgstr "Buscar ahora"
+
+#: src/ui_app.py
+msgid "Could not check for updates. Are you online?"
+msgstr "No se pudo buscar actualizaciones. ¿Estás en línea?"
+
+#: src/ui_settings.py
+msgid "NfoGlow is up to date."
+msgstr "NfoGlow está actualizado."
+
+#: src/ui_app.py
+msgid "NfoGlow {version} is available"
+msgstr "NfoGlow {version} está disponible"
+
+#: src/ui_app.py
+msgid "Release notes"
+msgstr "Novedades"
+
+#: src/ui_settings.py
+msgid "Update available: {version}"
+msgstr "Actualización disponible: {version}"
+
+#: src/ui_settings.py
+msgid "Edges"
+msgstr "Bordes"
+
+#: src/ui_settings.py
+msgid "Smooth edges"
+msgstr "Bordes suavizados"
+
+#: src/ui_settings.py
+msgid "Rounds the pixel steps of the block art, with anti-aliasing"
+msgstr "Redondea los escalones de píxeles del arte en bloques, con antialiasing"
+
+#: src/ui_settings.py
+msgid "Smoothing"
+msgstr "Suavizado"
+
+#: src/ui_common.py
+msgid "Slight"
+msgstr "Leve"
