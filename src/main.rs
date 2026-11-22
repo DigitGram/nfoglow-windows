@@ -107,6 +107,7 @@ struct App {
     cell: (f32, f32), // width and height of a character, as last drawn
     resize: bool,   // fit the window to the page at the next frame
     sidebar_was: Option<bool>, // whether the sidebar was open at the last frame: the window grows and shrinks with it
+    width_before: Option<f32>, // the width of the window before the sidebar made it wider
     settle: u8,        // frames in which the window is still kept inside the screen (see fit_to_screen)
     settle_until: f64, // the latest time (egui time) for that, however slow the frames are; -1: not started yet
     drag_from: Option<page::Cell>,
@@ -547,7 +548,9 @@ impl App {
     fn export(&mut self, ctx: &egui::Context, suffix: &str) {
         let member = self.name.rsplit(" › ").next().unwrap_or("nfo"); // of an NFO in a ZIP: its own name
         let stem = Path::new(member).file_stem().unwrap_or_default().to_string_lossy();
-        let Some(path) = rfd::FileDialog::new().set_file_name(format!("{stem}{suffix}")).save_file() else { return };
+        let kind = if suffix == ".pdf" { "PDF" } else { "PNG" };
+        let dialog = rfd::FileDialog::new().add_filter(kind, &[&suffix[1..]]).set_file_name(format!("{stem}{suffix}"));
+        let Some(path) = dialog.save_file() else { return };
         let font = FontId::monospace(BASE_PX * self.zoom as f32 / 100.);
         let theme = core::theme_colors(&self.cfg);
         let made = export::render(ctx, &self.page, &self.cfg, &theme, &font, self.cell.0, self.cell.1, self.text_only);
@@ -822,7 +825,7 @@ impl App {
                 self.toast(&ctx, tr("Look copied to the clipboard"), 2.);
                 ui.close();
             }
-            if ui.button(tr("Paste look")).on_hover_text(tr("Ctrl+V")).clicked() {
+            if ui.button(tr("Paste look")).on_hover_text(format!("{}+V", tr("Ctrl"))).clicked() {
                 ctx.send_viewport_cmd(egui::ViewportCommand::RequestPaste);
                 ui.close();
             }
@@ -852,6 +855,7 @@ impl App {
             self.next_look = now + 1.;
             if seen.is_some() && seen != self.stamp {
                 if seen == self.stamp_seen {
+                    self.stamp = seen; // also when reading fails (too large now): one message, not one every second
                     self.reread(ctx);
                     self.opening = None; // no effect on opening when it is only read again
                 } else {
@@ -1190,7 +1194,14 @@ impl eframe::App for App {
             let (info, floor) = (ctx.input(|i| i.viewport().clone()), 420.);
             if !info.maximized.unwrap_or(false) && !info.fullscreen.unwrap_or(false) {
                 if let Some(inner) = info.inner_rect {
-                    let width = if was { (inner.width() - SIDEBAR).max(floor) } else { inner.width() + SIDEBAR };
+                    // closed: back to the width before, also when the screen edge let it grow by less (made narrower by
+                    // hand meanwhile: just the sidebar off)
+                    let narrower = inner.width() - SIDEBAR;
+                    let before = self.width_before.take().filter(|&b| narrower < b && inner.width() >= b);
+                    let width = if was { before.unwrap_or(narrower).max(floor) } else { inner.width() + SIDEBAR };
+                    if !was {
+                        self.width_before = Some(inner.width());
+                    }
                     ctx.send_viewport_cmd(egui::ViewportCommand::InnerSize(Vec2::new(width, inner.height())));
                     (self.settle, self.settle_until) = (SETTLE_FRAMES, ctx.input(|i| i.time) + SETTLE_SECONDS);
                 }
@@ -1374,11 +1385,11 @@ fn main() -> eframe::Result {
         }
     }
     let languages: Vec<&str> = ["auto"].into_iter().chain(i18n::LANGUAGES.map(|l| l.0)).collect();
+    let choices = [core::LOOK_CHOICES, &[("encoding", core::ENCODINGS), ("language", &languages)]].concat();
     if let [flag, from, to] = &args[..] {
         if flag == "--export" {
             // an NFO as a PNG or PDF without a window, in the look of the settings
-            let languages: Vec<&str> = ["auto"].into_iter().chain(i18n::LANGUAGES.map(|l| l.0)).collect();
-            let cfg = core::load_settings(&[core::LOOK_CHOICES, &[("encoding", core::ENCODINGS), ("language", &languages)]].concat());
+            let cfg = core::load_settings(&choices);
             let ctx = egui::Context::default();
             set_fonts(&ctx, cfg["font"].as_str().unwrap_or(core::FONT));
             let _ = ctx.run_ui(Default::default(), |_| {}); // the fonts are there after the first frame
@@ -1396,7 +1407,6 @@ fn main() -> eframe::Result {
             return Ok(());
         }
     }
-    let choices = [core::LOOK_CHOICES, &[("encoding", core::ENCODINGS), ("language", &languages)]].concat();
     let first_start = !core::config_path().exists();
     let cfg = core::load_settings(&choices);
     i18n::set_language(cfg["language"].as_str().unwrap());
@@ -1448,6 +1458,7 @@ fn main() -> eframe::Result {
                 cell: (8., 16.),
                 resize: false,
                 sidebar_was: None,
+                width_before: None,
                 settle: 0,
                 settle_until: -1.,
                 drag_from: None,

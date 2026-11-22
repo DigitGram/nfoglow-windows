@@ -110,6 +110,7 @@ pub fn load_settings_from(path: &Path, choices: Choices) -> Cfg {
     }
     cfg["recent"].as_array_mut().unwrap().retain(Value::is_string);
     cfg["volume"] = json!(cfg["volume"].as_i64().unwrap_or(100).clamp(0, 100)); // above 100 the player would amplify
+    cfg["zoom"] = json!(cfg["zoom"].as_i64().unwrap_or(100).clamp(30, 250)); // the range of the zoom buttons
     let ramp = cfg["ramp_colors"].as_array().unwrap();
     if !(ramp.len() == 3 && ramp.iter().chain(cfg["custom"].as_object().unwrap().values()).all(is_colour)) {
         cfg.insert("custom".into(), d["custom"].clone());
@@ -373,7 +374,8 @@ pub fn clean_text<S: AsRef<str>>(lines: &[S], dedent: bool) -> String {
             let lead = &l[..indent(l)];
             margin = Some(match margin {
                 None => lead,
-                Some(m) => &m[..m.bytes().zip(lead.bytes()).take_while(|(a, b)| a == b).count()],
+                // by characters, not bytes: two different spaces (U+2002, U+2003) share their first bytes
+                Some(m) => &m[..m.char_indices().zip(lead.chars()).take_while(|((_, a), b)| a == b).last().map_or(0, |((i, c), _)| i + c.len_utf8())],
             });
         }
         let n = margin.map_or(0, str::len);
@@ -407,6 +409,7 @@ mod tests {
     fn text_only_skips_art_and_lone_signs() {
         assert_eq!(clean_text(&["██ ║ Title: x ║", "", "", "▓▓▓", "   more"], false), "Title: x\n\nmore");
         assert_eq!(clean_text(&["  a1", "    b2"], true), "a1\n  b2");
+        assert_eq!(clean_text(&["\u{2002}a1", "\u{2003}b2"], true), "\u{2002}a1\n\u{2003}b2"); // no shared indent, no crash
         let text = "■  Release Info  ■\n■";
         assert_eq!(clean_text(&text.split('\n').collect::<Vec<_>>(), false), "Release Info");
         assert!(is_art('\u{2219}') && is_art('\u{b7}') && !is_art('.'));
@@ -454,6 +457,8 @@ mod tests {
         let cfg = load_settings_from(&path, &choices); // values no list knows: back to the defaults, the good ones stay
         assert_eq!(json!([cfg["recent"], cfg["encoding"], cfg["glow_mode"], cfg["wobble_amount"], cfg["theme"], cfg["volume"], cfg["zoom"], cfg["soft"]]),
             json!([["/a.nfo"], "auto", "halo", "mid", "amber", 100, 100, true]));
+        std::fs::write(&path, r#"{"zoom": 2000}"#).unwrap();
+        assert_eq!(load_settings_from(&path, &[])["zoom"], 250); // hand-edited: back into the range of the buttons
         std::fs::write(&path, "[1]").unwrap();
         assert_eq!(load_settings_from(&path, &[]), d);
         std::fs::remove_file(&path).unwrap();

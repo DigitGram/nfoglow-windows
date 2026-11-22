@@ -121,7 +121,9 @@ impl Page {
             return Page::new(lines, Some(colors), label);
         }
         let lines = plain_lines(&text);
-        Page::new(if text_only { plain_lines(&clean_text(&text.split('\n').collect::<Vec<_>>(), false)) } else { lines }, None, label.into())
+        // any line ending, also the \r alone of old Macs
+        let rows = || text.replace("\r\n", "\n").split(['\n', '\r']).map(String::from).collect::<Vec<_>>();
+        Page::new(if text_only { plain_lines(&clean_text(&rows(), false)) } else { lines }, None, label.into())
     }
 
     pub fn link_at(&self, r: usize, c: usize) -> Option<&str> {
@@ -223,5 +225,6 @@ mod tests {
         p.find("");
         assert!(p.matches.is_empty());
         assert_eq!(Page::fill("██ ║ Title: x ║\n▓▓▓\n   more".as_bytes(), "auto", true).text(), ["Title: x", "", "more"]);
+        assert_eq!(Page::fill("Title: x\rmore text".as_bytes(), "auto", true).text(), ["Title: x", "more text"]); // old Mac line ends
     }
 }

@@ -210,7 +210,7 @@ impl Post {
         }
         let now = hasher.finish();
         if std::mem::replace(&mut self.last, now) != now {
-            ctx.request_repaint();
+            ctx.request_repaint_after_secs(1. / 30.); // not at once: moving effects change it every frame, and 30 a second are enough
         }
         let mut renderer = rs.renderer.write();
         let srgb = renderer.callback_resources.get::<Gpu>().map(|g| g.srgb).unwrap_or(false);
