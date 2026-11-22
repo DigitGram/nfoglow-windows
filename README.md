@@ -81,7 +81,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 
 - Windows 10 or 11, 64-bit. Nothing else needs to be installed.
 - A graphics driver with DirectX 12 or Vulkan, which the PCs of the last ten years have. The window is drawn by the
-  graphics card; it was tested on an Intel HD 4400 from 2013, a weak one.
+  graphics card.
 - Optional, for music: a sound device. Without one NfoGlow works, just without music.
 
 ## Install
