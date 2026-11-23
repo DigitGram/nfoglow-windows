@@ -336,9 +336,6 @@ msgstr "ネオンの光が音楽に合わせて脈打ち、音楽がないとき
 msgid "Art"
 msgstr "アート"
 
-msgid "Sound"
-msgstr "サウンド"
-
 msgid "Only the text, without the graphics (Ctrl+T)"
 msgstr "グラフィックなしのテキストのみ (Ctrl+T)"
 
@@ -387,7 +384,7 @@ msgstr "モデム風の表示"
 msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
 msgstr "2400 ボーの BBS のように NFO が 1 行ずつ表示されます。クリックかキーでスキップできます"
 
-msgid "Tube"
+msgid "CRT"
 msgstr "ブラウン管"
 
 msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
@@ -609,7 +606,7 @@ msgstr "ネオンのちらつき点灯"
 msgid "Opens at once"
 msgstr "すぐに開きます"
 
-msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgid "A bright line grows into the picture, like an old CRT TV switching on; a click or key skips it"
 msgstr "明るい線が画面いっぱいに広がります。ブラウン管テレビの電源を入れたときのように。クリックかキーでスキップできます"
 
 msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
@@ -690,7 +687,7 @@ msgstr "アートのブロックがところどころきらめきます"
 msgid "Color fringe"
 msgstr "色ずれ"
 
-msgid "Red and blue edges, like an old tube or a VHS tape"
+msgid "Red and blue edges, like an old CRT or a VHS tape"
 msgstr "古いブラウン管やVHSテープのような赤と青の縁取り"
 
 msgid "A roll bar, flicker, noise and round corners"

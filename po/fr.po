@@ -336,9 +336,6 @@ msgstr "La lueur néon pulse au rythme de la musique, ou respire sans elle"
 msgid "Art"
 msgstr "Art"
 
-msgid "Sound"
-msgstr "Son"
-
 msgid "Only the text, without the graphics (Ctrl+T)"
 msgstr "Texte seul, sans les graphismes (Ctrl+T)"
 
@@ -387,7 +384,7 @@ msgstr "Affichage par modem"
 msgid "The NFO appears line by line, like over a 2400 baud BBS; a click or key skips it"
 msgstr "Le NFO apparaît ligne par ligne, comme sur un BBS à 2400 bauds ; un clic ou une touche l’ignore"
 
-msgid "Tube"
+msgid "CRT"
 msgstr "Tube"
 
 msgid "NfoGlow presents {name} ... greetings to everyone who still draws by hand ... F9 opens the effects ... "
@@ -609,7 +606,7 @@ msgstr "Allumage néon vacillant"
 msgid "Opens at once"
 msgstr "S’ouvre immédiatement"
 
-msgid "A bright line grows into the picture, like a tube TV switching on; a click or key skips it"
+msgid "A bright line grows into the picture, like an old CRT TV switching on; a click or key skips it"
 msgstr "Une ligne lumineuse s’étend jusqu’à former l’image, comme un téléviseur à tube qui s’allume ; un clic ou une touche l’ignore"
 
 msgid "The picture builds up in dithered steps, like ░ ▒ ▓ █; a click or key skips it"
@@ -690,7 +687,7 @@ msgstr "Quelques blocs du graphisme étincellent"
 msgid "Color fringe"
 msgstr "Franges colorées"
 
-msgid "Red and blue edges, like an old tube or a VHS tape"
+msgid "Red and blue edges, like an old CRT or a VHS tape"
 msgstr "Des bords rouges et bleus, comme sur un vieux tube ou une cassette VHS"
 
 msgid "A roll bar, flicker, noise and round corners"

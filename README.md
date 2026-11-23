@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/media/nfoglow-tour.webp" width="100%" alt="A tour of NfoGlow: effects on opening, neon glow, the demoscene mode, a retro tube, eight themes and six styles, shown on the demo NFO (recorded on Linux; the Windows version looks the same)">
+  <img src="docs/media/nfoglow-tour.webp" width="100%" alt="A tour of NfoGlow: effects on opening, neon glow, the demoscene mode, retro CRT effects, eight themes and six styles, shown on the demo NFO (recorded on Linux; the Windows version looks the same)">
 </p>
 
 This is the official Windows port of [NfoGlow](https://github.com/DigitGram/nfoglow), rewritten in Rust. It shows an NFO
@@ -58,7 +58,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 - **Clean art.** Block graphics as exact pixels, without seams.
 - **Smooth edges, for the pixel haters.** One switch turns the steps of the block art into straight diagonals and round curves, anti-aliased, and lets the ░▒▓ shading fade softly. Off by default, because some of us like our pixels.
 - **Effects (F9).** Neon glow, phosphor glow, colour ramps, scanlines, shadow mask and aperture grille, colour fringe, a live CRT and the IBM VGA font. The window grows by the sidebar instead of covering the NFO.
-- **Styles.** Classic, Soft, Neon, Tube, Retrowave and Demoscene set everything with one click; every effect can still be tuned on its own.
+- **Styles.** Classic, Soft, Neon, CRT, Retrowave and Demoscene set everything with one click; every effect can still be tuned on its own.
 - **Demoscene mode.** Colour cycling, wobbling logo, stars, sine scroller, sparkles and a glow that pulses to the music, plus one of eight opening effects (modem build-up, C64 loader, DOS boot, CRT power-on, code rain and more). Off by default.
 - **Random look.** Roll a new combination with one click, keep it or get a fresh one at every start. Ctrl+Z undoes any change.
 - **Music.** Nine built-in chiptunes by Stennish, or your own folder of MOD, XM, S3M, IT, OGG, MP3, FLAC and WAV (e.g. from [The Mod Archive](https://modarchive.org)). Off by default.
@@ -72,7 +72,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 <p align="center">
   <img src="docs/screenshots/dark.png" width="29%" alt="The dark theme with neon glow">
   <img src="docs/screenshots/demoscene.png" width="42%" alt="The Demoscene style with the effects sidebar: colour cycling, stars and the sine scroller">
-  <img src="docs/screenshots/crt.png" width="29%" alt="Amber theme as a tube with shadow mask and scanlines">
+  <img src="docs/screenshots/crt.png" width="29%" alt="Amber theme on a CRT with shadow mask and scanlines">
 </p>
 
 <p align="center"><sub>More screenshots on the <a href="https://digitgram.github.io/nfoglow/#gallery">project website</a>.</sub></p>

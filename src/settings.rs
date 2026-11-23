@@ -289,7 +289,7 @@ impl App {
             ui::divider(ui);
             switch(ui, asks, "crt_live", "Live CRT", "A roll bar, flicker, noise and round corners", cfg["crt"] == true);
             ui::divider(ui);
-            switch(ui, asks, "chroma", "Color fringe", "Red and blue edges, like an old tube or a VHS tape", true);
+            switch(ui, asks, "chroma", "Color fringe", "Red and blue edges, like an old CRT or a VHS tape", true);
             ui::divider(ui);
             if let Some(on) = ui::switch_row(ui, &tr("DOS font"), Some(&tr("The IBM VGA font, as NFOs looked under DOS")), self.dos_font(), true, |_| {}) {
                 asks.font = Some(on);

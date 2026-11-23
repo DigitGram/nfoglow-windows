@@ -284,7 +284,7 @@ impl App {
                     2 => {
                         self.effect(ui, asks, "crt", "CRT screen", None, true);
                         self.effect(ui, asks, "crt_live", "Live CRT", Some("A roll bar, flicker, noise and round corners"), self.cfg["crt"] == true);
-                        self.effect(ui, asks, "chroma", "Color fringe", Some("Red and blue edges, like an old tube or a VHS tape"), true);
+                        self.effect(ui, asks, "chroma", "Color fringe", Some("Red and blue edges, like an old CRT or a VHS tape"), true);
                         let dos = self.dos_font();
                         if let Some(on) = ui::switch_row(ui, &tr("DOS font"), Some(&tr("The IBM VGA font, as NFOs looked under DOS")), dos, true, |_| {}) {
                             asks.font = Some(on);
