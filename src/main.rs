@@ -1379,6 +1379,37 @@ fn window_icon() -> egui::IconData {
     egui::IconData { rgba, width: info.width, height: info.height }
 }
 
+/// What Windows shows of the window before the graphics card's first frame reaches the screen (100 to 300 ms on a slow
+/// machine, longer on a cold start) and in a strip that a resize uncovers: the background of its window class. winit
+/// leaves that empty, which Windows shows white: a white flash before a dark page. So paint it in the page's colour.
+/// The window is still hidden here (eframe shows it after the first frame).
+#[cfg(windows)]
+fn window_background(cc: &eframe::CreationContext<'_>, colour: core::Rgb) {
+    use raw_window_handle::{HasWindowHandle as _, RawWindowHandle};
+    use windows_sys::Win32::{Graphics::Gdi::CreateSolidBrush, UI::WindowsAndMessaging::{SetClassLongPtrW, GCLP_HBRBACKGROUND}};
+    let Ok(handle) = cc.window_handle() else { return };
+    let RawWindowHandle::Win32(win) = handle.as_raw() else { return };
+    let [r, g, b] = colour.map(u32::from);
+    // the brush stays for the life of the window class, that is of the program
+    unsafe {
+        let brush = CreateSolidBrush(r | g << 8 | b << 16); // COLORREF is 0x00BBGGRR
+        if !brush.is_null() {
+            SetClassLongPtrW(win.hwnd.get() as _, GCLP_HBRBACKGROUND, brush as isize);
+        }
+    }
+}
+
+/// Whether Windows is in dark mode, read where winit reads it: egui only learns it in its first frame, after this.
+#[cfg(windows)]
+fn windows_is_dark() -> bool {
+    use windows_sys::Win32::System::Registry::{RegGetValueW, HKEY_CURRENT_USER, RRF_RT_REG_DWORD};
+    let wide = |s: &str| s.encode_utf16().chain([0]).collect::<Vec<u16>>();
+    let (key, value) = (wide(r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"), wide("AppsUseLightTheme"));
+    let (mut light, mut size) = (1u32, 4u32);
+    let found = unsafe { RegGetValueW(HKEY_CURRENT_USER, key.as_ptr(), value.as_ptr(), RRF_RT_REG_DWORD, std::ptr::null_mut(), (&raw mut light).cast(), &mut size) };
+    found == 0 && light == 0
+}
+
 fn main() -> eframe::Result {
     let args: Vec<String> = std::env::args().skip(1).collect();
     if let [flag, path] = &args[..] {
@@ -1495,6 +1526,14 @@ fn main() -> eframe::Result {
             if let Some(path) = args.first() {
                 app.load(ctx, Path::new(path), true);
             }
+            #[cfg(windows)]
+            window_background(cc, if app.path.is_none() {
+                [windows_visuals(windows_is_dark()).panel_fill.r(); 3] // no file: the page is the window's grey (page_view)
+            } else if app.cfg["theme"] == "c64" {
+                core::C64_BORDER
+            } else {
+                core::theme_colors(&app.cfg).bg
+            });
             Ok(Box::new(app))
         }),
     )

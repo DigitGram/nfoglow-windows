@@ -21,6 +21,12 @@ xmrs = { version = "0.15.0", default-features = false, features = ["std", "impor
 xmrsplayer = { version = "0.15.0", default-features = false, features = ["std", "import_mod", "import_xm", "import_s3m", "import_it"] }
 zip = { version = "9.5.1", default-features = false, features = ["deflate-flate2"] }
 
+[target.'cfg(windows)'.dependencies]
+# the background of the window until the graphics card's first frame is on the screen (main.rs, window_background);
+# both are already in the build through eframe and winit
+raw-window-handle = "0.6.2"
+windows-sys = { version = "0.61.2", features = ["Win32_Graphics_Gdi", "Win32_System_Registry", "Win32_UI_WindowsAndMessaging"] }
+
 [profile.release]
 opt-level = "z"   # a small setup.exe matters more than the last bit of speed
 lto = true
