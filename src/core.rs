@@ -197,7 +197,8 @@ pub struct Theme {
     pub text: Rgb,
     pub art: Rgb,
     pub link: Rgb,
-    pub dark: bool, // dark window chrome
+    #[allow(dead_code)] // NfoGlow for Linux draws its window chrome from this; here the window follows Windows (main.rs, set_style)
+    pub dark: bool, // dark theme
 }
 
 // name, background, text, art, link, dark

@@ -176,8 +176,24 @@ fn set_fonts(ctx: &egui::Context, font: &str) {
     ctx.set_fonts(fonts);
 }
 
-/// The look of Windows 11: its greys, its blue, small round corners.
-fn set_style(ctx: &egui::Context, dark: bool) {
+/// The look of Windows 11: its greys, its blue, small round corners. The window (title bar, bars, sidebar, settings)
+/// follows the light or dark mode of Windows, whatever the colour theme of the NFO is: the theme colours the page only.
+/// Both looks are set, egui takes the one of Windows and switches when Windows does.
+fn set_style(ctx: &egui::Context) {
+    ctx.set_visuals_of(egui::Theme::Light, windows_visuals(false));
+    ctx.set_visuals_of(egui::Theme::Dark, windows_visuals(true));
+    ctx.set_theme(egui::ThemePreference::System);
+    ctx.all_styles_mut(|s| {
+        for (style, size) in [(egui::TextStyle::Body, 14.), (egui::TextStyle::Button, 14.), (egui::TextStyle::Small, 12.), (egui::TextStyle::Heading, 16.)] {
+            s.text_styles.insert(style, FontId::proportional(size));
+        }
+        s.spacing.item_spacing = Vec2::new(8., 6.);
+        s.spacing.button_padding = Vec2::new(10., 4.);
+        s.spacing.interact_size.y = 28.;
+    });
+}
+
+fn windows_visuals(dark: bool) -> egui::Visuals {
     let mut v = if dark { egui::Visuals::dark() } else { egui::Visuals::light() };
     let grey = |light: u8, dark_value: u8| Color32::from_gray(if dark { dark_value } else { light });
     v.panel_fill = grey(0xf3, 0x20);
@@ -194,19 +210,7 @@ fn set_style(ctx: &egui::Context, dark: bool) {
     v.window_corner_radius = egui::CornerRadius::same(8);
     v.handle_shape = egui::style::HandleShape::Circle; // the knob of a slider is round in Windows 11
     v.menu_corner_radius = egui::CornerRadius::same(8);
-    // egui keeps one style per theme and takes the one of Windows in its first frame; at the start it does not know it
-    // yet, so the colours would go into the wrong one (a dark theme with a light window on a light Windows). The theme
-    // of the NFO decides here, not Windows.
-    ctx.set_theme(if dark { egui::Theme::Dark } else { egui::Theme::Light });
-    ctx.set_visuals(v);
-    ctx.all_styles_mut(|s| {
-        for (style, size) in [(egui::TextStyle::Body, 14.), (egui::TextStyle::Button, 14.), (egui::TextStyle::Small, 12.), (egui::TextStyle::Heading, 16.)] {
-            s.text_styles.insert(style, FontId::proportional(size));
-        }
-        s.spacing.item_spacing = Vec2::new(8., 6.);
-        s.spacing.button_padding = Vec2::new(10., 4.);
-        s.spacing.interact_size.y = 28.;
-    });
+    v
 }
 
 impl App {
@@ -228,7 +232,6 @@ impl App {
         self.cfg.insert("ramp_colors".into(), json!(THEME_RAMPS.iter().find(|t| t.0 == theme).unwrap().1));
         self.saved_look = None;
         self.save();
-        set_style(ctx, core::theme_colors(&self.cfg).dark);
     }
 
     fn toast(&mut self, ctx: &egui::Context, text: impl Into<String>, seconds: f64) {
@@ -310,7 +313,6 @@ impl App {
                 i18n::set_language(self.cfg["language"].as_str().unwrap());
                 set_fonts(ctx, self.cfg["font"].as_str().unwrap_or(core::FONT));
             }
-            "theme" | "custom" => set_style(ctx, core::theme_colors(&self.cfg).dark),
             "music" | "music_dir" | "music_shuffle" => self.apply_music(ctx),
             "volume" => {
                 if let Some(player) = &mut self.player {
@@ -1488,7 +1490,7 @@ fn main() -> eframe::Result {
             if app.cfg["random_on_start"] == true {
                 app.roll_look(ctx); // a surprise look for this start only: "Keep" in the effects sidebar makes it yours
             }
-            set_style(ctx, core::theme_colors(&app.cfg).dark);
+            set_style(ctx);
             app.apply_music(ctx);
             if let Some(path) = args.first() {
                 app.load(ctx, Path::new(path), true);
