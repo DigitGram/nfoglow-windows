@@ -1050,6 +1050,8 @@ impl App {
             ctx.request_repaint_after_secs(1. / 30.); // 30 frames a second are plenty for this and spare the processor
         }
         let t = if moving { now as f32 } else { 0. };
+        // the whole view, the C64 border included: the tape loader and the DOS boot cover it all, as in NfoGlow for Linux
+        let whole = ui.available_rect_before_wrap().expand(frame);
         let frame = ui.available_rect_before_wrap();
         // what only the view's own render pass can do (post.rs); without a graphics card for it, the old ways
         let look = post::Look {
@@ -1170,12 +1172,14 @@ impl App {
                 fx::crt_live(&painter, &mut self.tiles, screen, t);
             }
         }
-        // the tape loader and the DOS boot lie over everything while they run
+        // the tape loader and the DOS boot lie over everything while they run, the C64 border too (ui's clip stops at
+        // the border, so a painter of its own)
+        let over = egui::Painter::new(ctx.clone(), ui.layer_id(), whole);
         match opening {
-            Some(("loader", secs)) => fx::loader(&painter, screen, secs, &self.name),
+            Some(("loader", secs)) => fx::loader(&over, whole, secs, &self.name),
             Some(("dos", secs)) => {
                 let mtime = self.path.as_ref().and_then(|p| p.metadata().ok()?.modified().ok()?.duration_since(std::time::UNIX_EPOCH).ok()).map_or(0, |d| d.as_secs());
-                fx::dos(&painter, screen, secs, &self.name, self.data.len() as u64, mtime as i64);
+                fx::dos(&over, whole, secs, &self.name, self.data.len() as u64, mtime as i64);
             }
             _ => {}
         }
