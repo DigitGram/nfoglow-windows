@@ -6,11 +6,11 @@
 ; HKEY_CURRENT_USER; no administrator needed, like install.sh on Linux). An administrator is asked by Windows once at
 ; the start. An update keeps the choice of the last install. Removing NfoGlow asks whether the settings in
 ; %APPDATA%\NfoGlow go too (no by default, like install.sh --uninstall without --purge).
-;   makensis -DVERSION=1.0.0 installer/nfoglow.nsi      (after cargo build --release)
+;   makensis -DVERSION=1.1.0 installer/nfoglow.nsi      (after cargo build --release)
 ;   -DEXE=<path> takes nfoglow.exe from elsewhere (a cross build: target/x86_64-pc-windows-gnu/release/nfoglow.exe)
 Unicode true
 !ifndef VERSION
-  !error "Give the version: makensis -DVERSION=1.0.0 installer/nfoglow.nsi"
+  !error "Give the version: makensis -DVERSION=1.1.0 installer/nfoglow.nsi"
 !endif
 !ifndef EXE
   !define EXE "..\target\release\nfoglow.exe"

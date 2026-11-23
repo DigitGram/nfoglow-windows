@@ -22,13 +22,13 @@ The setup (NSIS, "only for me" or "for all users"; Start menu, optional desktop 
 with NfoGlow" for .nfo .diz .ans .asc .srr) is made from the release build:
 
     cargo build --release
-    makensis -DVERSION=1.0.0 installer/nfoglow.nsi        # target/NfoGlow-Setup-1.0.0.exe
+    makensis -DVERSION=1.1.0 installer/nfoglow.nsi        # target/NfoGlow-Setup-1.1.0.exe
 
 On Linux the same works with the Windows target (rustup target add x86_64-pc-windows-gnu, and the packages
 gcc-mingw-w64-x86-64 and nsis):
 
     cargo build --release --target x86_64-pc-windows-gnu
-    makensis -DVERSION=1.0.0 -DEXE=../target/x86_64-pc-windows-gnu/release/nfoglow.exe installer/nfoglow.nsi
+    makensis -DVERSION=1.1.0 -DEXE=../target/x86_64-pc-windows-gnu/release/nfoglow.exe installer/nfoglow.nsi
 
 The release also carries the portable program: `nfoglow.exe` of the release build, as `NfoGlow-Portable-<version>.exe`
 (the workflow copies it).
