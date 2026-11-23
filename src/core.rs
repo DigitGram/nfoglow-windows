@@ -101,7 +101,9 @@ pub fn load_settings(choices: Choices) -> Cfg {
 pub fn load_settings_from(path: &Path, choices: Choices) -> Cfg {
     let d = defaults();
     let mut cfg = d.clone();
-    let saved = std::fs::read(path).ok().and_then(|data| serde_json::from_slice(&data).ok());
+    // a file saved by Notepad or PowerShell 5 may start with a byte order mark, which serde_json refuses: without
+    // stripping it all settings would go back to their defaults, and the next save would overwrite the user's file
+    let saved = std::fs::read(path).ok().and_then(|data| serde_json::from_slice(data.strip_prefix(b"\xEF\xBB\xBF").unwrap_or(&data[..])).ok());
     let Some(Value::Object(saved)) = saved else { return cfg };
     for (k, v) in saved {
         if d.get(&k).is_some_and(|dv| kind(dv) == kind(&v)) && allowed(choices, &k, &v) {
@@ -459,6 +461,9 @@ mod tests {
             json!([["/a.nfo"], "auto", "halo", "mid", "amber", 100, 100, true]));
         std::fs::write(&path, r#"{"zoom": 2000}"#).unwrap();
         assert_eq!(load_settings_from(&path, &[])["zoom"], 250); // hand-edited: back into the range of the buttons
+        std::fs::write(&path, "\u{feff}{\"theme\": \"amber\", \"zoom\": 120}").unwrap();
+        let cfg = load_settings_from(&path, &choices); // saved with a byte order mark (Notepad, PowerShell 5)
+        assert_eq!(json!([cfg["theme"], cfg["zoom"]]), json!(["amber", 120]));
         std::fs::write(&path, "[1]").unwrap();
         assert_eq!(load_settings_from(&path, &[]), d);
         std::fs::remove_file(&path).unwrap();
