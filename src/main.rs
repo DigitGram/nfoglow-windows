@@ -1066,6 +1066,10 @@ impl App {
                 fx::stars(&p.clone().with_clip_rect(frame.intersect(ui.clip_rect())), frame, self.cfg["stars_mode"] == "warp", theme.text, self.zoom as f32 / 100., t);
             }
         }
+        // egui fades the edges of a scroll area towards the colour of the panel around it while there is more to scroll;
+        // in the C64 theme that is the light border, so the top and bottom of the page lit up. NfoGlow for Linux has no
+        // such fade: the page stays as it is up to its edge
+        ui.spacing_mut().scroll.fade.strength = 0.;
         let mut area = egui::ScrollArea::both().auto_shrink(false);
         if let Some(to) = self.scroll_to.take() {
             area = area.scroll_offset(to);
