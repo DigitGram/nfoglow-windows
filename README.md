@@ -87,7 +87,7 @@ NfoGlow paints them as exact pixels, optionally with a soft glow, and keeps the 
 
 Windows 10 or 11, 64-bit.
 
-1. Download `NfoGlow-Setup-1.1.0.exe` from the [latest release](https://github.com/DigitGram/nfoglow-windows/releases/latest).
+1. Download `NfoGlow-Setup-1.1.4.exe` from the [latest release](https://github.com/DigitGram/nfoglow-windows/releases/latest).
 2. Run it. Choose **Only for me** (no administrator needed) or **For all users** (Program Files, asks for administrator
    rights). Opening `.nfo .diz .ans .asc .srr` files with NfoGlow is on by default, a desktop shortcut is off.
 
@@ -97,11 +97,11 @@ Windows 10 or 11, 64-bit.
 Installing a newer release over an existing one keeps your settings. If NfoGlow is running, the setup asks you to close
 it first.
 
-**Portable:** `NfoGlow-Portable-1.1.0.exe` is the program itself. It needs no installation and runs from any folder or a
+**Portable:** `NfoGlow-Portable-1.1.4.exe` is the program itself. It needs no installation and runs from any folder or a
 USB stick. It keeps your settings in `%APPDATA%\NfoGlow`, like the installed version (they share them), and sets up no
 Start menu entry, no file types and no entry for uninstalling: delete the file to remove it.
 
-Silent install, for example for a script: `NfoGlow-Setup-1.1.0.exe /S /CurrentUser` (or `/AllUsers` from an
+Silent install, for example for a script: `NfoGlow-Setup-1.1.4.exe /S /CurrentUser` (or `/AllUsers` from an
 administrator prompt).
 
 **Uninstall** in Settings → Apps → Installed apps → NfoGlow. It asks whether to delete your settings too (No is the
@@ -117,10 +117,10 @@ checksums of both. The checksums are signed with the key of `digitgram@proton.me
 To check the checksum of your download, in PowerShell, in your Downloads folder:
 
 ```powershell
-Get-FileHash .\NfoGlow-Setup-1.1.0.exe -Algorithm SHA256
+Get-FileHash .\NfoGlow-Setup-1.1.4.exe -Algorithm SHA256
 ```
 
-The hash must be the same as the line for `NfoGlow-Setup-1.1.0.exe` in `SHA256SUMS.txt`.
+The hash must be the same as the line for `NfoGlow-Setup-1.1.4.exe` in `SHA256SUMS.txt`.
 
 To check that `SHA256SUMS.txt` is from the author (needs [Gpg4win](https://www.gpg4win.org/) or another GnuPG):
 

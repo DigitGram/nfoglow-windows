@@ -48,7 +48,7 @@ body:
   attributes:
     label: NfoGlow version
     description: Main menu → About NfoGlow shows it.
-    placeholder: '1.1.0'
+    placeholder: '1.1.4'
   validations:
     required: true
 - type: input
