@@ -95,7 +95,7 @@ impl App {
             self.roll_look(ctx);
         }
         if asks.replay {
-            self.start_opening(ctx);
+            self.start_opening(ctx, false);
         }
         if asks.undo {
             self.undo(ctx);

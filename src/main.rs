@@ -82,7 +82,8 @@ struct App {
     zoom: i64, // percent, of this window; cfg["zoom"] is the default
     cache: view::Cache,
     tiles: fx::Tiles,
-    opening: Option<(String, f64)>, // the effect on opening that runs, and when it started
+    opening: Option<(String, f64)>, // the effect on opening that runs, and the seconds it has run (NaN: not started yet)
+    opening_last: f64, // the time of the frame before, for that clock
     rolls: u64,
     section: Option<usize>,  // the open section of the effects sidebar
     settings: Option<usize>, // the page of the settings window while it is open
@@ -418,6 +419,11 @@ impl App {
     // ------------------------------------------------------------ file
 
     fn load(&mut self, ctx: &egui::Context, path: &Path, resize: bool) {
+        self.load_as(ctx, path, resize, false);
+    }
+
+    /// browsing: stepping through the folder with the arrow keys, where the long effects would play at every key.
+    fn load_as(&mut self, ctx: &egui::Context, path: &Path, resize: bool, browsing: bool) {
         match decode::read(path) {
             Ok((data, name)) => (self.data, self.name) = (data, name),
             Err(error) => {
@@ -441,7 +447,7 @@ impl App {
         self.reload(ctx);
         self.scroll_to = Some(Vec2::ZERO);
         self.resize = resize;
-        self.start_opening(ctx);
+        self.start_opening(ctx, browsing);
     }
 
     /// Decode the file again (another encoding, art or text only).
@@ -470,7 +476,7 @@ impl App {
         let here = self.siblings.iter().position(|p| Some(p) == self.path.as_ref());
         // a jumping window while browsing would be annoying: no resize
         if let Some(next) = here.and_then(|i| self.siblings.get(i.checked_add_signed(step)?).cloned()) {
-            self.load(ctx, &next, false);
+            self.load_as(ctx, &next, false, true);
         }
     }
 
@@ -484,8 +490,14 @@ impl App {
     // ------------------------------------------------------------ view
 
     /// Start the effect chosen for opening a file (also the button next to the choice: once more, from the top).
-    fn start_opening(&mut self, _ctx: &egui::Context) {
+    /// short: stepping through a folder: the NFO just fades in (and nothing when no effect is set).
+    fn start_opening(&mut self, _ctx: &egui::Context, short: bool) {
         let kind = self.cfg["opening"].as_str().unwrap_or("off");
+        let kind = if short && kind != "off" { "fade" } else { kind };
+        if kind == "fade" && self.opening.as_ref().is_some_and(|o| o.0 == "fade") {
+            self.scroll_to = Some(Vec2::ZERO);
+            return; // a held arrow key: the running fade goes on, or the page would hardly ever show
+        }
         self.opening = (kind != "off" && !self.text_only && self.path.is_some()).then(|| (kind.to_string(), f64::NAN)); // it starts with the first picture drawn
         self.scroll_to = Some(Vec2::ZERO);
     }
@@ -681,7 +693,7 @@ impl App {
             return;
         }
         // any key ends the effect on opening (not the short glitch)
-        if self.opening.as_ref().is_some_and(|o| o.0 != "glitch") && ctx.input(|i| i.events.iter().any(|e| matches!(e, egui::Event::Key { pressed: true, .. }))) {
+        if self.opening.as_ref().is_some_and(|o| !["glitch", "fade"].contains(&o.0.as_str())) && ctx.input(|i| i.events.iter().any(|e| matches!(e, egui::Event::Key { pressed: true, .. }))) {
             self.opening = None;
             return;
         }
@@ -1032,11 +1044,14 @@ impl App {
         // the clock of everything that moves, and the effect on opening while it runs
         let now = ctx.input(|i| i.time);
         let chars = fx::total_chars(&self.page);
-        if let Some(o) = self.opening.as_mut().filter(|o| o.1.is_nan()) {
-            o.1 = now;
+        // The effect has a clock of its own that never moves more than 1/15 s per frame: the first frames of a window are
+        // slow, and by the clock on the wall a part of the effect was gone before the picture showed (as in NfoGlow for Linux)
+        if let Some(o) = self.opening.as_mut() {
+            o.1 = if o.1.is_nan() { 0. } else { o.1 + (now - self.opening_last).clamp(0., 1. / 15.) };
         }
-        self.opening.take_if(|o| now - o.1 >= fx::opening_end(&o.0, &self.name, chars) as f64);
-        let running = self.opening.clone().map(|o| (o.0, (now - o.1) as f32));
+        self.opening_last = now;
+        self.opening.take_if(|o| o.1 >= fx::opening_end(&o.0, &self.name, chars) as f64);
+        let running = self.opening.clone().map(|o| (o.0, o.1 as f32));
         let opening = running.as_ref().map(|o| (o.0.as_str(), o.1));
         let (art, ansi) = (!self.text_only, self.page.colors.is_some());
         let on = |key: &str| self.cfg[key] == true && art;
@@ -1112,7 +1127,7 @@ impl App {
             }
             if response.clicked() {
                 self.page.sel = None;
-                if self.opening.as_ref().is_some_and(|o| o.0 != "glitch") {
+                if self.opening.as_ref().is_some_and(|o| !["glitch", "fade"].contains(&o.0.as_str())) {
                     self.opening = None; // a click ends the effect on opening
                 } else if let Some(url) = link {
                     let url = if url.to_lowercase().starts_with("www.") { format!("https://{url}") } else { url };
@@ -1142,6 +1157,11 @@ impl App {
                         paint(&torn, view::Grid { origin: origin + Vec2::new(dx, 0.), ..grid });
                     }
                     painter.rect_filled(seen, 0, Color32::WHITE.gamma_multiply(flash));
+                }
+                Some(("fade", secs)) => {
+                    // the NFO fades in over the page colour
+                    let u = (secs / fx::opening_end("fade", "", 0)).min(1.);
+                    painter.rect_filled(seen, 0, view::rgb(bg).gamma_multiply(1. - u * (2. - u)));
                 }
                 Some(("crt", secs)) if !post => fx::power_on(&painter, seen, secs, false),
                 Some(("dither", secs)) => fx::dither(&cover, &mut self.tiles, seen, secs, ch, bg),
@@ -1480,6 +1500,7 @@ fn main() -> eframe::Result {
                 cache: view::Cache::default(),
                 tiles: fx::Tiles::default(),
                 opening: None,
+                opening_last: 0.,
                 rolls: 0,
                 section: None,
                 settings: None,

@@ -127,6 +127,7 @@ pub fn opening_end(kind: &str, name: &str, chars: usize) -> f32 {
         "crt" => 1.1,
         "dither" => 1.6,
         "neon" => 1.7,
+        "fade" => 0.3, // stepping to the next NFO with the arrow keys
         "dos" => dos_steps(name, 0, 0).last().map_or(0., |s| s.1 + s.3) + 0.65, // the last command typed, Enter, a moment
         _ => 0.,
     }
