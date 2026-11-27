@@ -30,6 +30,7 @@ use std::path::{Path, PathBuf};
 const BASE_PX: f32 = 16.; // font size at 100 % zoom: the DOS font then has its 8 x 16 pixels
 const SIDEBAR: f32 = 320.; // as wide as the sidebar of NfoGlow for Linux at most: the style names fit a third of it
 const BROWSE_SUFFIXES: [&str; 5] = [".nfo", ".diz", ".ans", ".asc", ".srr"]; // what the arrow keys step through in a folder
+const EDGE: f32 = 32.; // points inside the view's edge where dragging a selection already scrolls
 const THEMES: [(&str, &str); 8] = [("light", "Light"), ("dark", "Dark"), ("bw", "Black & White"), ("amber", "Amber"),
     ("terminal", "Terminal"), ("paper", "Paper"), ("c64", "C64"), ("custom", "Custom")];
 const ENCODINGS: [(&str, &str); 5] = [("auto", "Automatic"), ("cp437", "CP437 (DOS)"), ("cp850", "CP850"), ("latin-1", "Latin-1"), ("utf-8", "UTF-8")];
@@ -1113,14 +1114,33 @@ impl App {
                 Some(at) if response.drag_started() => (self.drag_from, self.page.sel) = (Some(at), None),
                 Some(at) if response.dragged() => {
                     self.page.sel = self.drag_from.map(|from| (from, at));
-                    // past the top or bottom edge: keep scrolling (and selecting) while the pointer stays there
+                    // near or past an edge of the view (left and right only matter when zoomed in): keep scrolling (and
+                    // selecting) while the pointer stays there. The zone inside the edge is for a maximized window, whose
+                    // edge is the screen's: the pointer cannot get past it. A drag only scrolls towards where it goes, so
+                    // one that starts near an edge and moves away does not scroll first; a click (under 4 points) never does.
                     let (view, pos) = (ui.clip_rect(), ctx.input(|i| i.pointer.interact_pos()).unwrap_or(Pos2::ZERO));
-                    let over = if pos.y < view.top() { pos.y - view.top() } else if pos.y > view.bottom() { pos.y - view.bottom() } else { 0. };
-                    if over != 0. {
-                        let step = (over / 2.).clamp(-60., 60.) * ctx.input(|i| i.stable_dt).min(0.1) / 0.03; // up to 60 points per 30 ms
-                        let bottom = (self.content.y - self.visible.y).max(0.);
-                        self.scroll_to = Some(Vec2::new(self.offset.x, (self.offset.y + step).clamp(0., bottom)));
-                        ctx.request_repaint();
+                    let moved = pos - ctx.input(|i| i.pointer.press_origin()).unwrap_or(pos);
+                    let past = |v: f32, lo: f32, hi: f32, moved: f32| {
+                        if moved.abs() < 4. {
+                            0.
+                        } else if v < lo + EDGE && (v < lo || moved < 0.) {
+                            v - (lo + EDGE)
+                        } else if v > hi - EDGE && (v > hi || moved > 0.) {
+                            v - (hi - EDGE)
+                        } else {
+                            0.
+                        }
+                    };
+                    let (out_x, out_y) = (past(pos.x, view.left(), view.right(), moved.x), past(pos.y, view.top(), view.bottom(), moved.y));
+                    if out_x != 0. || out_y != 0. {
+                        let step = |out: f32| (out / 3.).clamp(-60., 60.) * ctx.input(|i| i.stable_dt).min(0.1) / 0.03; // up to 60 points per 30 ms
+                        let (right, bottom) = ((self.content.x - self.visible.x).max(0.), (self.content.y - self.visible.y).max(0.));
+                        let here = visible.min.to_vec2(); // not self.offset: that is only set after the scroll area, a frame behind
+                        let to = Vec2::new((here.x + step(out_x)).clamp(0., right), (here.y + step(out_y)).clamp(0., bottom));
+                        if to != here { // nothing left to scroll (a page that fits, or its end): no repainting all the time
+                            self.scroll_to = Some(to);
+                            ctx.request_repaint();
+                        }
                     }
                 }
                 _ => {}
